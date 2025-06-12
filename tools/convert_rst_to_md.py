@@ -1692,8 +1692,6 @@ def process_file(src_file, output_dir, input_dir, replace=False):
         
         # Write the Markdown file
         if replace:
-            with open(src_file, 'w', encoding='utf-8') as f:
-                f.write("\n".join(md_content))
             repo = Repo(".")
             repo.git.mv(src_file, output_path, "-f")
         with open(output_path, 'w', encoding='utf-8') as f:
@@ -1781,11 +1779,6 @@ def copy_images_to_output(output_dir, input_dir, replace=False):
         if image.count > 1:
             # Used more than once - copy to global images folder
             target_path = os.path.join(global_images_dir, image.name)
-            if should_copy_file(source_path, target_path):
-                shutil.copy2(source_path, target_path)
-                print(f"Copied {image.name} to global images folder")
-            else:
-                pass #print(f"Skipped copying {image.name} to global images folder (unchanged)")
         else:
             # Used only once - copy to component-level images folder
             # Find the RST file that references this image
@@ -1799,15 +1792,11 @@ def copy_images_to_output(output_dir, input_dir, replace=False):
                             
             target_path = os.path.join(component_images_dir, image.name)
 
-            if should_copy_file(source_path, target_path):
-                shutil.copy2(source_path, target_path)
-                print(f"Copied {image.name} to {component_dir}/images folder")
-            else:
-                pass #print(f"Skipped copying {image.name} to {component_dir}/images folder (unchanged)")
-
         if replace:
             repo = Repo(".")
             repo.git.mv(source_path, target_path, "-f")
+        else:
+            shutil.copy2(source_path, target_path)
 
 
 if __name__ == "__main__":
