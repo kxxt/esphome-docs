@@ -1804,10 +1804,11 @@ def copy_images_to_output(output_dir, input_dir, replace=False):
                 print(f"Copied {image.name} to {component_dir}/images folder")
             else:
                 pass #print(f"Skipped copying {image.name} to {component_dir}/images folder (unchanged)")
+
         if replace:
             repo = Repo(".")
             repo.git.mv(source_path, target_path, "-f")
-                            
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Convert Sphinx RST files to Hugo Markdown format')
