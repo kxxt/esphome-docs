@@ -151,7 +151,7 @@
             {{ if getenv "NETLIFY" }}
                 <br>
                 <a href="https://www.netlify.com">
-                    <img src="https://www.netlify.com/assets/badges/netlify-badge-color-accent.svg" alt="Deploys by Netlify" />
+                    <img src="{{ "images/netlify-badge-color-accent.svg" | relURL }}" alt="Deploys by Netlify" />
                 </a>
                 {{ end }}
             </div>
