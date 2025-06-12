@@ -111,7 +111,7 @@ Getting started with ESPHome is easy. Choose the method that works best for you:
     "title": "From Home Assistant",
     "description": "The easiest way to get started with ESPHome is through the Home Assistant add-on.",
     "steps": [],
-    "url": "/guides/getting_started_hassio.html",
+    "url": "/guides/getting_started_hassio/",
     "button_text": "Home Assistant Guide"
   },
   {
@@ -119,7 +119,7 @@ Getting started with ESPHome is easy. Choose the method that works best for you:
     "title": "Command Line",
     "description": "For advanced users who prefer working with the command line.",
     "steps": [],
-    "url": "/guides/getting_started_command_line.html",
+    "url": "/guides/getting_started_command_line/",
     "button_text": "Command Line Guide"
   },
   {
