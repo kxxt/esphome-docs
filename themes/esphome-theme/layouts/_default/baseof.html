@@ -143,10 +143,18 @@
 
     <footer>
         <div class="footer-content">
+            <div class="footer-logo">
             <a class="footer-logo" href="https://www.openhomefoundation.org/">
                 <span>ESPHome is a project from the</span>
                 <img src="{{ "images/ohf-logo-on-dark.svg" | relURL }}" alt="ESPHome Logo" width="220px" height="49px">
             </a>
+            {{ if getenv "NETLIFY" }}
+                <br>
+                <a href="https://www.netlify.com">
+                    <img src="https://www.netlify.com/assets/badges/netlify-badge-color-accent.svg" alt="Deploys by Netlify" />
+                </a>
+                {{ end }}
+            </div>
             <div class="footer-links">
                 {{ range (index .Site.Menus "footer") }}
                     <div class="footer-column">
