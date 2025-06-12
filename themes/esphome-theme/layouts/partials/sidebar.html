@@ -1,0 +1,58 @@
+{{ $currentPage := . }}
+{{ $title := .Title }}
+<div class="sidebar-content {{ if .Content }}scroll-trap{{ end }}">
+    <h3>{{ $title }}</h3>
+    <nav class="sidebar-nav">
+        {{ if .Fragments }}
+            {{ if .Fragments.Headings }}
+                {{ $headings := slice }}
+                <ul>
+                    {{ $start_level := 9 }}
+                {{ range .Fragments.HeadingsMap }}
+                    {{ if gt $start_level .Level }}
+                        {{ $start_level = .Level }}
+                    {{ end }}
+                {{ end }}
+                {{ range .Fragments.HeadingsMap }}
+                    {{ if eq .Level $start_level }}
+                        <li><a class="toc-entry" href="#{{ .ID }}">{{ .Title |  safeHTML }}</a>
+                            {{ if .Headings }}
+                                <ul>
+                                {{ range .Headings }}
+                                    {{ $headings := collections.Append .ID $headings }}
+                                    <li><a href="#{{ .ID }}">{{ .Title |  safeHTML }}</a></li>
+                                {{ end }}
+                                </ul>
+                            {{ end }}
+                        </li>
+                        {{ end }}
+                {{ end }}
+                </ul>
+            {{ end }}
+        {{ end }}
+        {{ if .Pages }}
+            <h3>In this section</h3>
+            <ul class="section-list">
+                {{ range .Pages }}
+                    {{ if .Title }}
+                    <li class="section-item">
+                        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                    </li>
+                    {{ end }}
+                {{ end }}
+            </ul>
+        {{ end }}
+    </nav>
+
+    <div class="sidebar-resource">
+        <hr>
+        {{ $repo := strings.TrimSuffix ".git" .Site.Data.repo.url }}
+        {{ with .File }}
+            {{ $path := printf "%s/blob/current/content/%s" $repo .Path }}
+            <a href="{{ $path }}" class="ghedit">
+                {{ os.ReadFile "static/images/icons/edit.svg" | safeHTML }}
+                Edit this page on GitHub
+            </a>
+        {{ end }}
+    </div>
+</div>

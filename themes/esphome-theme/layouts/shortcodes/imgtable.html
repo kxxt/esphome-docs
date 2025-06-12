@@ -1,0 +1,79 @@
+{{/* 
+  IMGTABLE SHORTCODE
+  Creates a grid of component cards with images, titles, and optional descriptions that link to other pages.
+  
+  Usage with block content (preferred):
+  {{< imgtable >}}
+  Title 1, path/to/page1, image1.png
+  Title 2, path/to/page2, image2.png, dark-invert
+  {{< /imgtable >}}
+  
+  Legacy usage with positional parameters:
+  {{< imgtable "Title" "/path/to/page" "image.png" "css-class" >}}
+  
+  Notes:
+  - Each line in the block content should contain 3-4 comma-separated values
+  - The format is: Title, Link, Image, [Optional CSS class]
+  - Images are searched for in the following order:
+    1. Component's own images directory
+    2. Global images directory
+    3. Used as-is (for external URLs)
+  - For dark mode compatibility, add "dark-invert" as the CSS class to invert the image in dark mode
+*/}}
+
+<div class="component-grid">
+  {{ if .Inner }}
+      {{ $opts := dict "targetType" "slice" "delimiter" "," "lazyQuotes" true  }}
+      {{ $data := transform.Unmarshal $opts .Inner }}
+    {{ range $data }}
+        {{ $title := trim (index . 0) " "  }}
+        {{ $link := trim (index . 1) " " | strings.TrimSuffix "index" }}
+        {{ $image := trim (index . 2) " " }}
+        {{ $class := trim (index . 3) " " }}
+
+
+        {{- $style := "" -}}
+        {{- if $class -}}{{- $style = printf " class=\"%s\"" $class | safeHTMLAttr -}}{{- end -}}
+
+        <div class="component-card">
+          <a href="{{ $link | relURL }}">
+            <div class="component-icon">
+                {{ partial "image.html" (dict "src" $image "page" $.Page "style" $style "alt" $title) }}
+            </div>
+            <div class="component-name">{{ $title }}</div>
+          </a>
+        </div>
+    {{ end }}
+  {{ else }}
+    {{ $title := .Get 0 }}
+    {{ $link := .Get 1 | strings.TrimSuffix "index" }}
+    {{ $image := .Get 2 }}
+    {{ $class := .Get 3 }}
+
+      {{- $style := "" -}}
+      {{- if $class -}}{{- $style = printf " class=\"%s\"" $class | safeHTMLAttr -}}{{- end -}}
+    {{/* Image path handling similar to img shortcode */}}
+    {{ $componentPath := printf "%s/images/%s" (path.Dir .Page.File.Path) $image }}
+    {{ $globalPath := printf "images/%s" $image }}
+    
+    {{ $imagePath := "" }}
+    {{ if fileExists $componentPath }}
+      {{ $imagePath = $componentPath }}
+    {{ else if fileExists (printf "static/%s" $globalPath) }}
+      {{ $imagePath = $globalPath }}
+    {{ else }}
+      {{ $imagePath = $image }}
+    {{ end }}
+    
+    <div class="component-card">
+      <a href="{{ $link | relURL }}">
+        <div class="component-icon">
+            {{ partial "image.html" (dict "src" $image "page" $.Page "style" $style "alt" $title) }}
+        </div>
+        <div class="component-name">{{ $title }}</div>
+      </a>
+    </div>
+  {{ end }}
+</div>
+
+</style>

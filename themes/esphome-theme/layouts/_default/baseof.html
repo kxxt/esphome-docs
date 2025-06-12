@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "en" }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{ if .IsHome }}
+        {{ partial "site-verification.html" . }}
+    {{ end }}
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+    {{ $seo := .Page.Param "seo" }}
+    {{ with $seo }}
+        {{ $src := $seo.image }}
+
+        {{ with $seo.description | default .Page.Title | default .Site.Params.Description }}
+            <meta name="description" content="{{ . }}">
+            <meta name="twitter:description" content="{{ . }}">
+            <meta property="og:description" content="{{ . }}">
+        {{ end }}
+
+        {{ if $src }}
+            {{/* Check if image exists in local images directory first */}}
+            {{- $localPath := printf "images/%s" $src -}}
+            {{- $componentPath := printf "%s/images/%s" (path.Dir .Page.File.Path) $src -}}
+            {{- $globalPath := printf "images/%s" $src -}}
+            {{- $imagePath := "" -}}
+            {{- if fileExists (printf "content/%s" $componentPath) -}}
+                {{- $imagePath = $componentPath -}}
+            {{- else if fileExists (printf "static/%s" $globalPath) -}}
+                {{- $imagePath = $globalPath -}}
+            {{- else -}}
+                {{- $imagePath = $src -}}
+            {{- end -}}
+            {{ with $imagePath }}
+                <meta property="og:image" content="{{ . | absURL }}">
+                <meta name="twitter:image" content="{{ . | absURL }}">
+            {{ end }}
+        {{ end }}
+    {{ end }}
+    <meta property="og:title" content="{{ .Page.Title }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ .Page.Permalink }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ .Page.Title }}">
+
+    <script data-cfasync="false" type="text/javascript">
+        // cfasync is set false to prevent Cloudflare from modifying the script
+        // Critical theme preferences
+        // Theme handling
+        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ "/images/logo.svg" | relURL }}">
+
+    <!-- CSS -->
+    {{ partial "asset.html" (dict "path" "css/main.css" "defer" false) }}
+    {{ partial "asset.html" (dict "path" "css/tables.css" "defer" true) }}
+    {{ partial "asset.html" (dict "path" "pagefind/pagefind-modular-ui.css" "defer" true) }}
+    {{ block "head" . }}{{ end }}
+
+</head>
+<body class="body branch-{{ .Site.Params.Branch }}">
+<div class="page-container">
+    <div class="nav-container" id="nav-container">
+        <nav class="sticky-nav">
+            {{ if and (ne .IsHome true) (.Content) }}
+                <button type="button" class="toc-button" id="toc-toggle" aria-label="Open table of contents"
+                        aria-expanded="false">
+                    {{ os.ReadFile "static/images/icons/list.svg" | safeHTML }}
+                </button>
+            {{ end }}
+            <div class="nav-logo">
+                <a id="nav-logo-a"
+                   {{ if or (eq .Page.Title "ESPHome Docs") .IsHome }}
+                   title="ESPHome Landing Page"
+                   href="{{ "/" | relURL }}">
+                    {{ else }}
+                        title="ESPHome Documentation Home"
+                        href="{{ "/components" | relURL }}">
+                    {{ end }}
+                    {{ os.ReadFile "static/images/logo-text.svg" | safeHTML }}
+                </a>
+            </div>
+            <button type="button" class="hamburger-button" aria-label="Open menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <div class="dropbtn">
+                    <button class="theme-toggle" aria-label="Toggle theme" title="Toggle dark mode">
+                        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                             viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                             viewBox="0 0 24 24"
+                             fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+                {{ range (index .Site.Menus "main") }}
+                    {{ if .HasChildren }}
+                        <div class="dropdown">
+                            <button type="button" class="dropbtn" aria-haspopup="true"
+                                    aria-expanded="false">{{ .Name }}</button>
+                            <div class="dropdown-content">
+                                {{ range .Children }}
+                                    <a href="{{ .URL }}">{{ .Name }}</a>
+                                {{ end }}
+                            </div>
+                        </div>
+                    {{ else }}
+                        <a class="nav-link" href="{{ .URL }}">{{ .Name }}</a>
+                    {{ end }}
+                {{ end }}
+                <div class="nav-search">
+                    <div id="nav-search-container"></div>
+                    <div id="nav-search-results"></div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+    <main data-pagefind-body>
+        {{ block "main" . }}{{ end }}
+        <div class="branch-overlay">{{ .Site.Params.Branch | upper }}</div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <a class="footer-logo" href="https://www.openhomefoundation.org/">
+                <span>ESPHome is a project from the</span>
+                <img src="{{ "images/ohf-logo-on-dark.svg" | relURL }}" alt="ESPHome Logo" width="220px" height="49px">
+            </a>
+            <div class="footer-links">
+                {{ range (index .Site.Menus "footer") }}
+                    <div class="footer-column">
+                        <div class="footer-heading">{{ .Name }}</div>
+                        <ul>
+                            {{ range .Children }}
+                                <li><a href="{{ .URL | relURL }}">
+                                    {{ os.ReadFile (printf "static/images/icons/%s.svg" .Post) | safeHTML }}
+                                    {{ .Name }}
+                                </a></li>
+                            {{ end }}
+                        </ul>
+                    </div>
+                {{ end }}
+            </div>
+        </div>
+        <div class="build-info">
+            <button id="build-info-button" class="build-info-button" title="Show build information">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12" y2="8"></line>
+                </svg>
+            </button>
+        </div>
+        <div id="build-info-popup" class="build-info-popup">
+            <div class="build-info-content">
+                <span class="build-info-close">&times;</span>
+                <h4>Build Information</h4>
+                <div class="build-info-grid">
+                    <div class="build-info-label">Branch:</div>
+                    <div class="build-info-value">{{ .Site.Params.branch | default "unknown" }}</div>
+
+                    {{ $repo := strings.TrimSuffix ".git" .Site.Data.repo.url }}
+                    <div class="build-info-label">Commit hash:</div>
+                    <div class="build-info-value"><a href="{{ $repo }}/commit/{{ .Site.Params.commit.hash }}"
+                                                     target="_blank">{{ .Site.Params.commit.hash }}</a></div>
+
+                    <div class="build-info-label">Message:</div>
+                    <div class="build-info-value">{{ .Site.Params.commit.title }}</div>
+
+                    <div class="build-info-label">Build date:</div>
+                    <div class="build-info-value">{{ now.Format "2006-01-02" }}</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- JavaScript -->
+<!-- if there are equations on the page, use katex to render client-side -->
+{{ if .Store.Get "hasMath" }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css"
+          integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"
+            integrity="sha384-cMkvdD8LoxVzGF/RPUKAcvmm49FQ0oxwDF3BGKtDXcEc+T1b2N+teh/OJfpU0jr6"
+            crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"
+            integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous"
+            onload="renderMathInElement(document.body);"></script>
+{{ end }}
+
+{{ partial "asset.html" (dict "path" "/js/lazysizes.min.js" "defer" true) }}
+{{ partial "asset.html" (dict "path" "/pagefind/pagefind-modular-ui.js" "defer" true) }}
+{{ partial "asset.html" (dict "path" "/js/menu.js" "defer" true) }}
+{{ partial "asset.html" (dict "path" "/js/search.js" "defer" true) }}
+{{ partial "asset.html" (dict "path" "/js/main.js" "defer" true) }}
+
+<!-- Build info popup script -->
+{{ if .Store.Get "hasCode" }}
+    {{ partial "asset.html" (dict "path" "css/chroma.css" "defer" true) }}
+{{ end }}
+
+{{ block "scripts" . }}{{ end }}
+
+</body>
+</html>

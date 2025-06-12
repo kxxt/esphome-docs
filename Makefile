@@ -1,66 +1,45 @@
-ESPHOME_PATH = ../esphome
-ESPHOME_REF = 2025.5.2
-PAGEFIND_VERSION=1.1.1
-PAGEFIND=pagefind
-NET_PAGEFIND=../pagefindbin/pagefind
+.PHONY: html clean live-html automations check-links anchors production convert-from-rst directories
 
-.PHONY: pagefind build-html html html-strict cleanhtml deploy help live-html live-pagefind Makefile netlify netlify-dependencies svg2png copy-svg2png minify
+export HUGO_PARAMS_COMMIT_HASH=$(shell git rev-parse --short HEAD)
+export HUGO_PARAMS_COMMIT_TITLE=$(shell git log -1 --pretty=%s)
+export HUGO_PARAMS_COMMIT_DATE=$(shell git log -1 --date=format-local:'%Y-%m-%d %H:%M:%S UTC' --pretty=%cd)
+export HUGO_PARAMS_BRANCH=$(shell git branch --show-current)
 
-html: pagefind
-	sphinx-build -M html . _build -j auto -n $(O) -Dhtml_extra_path=_redirects,_pagefind
+production: repo-data anchors
+	hugo --minify
+	npx pagefind
+	hugo --minify
 
-pagefind:
-	sphinx-build -M html . _build -j auto -n $(O)
-	mkdir -p _pagefind/pagefind
-	${PAGEFIND}
+directories:
+	mkdir -p data public pagefind content static
+	npx pagefind -s pagefind-bootstrap
 
-live-html:	pagefind
-	sphinx-autobuild . _build -j auto -n $(O) --host 0.0.0.0 -Dhtml_extra_path=_redirects,_pagefind
+check-links: repo-data anchors
+	hugo --environment production
 
-html-strict:
-	sphinx-build -M html . _build -W -j auto -n $(O)
+anchors: directories
+	hugo --environment anchors
+	python3 tools/md_anchors.py
 
-minify:
-	minify _static/webserver-v1.js > _static/webserver-v1.min.js
-	minify _static/webserver-v1.css > _static/webserver-v1.min.css
+repo-data: directories
+	mkdir -p data/automations
+	echo "url: `git config --get remote.origin.url`" > data/repo.yaml
+	echo "branch: `git branch --show-current`" >> data/repo.yaml
+	curl -s -S https://data.esphome.io/release/automations.json | tools/collate_automations.sh > data/automations/current.json
+	curl -s -S https://data.esphome.io/beta/automations.json | tools/collate_automations.sh > data/automations/beta.json
+	curl -s -S https://data.esphome.io/dev/automations.json | tools/collate_automations.sh > data/automations/next.json
 
-cleanhtml:
-	rm -rf "_build/html/*"
-
-svg2png:
-	python3 svg2png.py
-
-help:
-	sphinx-build -M help . _build $(O)
-
-net-html:
-	sed -i 's@{{API_DOCS_URL}}@'"${API_DOCS_URL}"'@' _redirects
-	sphinx-build -M html . _build -j auto -n $(O)
-	mkdir -p _pagefind/pagefind
-	${NET_PAGEFIND}
-	sphinx-build -M html . _build -j auto -n $(O) -Dhtml_extra_path=_redirects,_pagefind
-
-pagefind-binary:
-	mkdir -p ../pagefindbin
-	curl -o pagefind.tar.gz https://github.com/CloudCannon/pagefind/releases/download/v$(PAGEFIND_VERSION)/pagefind-v$(PAGEFIND_VERSION)-x86_64-unknown-linux-musl.tar.gz -L
-	tar xzf pagefind.tar.gz
-	rm pagefind.tar.gz
-	mv pagefind ${NET_PAGEFIND}
-
-
-copy-svg2png:
-	cp svg2png/*.png _build/html/_images/
-
-netlify: pagefind-binary net-html copy-svg2png
-
-lint: html-strict
-	python3 lint.py
+live-html:	repo-data anchors
+	npx pagefind
+	env | grep HUGO
+	hugo server --bind 0.0.0.0
 
 clean:
-	rm -rf _pagefind/
-	sphinx-build -M clean . _build $(O)
+	rm -rf "public/*"
+	rm -rf "pagefind/*"
+	rm -rf data/automations/
+	rm -rf data/repo.yaml
+	hugo mod clean
 
-# Catch-all target: route all unknown targets to Sphinx using the new
-# "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
-%: Makefile
-	sphinx-build -M $@ . _build $(O)
+convert-from-rst: 
+	python3 tools/convert_rst_to_md.py ./esphome-docs .
