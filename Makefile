@@ -14,12 +14,12 @@ production: repo-data anchors
 
 directories:
 	mkdir -p data public pagefind content static
-	npx pagefind -s pagefind-bootstrap
 
 check-links: repo-data anchors
 	hugo --environment production
 
 anchors: directories
+	npx pagefind -s pagefind-bootstrap
 	hugo --environment anchors
 	python3 tools/md_anchors.py
 
