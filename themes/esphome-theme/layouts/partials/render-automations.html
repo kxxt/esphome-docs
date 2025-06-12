@@ -1,4 +1,7 @@
 {{- $branch := site.Data.repo.branch -}}
+{{- if eq $branch "new" -}}
+    {{- $branch = "current" -}}
+{{- end -}}
 {{- $category := .Get 0 -}}
 {{- $data := index site.Data.automations $branch "automations" -}}
 
