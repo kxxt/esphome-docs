@@ -1,4 +1,4 @@
-.PHONY: html clean live-html automations check-links anchors production convert-from-rst directories pagefind-binary netlify
+.PHONY: html clean live-html automations check-links anchors production convert-from-rst directories pagefind-binary netlify repo-data
 
 NET_PAGEFIND=../pagefindbin/pagefind
 PAGEFIND_VERSION=1.3.0
@@ -8,7 +8,7 @@ export HUGO_PARAMS_COMMIT_TITLE=$(shell git log -1 --pretty=%s)
 export HUGO_PARAMS_COMMIT_DATE=$(shell git log -1 --date=format-local:'%Y-%m-%d %H:%M:%S UTC' --pretty=%cd)
 export HUGO_PARAMS_BRANCH=$(shell git branch --show-current)
 
-production: repo-data anchors
+production: anchors
 	hugo --minify
 	npx pagefind
 	hugo --minify
@@ -16,10 +16,10 @@ production: repo-data anchors
 directories:
 	mkdir -p data public pagefind content static
 
-check-links: repo-data anchors
+check-links: anchors
 	hugo --environment production
 
-anchors: directories
+anchors: repo-data
 	npx pagefind -s pagefind-bootstrap
 	hugo --environment anchors
 	python3 tools/md_anchors.py
@@ -32,7 +32,7 @@ repo-data: directories
 	curl -s -S https://data.esphome.io/beta/automations.json | tools/collate_automations.sh > data/automations/beta.json
 	curl -s -S https://data.esphome.io/dev/automations.json | tools/collate_automations.sh > data/automations/next.json
 
-live-html:	repo-data anchors
+live-html:	anchors
 	npx pagefind
 	env | grep HUGO
 	hugo server --bind 0.0.0.0
@@ -47,6 +47,9 @@ clean:
 convert-from-rst: 
 	python3 tools/convert_rst_to_md.py ./esphome-docs .
 
+convert-branch-in-place:
+	sh tools/migrate.sh
+
 
 pagefind-binary:
 	mkdir -p ../pagefindbin
@@ -55,7 +58,7 @@ pagefind-binary:
 	rm pagefind.tar.gz
 	mv pagefind ${NET_PAGEFIND}
 
-netlify: pagefind-binary directories
+netlify: pagefind-binary repo-data
 	$(NET_PAGEFIND) -s pagefind-bootstrap
 	hugo --environment anchors
 	python3 tools/md_anchors.py

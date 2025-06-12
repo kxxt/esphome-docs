@@ -5,11 +5,11 @@
 # Remove previous migration
 git reset --hard migration-base
 #bring in latest
-git merge origin/current --no-commit
+git pull origin current
 
 # Convert and move
 tools/convert_rst_to_md.py . . --replace
-# Must commit the move before the rewrites
+# Must commit the move before adding the rewrites
 git commit -m "Rename files"
 # Now add the updated content and commit
 rm -rf _* components guides cookbook changelog automations images index.rst markdown.py projects svg2png svg2png.py web-api

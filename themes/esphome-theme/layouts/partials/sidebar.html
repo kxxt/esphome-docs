@@ -47,8 +47,9 @@
     <div class="sidebar-resource">
         <hr>
         {{ $repo := strings.TrimSuffix ".git" .Site.Data.repo.url }}
+        {{ $branch := .Site.Data.repo.branch | default "current" }}
         {{ with .File }}
-            {{ $path := printf "%s/blob/current/content/%s" $repo .Path }}
+            {{ $path := printf "%s/blob/%s/content/%s" $repo $branch .Path }}
             <a href="{{ $path }}" class="ghedit">
                 {{ os.ReadFile "static/images/icons/edit.svg" | safeHTML }}
                 Edit this page on GitHub
