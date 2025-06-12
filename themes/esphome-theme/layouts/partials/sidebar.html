@@ -1,5 +1,8 @@
 {{ $currentPage := . }}
 {{ $title := .Title }}
+{{- $branch := getenv "BRANCH" | default site.Params.branch   -}}
+{{- $repo_url := getenv "REPOSITORY_URL" | default site.Params.repo.url   -}}
+{{- $commit_hash := getenv "COMMIT_REF" | default site.Params.commit.hash   -}}
 <div class="sidebar-content {{ if .Content }}scroll-trap{{ end }}">
     <h3>{{ $title }}</h3>
     <nav class="sidebar-nav">
@@ -46,8 +49,7 @@
 
     <div class="sidebar-resource">
         <hr>
-        {{ $repo := getenv "REPOSITORY_URL" | default .Site.Data.repo.url | strings.TrimSuffix ".git"  }}
-        {{ $branch := .Site.Data.repo.branch | default ( ( getenv "REPOSITORY_URL") | default "current" ) }}
+        {{ $repo := $repo_url | strings.TrimSuffix ".git"  }}
         {{ with .File }}
             {{ $path := printf "%s/blob/%s/content/%s" $repo $branch .Path }}
             <a href="{{ $path }}" class="ghedit">

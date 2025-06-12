@@ -1,3 +1,6 @@
+{{- $branch := getenv "BRANCH" | default site.Params.branch   -}}
+{{- $repo_url := getenv "REPOSITORY_URL" | default site.Params.repo.url   -}}
+{{- $commit_hash := getenv "COMMIT_REF" | default site.Params.commit.hash   -}}
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode | default "en" }}">
 <head>
@@ -61,7 +64,7 @@
     {{ block "head" . }}{{ end }}
 
 </head>
-<body class="body branch-{{ .Site.Params.Branch }}">
+<body class="body">
 <div class="page-container">
     <div class="nav-container" id="nav-container">
         <nav class="sticky-nav">
@@ -138,7 +141,9 @@
 
     <main data-pagefind-body>
         {{ block "main" . }}{{ end }}
-        <div class="branch-overlay">{{ .Site.Params.Branch | upper }}</div>
+        {{ if ne $branch "current" }}
+            <div class="branch-overlay">{{ $branch | upper }}</div>
+        {{ end }}
     </main>
 
     <footer>
@@ -187,9 +192,9 @@
                 <h4>Build Information</h4>
                 <div class="build-info-grid">
                     <div class="build-info-label">Branch:</div>
-                    <div class="build-info-value">{{ .Site.Params.branch | default "unknown" }}</div>
+                    <div class="build-info-value">{{ $branch }}</div>
 
-                    {{ $repo := strings.TrimSuffix ".git" .Site.Data.repo.url }}
+                    {{ $repo := strings.TrimSuffix ".git" $repo_url }}
                     <div class="build-info-label">Commit hash:</div>
                     <div class="build-info-value"><a href="{{ $repo }}/commit/{{ .Site.Params.commit.hash }}"
                                                      target="_blank">{{ .Site.Params.commit.hash }}</a></div>
