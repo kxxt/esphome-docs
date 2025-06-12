@@ -1695,7 +1695,7 @@ def process_file(src_file, output_dir, input_dir, replace=False):
             with open(src_file, 'w', encoding='utf-8') as f:
                 f.write("\n".join(md_content))
             repo = Repo(".")
-            repo.git.mv(src_file, output_path)
+            repo.git.mv(src_file, output_path, "-f")
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write("\n".join(md_content))
 
@@ -1766,7 +1766,7 @@ def should_copy_file(source_path, target_path):
     
     return source_mtime > target_mtime
 
-def copy_images_to_output(output_dir, input_dir):
+def copy_images_to_output(output_dir, input_dir, replace=False):
     """Copy images to the appropriate locations based on usage."""
     print("Copying images to output directories...")
     
@@ -1777,7 +1777,7 @@ def copy_images_to_output(output_dir, input_dir):
     # Copy images based on usage
     for image in image_map.values():
         source_path = image.path
-        
+
         if image.count > 1:
             # Used more than once - copy to global images folder
             target_path = os.path.join(global_images_dir, image.name)
@@ -1797,13 +1797,16 @@ def copy_images_to_output(output_dir, input_dir):
             component_images_dir = os.path.join(component_content_dir, 'images')
             os.makedirs(component_images_dir, exist_ok=True)
                             
-            target_content_path = os.path.join(component_images_dir, image.name)
+            target_path = os.path.join(component_images_dir, image.name)
 
-            if should_copy_file(source_path, target_content_path):
-                shutil.copy2(source_path, target_content_path)
+            if should_copy_file(source_path, target_path):
+                shutil.copy2(source_path, target_path)
                 print(f"Copied {image.name} to {component_dir}/images folder")
             else:
                 pass #print(f"Skipped copying {image.name} to {component_dir}/images folder (unchanged)")
+        if replace:
+            repo = Repo(".")
+            repo.git.mv(source_path, target_path, "-f")
                             
 
 if __name__ == "__main__":
@@ -1840,4 +1843,4 @@ if __name__ == "__main__":
     
     # Copy images to output directories
     if not args.no_images:
-        copy_images_to_output(args.output_dir, args.input_dir)
+        copy_images_to_output(args.output_dir, args.input_dir, args.replace)
