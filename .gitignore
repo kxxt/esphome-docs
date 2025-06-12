@@ -11,3 +11,22 @@ esphome-docs
 /data/automations
 my-secrets
 resources/_gen
+
+_build
+.DS_Store
+
+.python-version
+__pycache__/
+*.py[cod]
+*$py.class
+
+venv
+
+.vscode
+*.DS_Store
+/.idea/
+
+_pagefind/
+
+# Vim
+*.swp

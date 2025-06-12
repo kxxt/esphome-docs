@@ -46,8 +46,8 @@
 
     <div class="sidebar-resource">
         <hr>
-        {{ $repo := strings.TrimSuffix ".git" .Site.Data.repo.url }}
-        {{ $branch := .Site.Data.repo.branch | default "current" }}
+        {{ $repo := getenv "REPOSITORY_URL" | default .Site.Data.repo.url | strings.TrimSuffix ".git"  }}
+        {{ $branch := .Site.Data.repo.branch | default ( ( getenv "REPOSITORY_URL") | default "current" ) }}
         {{ with .File }}
             {{ $path := printf "%s/blob/%s/content/%s" $repo $branch .Path }}
             <a href="{{ $path }}" class="ghedit">

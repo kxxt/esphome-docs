@@ -1,4 +1,4 @@
-{{- $branch := site.Data.repo.branch -}}
+{{- $branch := getenv "BRANCH" | default site.Data.repo.branch   -}}
 {{- if eq $branch "new" -}}
     {{- $branch = "current" -}}
 {{- end -}}

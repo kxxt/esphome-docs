@@ -6,7 +6,7 @@ enableGitInfo: true
 
 security:
   funcs:
-    getenv: ['^HUGO_', '^CI$', 'NETLIFY']
+    getenv: ['^HUGO_', '^CI$', 'NETLIFY', 'REPOSITORY_URL', 'BRANCH']
 
 params:
   description: ESPHome - Smart Home Made Simple. ESPHome turns ESP32, ESP8266, and RP2040 microcontrollers into fully-featured smart home devices.
