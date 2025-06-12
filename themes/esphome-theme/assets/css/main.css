@@ -1249,7 +1249,7 @@ figcaption {
   }
 
   .toc-button {
-    transform-origin: 40% 60%;
+    transform-origin: 40% 45%;
     transform: rotate(0deg);
     transition: transform 0.3s ease;
   }
