@@ -11,6 +11,7 @@ import re
 import csv
 import argparse
 import shutil
+from git import Repo
 
 # Global anchor map to store all anchors and their document paths
 anchor_map = {}
@@ -1664,7 +1665,7 @@ def process_actions_file(lines):
     return lines
 
 
-def process_file(src_file, output_dir, input_dir):
+def process_file(src_file, output_dir, input_dir, replace=False):
     output_dir = os.path.join(output_dir, "content")
     """Process a single RST file and convert it to Markdown."""
     #print(rf"Processing file: {src_file}", end="", flush=True)
@@ -1690,9 +1691,14 @@ def process_file(src_file, output_dir, input_dir):
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         
         # Write the Markdown file
+        if replace:
+            with open(src_file, 'w', encoding='utf-8') as f:
+                f.write("\n".join(md_content))
+            repo = Repo(".")
+            repo.git.mv(src_file, output_path)
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write("\n".join(md_content))
-        
+
         #print(f"  Converted {src_file} -> {output_path}\033G", end="", flush=True)
         #print(f"Output file size: {len(md_content)} bytes")
         
@@ -1717,31 +1723,33 @@ def get_rst_content(input_dir, src_file):
     return rel_path, rst_lines
 
 
-def process_directory(input_dir, output_dir):
+def process_directory(input_dir, output_dir, replace_files=False):
     """Process all RST files in a directory and its subdirectories."""
     success_count = 0
     total_count = 0
 
+    rstfiles = []
     for root, _, files in os.walk(input_dir):
         for file in files:
-            # Skip the top-level index
             if file.endswith('.rst'):
                 fullpath = os.path.join(root, file)
+                rstfiles.append(fullpath)
                 included_files.update(set(find_included_files(fullpath)))
 
-    for root, _, files in os.walk(input_dir):
-        for file in files:
-            fullpath = os.path.join(root, file)
-            if fullpath.endswith("esphome-docs/index.rst"):
-                continue
-            if fullpath in included_files:
-                print("Skipping included file:", fullpath)
-            elif file.endswith('.rst'):
-                included_files.update(set(find_included_files(fullpath)))
-                total_count += 1
-                if process_file(fullpath, output_dir, input_dir):
-                    success_count += 1
-    
+    for fullpath in rstfiles:
+        root = os.path.dirname(fullpath)
+        if os.path.basename(root) == input_dir and os.path.basename(fullpath) == 'index.rst':
+            print("Skipping top-level index.rst file:", fullpath)
+            continue
+        if fullpath in included_files:
+            print("Skipping included file:", fullpath)
+            continue
+        elif fullpath.endswith('.rst'):
+            included_files.update(set(find_included_files(fullpath)))
+            total_count += 1
+            if process_file(fullpath, output_dir, input_dir, replace_files):
+                success_count += 1
+
     print(f"Conversion complete. {success_count}/{total_count} files successfully converted to {output_dir}")
 
 def should_copy_file(source_path, target_path):
@@ -1804,6 +1812,7 @@ if __name__ == "__main__":
     parser.add_argument('output_dir', help='Output directory for Markdown files')
     parser.add_argument('--single', help='Process a single file (relative to input_dir)')
     parser.add_argument('--no-images', action='store_true', help='Skip image processing')
+    parser.add_argument('--replace', action='store_true', help='Replace files')
     args = parser.parse_args()
     
     # Ensure output directory exists
@@ -1827,7 +1836,7 @@ if __name__ == "__main__":
             print(f"Error: File {rst_file} not found")
     else:
         # Process all files in the directory
-        process_directory(args.input_dir, args.output_dir)
+        process_directory(args.input_dir, args.output_dir, args.replace)
     
     # Copy images to output directories
     if not args.no_images:
