@@ -1,6 +1,7 @@
 .PHONY: html clean live-html automations check-links anchors production convert-from-rst directories pagefind-binary netlify
 
 NET_PAGEFIND=../pagefindbin/pagefind
+PAGEFIND_VERSION=1.3.0
 
 export HUGO_PARAMS_COMMIT_HASH=$(shell git rev-parse --short HEAD)
 export HUGO_PARAMS_COMMIT_TITLE=$(shell git log -1 --pretty=%s)
