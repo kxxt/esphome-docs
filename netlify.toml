@@ -9,5 +9,9 @@
 [context.next]
   environment = { BASE_URL = "https://next.esphome.io", API_DOCS_URL = "https://api-docs-dev.esphome.io" }
 
+[context.new]
+  environment = { BASE_URL = "https://new.esphome.io", API_DOCS_URL = "https://api-docs-dev.esphome.io" }
+
 [context.production]
   environment = { BASE_URL = "https://esphome.io", API_DOCS_URL = "https://api-docs.esphome.io", PRODUCTION = "YES" }
+
