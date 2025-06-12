@@ -1121,8 +1121,8 @@ footer {
 /* Components page */
 .component-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.5em;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 24%));
+  gap: 0.5em;
   margin-bottom: 2em;
 }
 
@@ -1141,12 +1141,12 @@ footer {
 .component-card {
   background-color: var(--component-card-bg);
   border-radius: 5px;
-  padding: 1.5em;
+  padding: 0.5em;
   text-align: center;
 
   color: var(--component-card-text);
   border-color: var(--border-color);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   transition: transform 0.2s;
 }
 
