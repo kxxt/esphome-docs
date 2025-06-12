@@ -1,7 +1,12 @@
 [build]
-  publish = "_build/html"
+  publish = "public"
   command = "make netlify"
-  environment = { BASE_URL = "https://esphome.io", API_DOCS_URL = "https://api-docs.esphome.io", PYTHON_VERSION = "3.12" }
+  environment = {
+    BASE_URL = "https://esphome.io",
+    API_DOCS_URL = "https://api-docs.esphome.io",
+    PYTHON_VERSION = "3.12",
+    HUGO_VERSION = "v0.136.2+extended"
+  }
 
 [context.beta]
   environment = { BASE_URL = "https://beta.esphome.io", API_DOCS_URL = "https://api-docs-beta.esphome.io" }
