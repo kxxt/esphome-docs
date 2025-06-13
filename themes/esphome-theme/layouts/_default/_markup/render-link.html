@@ -33,7 +33,7 @@
     <a href="{{ $link }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ $text }}
         {{- $u := urls.Parse .Destination -}}
         {{- if $u.IsAbs -}}
-            <img data-pagefind-ignore="all" alt="External link" class="external-link dark-invert" title="External link" src="/images/external-link.svg">
+            <img data-pagefind-ignore="all" alt="" aria-hidden="true" class="external-link dark-invert" title="External link" src="/images/external-link.svg">
         {{- end -}}
     </a>
 {{- end -}}
