@@ -184,17 +184,13 @@ img {
 }
 
 .branch-overlay {
-  display: none;
+  display: block;
   font-size: 4em;
   color: #FF808080;
   z-index: 99999;
   position: fixed;
   bottom: 0;
   right: 100px;
-}
-
-.branch-next .branch-overlay {
-  display: block;
 }
 
 .spin-once {
