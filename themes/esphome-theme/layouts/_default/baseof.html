@@ -184,6 +184,7 @@
                     <line x1="12" y1="16" x2="12" y2="12"></line>
                     <line x1="12" y1="8" x2="12" y2="8"></line>
                 </svg>
+                <span>Release {{ .Site.Data.version.release }}</span>
             </button>
         </div>
         <div id="build-info-popup" class="build-info-popup">
@@ -191,6 +192,12 @@
                 <span class="build-info-close">&times;</span>
                 <h4>Build Information</h4>
                 <div class="build-info-grid">
+                    <div class="build-info-label">Version:</div>
+                    <div class="build-info-value">{{ .Site.Data.version.version }}</div>
+                    {{ if ne .Site.Data.version.release .Site.Data.version.version }}
+                        <div class="build-info-label">Release:</div>
+                        <div class="build-info-value">{{ .Site.Data.version.release }}</div>
+                    {{ end }}
                     <div class="build-info-label">Branch:</div>
                     <div class="build-info-value">{{ $branch }}</div>
 
