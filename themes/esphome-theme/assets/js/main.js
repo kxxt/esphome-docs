@@ -37,6 +37,94 @@ function trapTouchScroll(el) {
     }, {passive: false});
 }
 
+let originalSrcs = new Map(); // Store original base64 srcs
+
+function prepareAndPrint() {
+    console.log("Custom print button clicked: Starting image preload for print.");
+    const imagesToLoad = document.querySelectorAll("img.lazyload[data-src]");
+    let imagesLoadedCount = 0;
+    const totalImages = imagesToLoad.length;
+
+    if (totalImages === 0) {
+        console.log("No lazy images found. Printing directly.");
+        window.print();
+        return;
+    }
+
+    imagesToLoad.forEach(img => {
+        if (!originalSrcs.has(img)) {
+            originalSrcs.set(img, img.src); // Store the current (thumbnail) src
+        }
+
+        // If the image is already loaded (from scrolling), don't re-trigger onload
+        if (img.src === img.dataset.src) {
+            imagesLoadedCount++; // Count it as already loaded
+            console.log(`  - Image already full-loaded: ${img.src}`);
+        } else {
+            // Temporarily set the src to trigger download
+            console.log(`  - Initiating load for: ${img.dataset.src}`);
+            img.src = img.dataset.src;
+            img.srcset = img.dataset.srcset;
+            img.classList.add("loading-for-print"); // Add a class for visual feedback if needed
+            img.classList.remove("lazyload");
+
+            // Use an onload listener to track completion
+            const handleLoad = () => {
+                imagesLoadedCount++;
+                console.log(`  - Loaded: ${img.src} (${imagesLoadedCount}/${totalImages})`);
+                img.removeEventListener('load', handleLoad); // Remove listener to prevent multiple calls
+                img.classList.remove("loading-for-print");
+                img.classList.add("loaded-for-print");
+
+                if (imagesLoadedCount === totalImages) {
+                    console.log("All print images loaded. Calling window.print().");
+                    // All images are loaded, now trigger print
+                    window.print();
+                    // Call afterprint cleanup immediately after print dialog opens
+                    // This ensures state is restored even if user cancels
+                    window.onafterprint(); // Manually trigger cleanup
+                }
+            };
+            img.addEventListener('load', handleLoad);
+            // Add an error listener too, just in case an image fails to load
+            img.addEventListener('error', () => {
+                console.error(`  - Failed to load image: ${img.dataset.src}. Proceeding with print.`);
+                imagesLoadedCount++; // Still count it to unblock printing
+                img.removeEventListener('load', handleLoad); // Clean up load listener
+                img.classList.remove("loading-for-print");
+                img.classList.add("failed-to-load-for-print");
+                if (imagesLoadedCount === totalImages) {
+                    console.log("All print images processed (some may have failed). Calling window.print().");
+                    window.print();
+                    window.onafterprint();
+                }
+            });
+        }
+    });
+
+    // Handle case where all images were already loaded (e.g., after scrolling)
+    if (imagesLoadedCount === totalImages) {
+        console.log("All images were already full-loaded. Printing directly.");
+        window.print();
+        window.onafterprint(); // Trigger cleanup
+    }
+}
+
+// The onafterprint event is still useful for cleanup after the print dialog closes
+window.onafterprint = function() {
+    console.log("onafterprint: Fired. Restoring image state and cleaning up.");
+    originalSrcs.forEach((base64Src, img) => {
+        // Restore only if its src was changed for print
+        if (img.dataset.src && img.src !== base64Src) {
+            img.src = base64Src; // Restore the base64 thumbnail
+            img.classList.remove("loaded-for-print");
+            img.classList.remove("loading-for-print");
+            img.classList.remove("loaded"); // If you use this class
+        }
+    });
+    originalSrcs.clear();
+};
+
 document.addEventListener('DOMContentLoaded', function () {
 
     const scrollers = document.querySelectorAll('.scroll-trap');
@@ -61,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
             button.classList.add('spin-once');
         });
     });
+
 
 
     // Copy button functionality

@@ -5,7 +5,7 @@
 {{/* Check if image exists in local images directory first */}}
 {{ $src := strings.TrimPrefix "/images/" .src }}
 {{ $src = strings.TrimPrefix "images/" $src }}
-{{- $componentPath := printf "content/%s/images/%s" (path.Dir $page.File.Path) $src -}}
+{{- $componentPath := printf "%s/images/%s" (path.Dir $page.File.Path) $src -}}
 {{- $globalPath := printf "images/%s" $src -}}
 
 {{ $image := resources.Get $componentPath }}
@@ -22,7 +22,7 @@
 {{- if and $image (eq $ext ".svg") -}}
     <img src="{{ $image.RelPermalink }}" {{ if .width }}width="{{.width}}" {{ end }} alt="{{ .alt }}" {{ $style }}/>
 {{ end }}
-{{ if and $image (in (split ".jpeg,.jpg,.png" ",") $ext) }}
+{{ if and $image (in (split ".jpeg,.jpg,.png,.webp" ",") $ext) }}
         {{ if isset . "fill" }}
             {{ $image = $image.Fill .fill }}
         {{ end }}
@@ -68,7 +68,8 @@
                      {{ $style }}
                      srcset="data:image/jpeg;base64,{{ $placeholder.Content | base64Encode }}"
                      data-src="{{ $image.RelPermalink }}"
-                     data-srcset="{{ $srclist }}" style="max-width: {{ $image.Width }}px; max-height: {{ $image.Height }}px;"
+                     data-srcset="{{ $srclist }}"
+                     style="max-width: {{ $image.Width }}px; max-height: {{ $image.Height }}px;"
                      width="{{ $image.Width }}" height="{{ $image.Height }}"
                      alt="{{ .alt }}"/>
                 {{ if .href }}

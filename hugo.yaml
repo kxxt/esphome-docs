@@ -179,7 +179,7 @@ module:
       target: assets/images
     - disableWatch: false
       source: content
-      target: assets/content
+      target: assets
     - disableWatch: false
       source: pagefind
       target: static/pagefind

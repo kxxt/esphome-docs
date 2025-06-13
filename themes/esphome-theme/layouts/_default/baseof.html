@@ -1,6 +1,6 @@
-{{- $branch := getenv "BRANCH" | default site.Params.branch   -}}
-{{- $repo_url := getenv "REPOSITORY_URL" | default site.Params.repo.url   -}}
-{{- $commit_hash := getenv "COMMIT_REF" | default site.Params.commit.hash   -}}
+{{- $branch := getenv "BRANCH" | default site.Params.branch -}}
+{{- $repo_url := getenv "REPOSITORY_URL" | default site.Params.repo.url -}}
+{{- $commit_hash := getenv "COMMIT_REF" | default site.Params.commit.hash -}}
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode | default "en" }}">
 <head>
@@ -140,6 +140,7 @@
 
 
     <main data-pagefind-body>
+        <img alt="" aria-hidden="true" hidden class="header-print" src="/images/logo-text.svg"/>
         {{ block "main" . }}{{ end }}
         {{ if ne $branch "current" }}
             <div class="branch-overlay">{{ $branch | upper }}</div>
@@ -149,15 +150,16 @@
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
-            <a class="footer-logo" href="https://www.openhomefoundation.org/">
-                <span>ESPHome is a project from the</span>
-                <img src="{{ "images/ohf-logo-on-dark.svg" | relURL }}" alt="ESPHome Logo" width="220px" height="49px">
-            </a>
-            {{ if getenv "NETLIFY" }}
-                <br>
-                <a href="https://www.netlify.com">
-                    <img src="{{ "images/netlify-badge-color-accent.svg" | relURL }}" alt="Deploys by Netlify" />
+                <a class="footer-logo" href="https://www.openhomefoundation.org/">
+                    <span>ESPHome is a project from the</span>
+                    <img src="{{ "images/ohf-logo-on-dark.svg" | relURL }}" alt="ESPHome Logo" width="220px"
+                         height="49px">
                 </a>
+                {{ if getenv "NETLIFY" }}
+                    <br>
+                    <a href="https://www.netlify.com">
+                        <img src="{{ "images/netlify-badge-color-accent.svg" | relURL }}" alt="Deploys by Netlify"/>
+                    </a>
                 {{ end }}
             </div>
             <div class="footer-links">
@@ -175,17 +177,21 @@
                     </div>
                 {{ end }}
             </div>
-        </div>
-        <div class="build-info">
-            <button id="build-info-button" class="build-info-button" title="Show build information">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12" y2="8"></line>
-                </svg>
-                <span>Release {{ .Site.Data.version.release }}</span>
+            <button id="print-button" onclick="prepareAndPrint();" class="print-button" title="Print this page">
+                <img src="/images/icons/print.svg" alt="Print this page">
             </button>
+
+            <div class="build-info">
+                <button id="build-info-button" class="build-info-button" title="Show build information">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12" y2="8"></line>
+                    </svg>
+                    <span>Release {{ .Site.Data.version.release }}</span>
+                </button>
+            </div>
         </div>
         <div id="build-info-popup" class="build-info-popup">
             <div class="build-info-content">
@@ -215,6 +221,15 @@
             </div>
         </div>
     </footer>
+    <div class="footer-logo footer-logo-print" hidden aria-hidden="true">
+        <a class="footer-logo" href="https://www.openhomefoundation.org/">
+            <span>ESPHome is a project from the</span>
+            <img src="{{ "images/ohf-logo-on-light.svg" | relURL }}" alt="ESPHome Logo" width="220px"
+                 height="49px">
+            <br>
+            <span>https://esphome.io</span>
+        </a>
+    </div>
 </div>
 
 <!-- JavaScript -->
