@@ -377,6 +377,12 @@ img {
   transition: var(--nav-transition-down);
 }
 
+@media print {
+  .nav-container {
+    display: none;
+  }
+}
+
 .nav-container.nav-scrolling-up {
   transition: var(--nav-transition-up);
 }
