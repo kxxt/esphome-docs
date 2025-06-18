@@ -1,6 +1,9 @@
 #! /bin/bash
 #
 # should have already checked out the `new` branch
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+[ "$current_branch" != "new" ] && echo only run this script from the 'new' branch && exit 1
+
 #
 # Remove previous migration
 git reset --hard migration-base
