@@ -1,6 +1,7 @@
 .PHONY: html clean live-html automations check-links anchors production convert-from-rst directories pagefind-binary netlify repo-data
 
 NET_PAGEFIND_DIR=../pagefindbin
+ESPHOME_REF = 2025.6.0
 NET_PAGEFIND=../pagefindbin/pagefind
 PAGEFIND_VERSION=1.3.0
 
