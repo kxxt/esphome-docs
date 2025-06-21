@@ -143,7 +143,7 @@
         <img alt="" aria-hidden="true" hidden class="header-print" src="/images/logo-text.svg"/>
         {{ block "main" . }}{{ end }}
         {{ if ne $branch "current" }}
-            <div class="branch-overlay">{{ $branch | upper }}</div>
+            <div class="branch-overlay" aria-hidden="true">{{ $branch | upper }}</div>
         {{ end }}
     </main>
 
