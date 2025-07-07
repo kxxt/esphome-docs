@@ -1120,6 +1120,7 @@ ESPHome depends on and welcomes contributions from our community. If you'd like 
     :hidden:
 
     binary_sensor/index
+    camera/index
     canbus/index
     climate/index
     cover/index
