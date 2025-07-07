@@ -97,6 +97,8 @@ Configuration variables:
   When the limit is reached, new commands will be dropped and a warning will be logged.
   This helps prevent memory overflows or boot-time crashes in complex setups that issue a large number of commands
   in rapid succession. If not set, the queue size is unlimited.
+- **dump_device_info** (*Optional*, boolean): Shows device information (model, firmware version, serial number, flash size) in the configuration dump.
+  When disabled, device info is only logged during connection establishment to save memory. Defaults to ``false``.
 
 .. _display-nextion_lambda:
 
