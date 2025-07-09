@@ -10,7 +10,7 @@ ESPHome 2025.7.0 - 16th July 2025
 .. imgtable::
     :columns: 4
 
-    DS2484, components/one_wire, one-wire.svg
+    DS2484, components/one_wire/ds2484, ds2484.svg
     ESP32 Hosted, components/esp32_hosted, network-wifi.svg, dark-invert
     GL-R01, components/sensor/gl_r01, gl_r01.jpg
     LN882x, components/libretiny, ln882x.svg
