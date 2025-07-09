@@ -22,44 +22,354 @@ ESPHome 2025.7.0 - 16th July 2025
     XMWSDJ04MMC, components/sensor/xiaomi_ble, xiaomi_mijia_logo.jpg
 
 
-Web Server OTA
---------------
+Release Overview
+================
+
+ESPHome 2025.7.0 is a major release featuring significant architectural improvements, new hardware support,
+and important platform updates. This release modernizes the codebase while expanding hardware compatibility
+and introducing powerful new features for advanced users.
+
+**Major Changes:**
+- **Web Server OTA** moved to dedicated platform (breaking change - migration required)
+- **ESP-IDF 4.x support removed** - ESP-IDF 5.3.2+ now required
+- **ESP32 Arduino updated to 3.1.3** for better compatibility and performance
+- **Sub-device support** for logical entity grouping in Home Assistant
+- **Jinja2 template expressions** for dynamic configuration generation
+
+**New Hardware:**
+- LoRa communication (SX126x/SX127x), ESP32 Hosted WiFi, LN882X SoCs
+- New sensors: OPT3001 light, LPS22 pressure, GL-R01 ToF, Xiaomi BLE
+
+**Performance:**
+- Extensive memory optimizations (up to 40% reduction in component memory usage)
+- Enhanced performance through C++20 support and optimized algorithms
+- Improved interrupt handling and scheduler efficiency
+
+
+Web Server OTA Platform
+----------------------
 
 .. warning::
 
-    Read this breaking change carefully, if your only ota method is ``web_server`` and you don't have it explicitly enabled you
-    will lose the ability to update devices OTA after updating to 2025.7.0 without adding the ``web_server`` OTA platform.
+    **Breaking Change:** Read this carefully! If your only OTA method is ``web_server`` and you don't have it explicitly enabled,
+    you will lose the ability to update devices OTA after updating to 2025.7.0. You must add the ``web_server`` OTA platform
+    to your configuration to maintain OTA functionality.
 
-The :doc:`/components/web_server` has had the OTA functionality moved to a proper OTA platform: :doc:`/components/ota/web_server`.
+The :doc:`/components/web_server` component has undergone a significant architectural change. Previously, OTA functionality was
+built directly into the web server component. This has now been extracted into a dedicated OTA platform: :doc:`/components/ota/web_server`.
+
+**Migration Required:**
+
+If you were relying on the web server's built-in OTA functionality, you now need to explicitly configure the web server OTA platform:
 
 .. code-block:: yaml
 
+    # Before (implicit OTA in web server)
+    web_server:
+      port: 80
+
+    # After (explicit OTA platform required)
+    web_server:
+      port: 80
+
     ota:
-      - platform: ...
-      - platform: web_server
+      - platform: esphome  # Your existing OTA method
+      - platform: web_server  # Add this for web-based OTA uploads
+
+**Benefits of this change:**
+
+- **Cleaner separation of concerns** - Web server focuses on serving content, OTA platform handles updates
+- **More flexible OTA configuration** - Better control over OTA methods and security
+- **Improved maintainability** - Dedicated OTA platform allows for better features and bug fixes
 
 
-ESP-IDF 4.x Support
-^^^^^^^^^^^^^^^^^^^
+ESP-IDF 4.x End of Life
+^^^^^^^^^^^^^^^^^^^^^^^
 
-This release removes any support for ESP-IDF 4.x versions. Please see
-`our developer blog <https://developers.esphome.io/blog/2025/06/18/sunsetting-support-for-idf-4x/>`__ for more details.
+.. important::
 
-For most users, this will not affect you as we set the recommended version as a default. But if you are explicitly setting the
-ESP-IDF version in your configuration, you will need to update it to 5.3.2 or later otherwise your project will most likely fail to compile.
+    **Major Platform Change:** This release completely removes support for ESP-IDF 4.x versions, marking the end of life
+    for these older framework versions.
+
+ESPHome 2025.7.0 removes all support for ESP-IDF 4.x versions as part of our commitment to supporting modern,
+secure, and well-maintained development frameworks. Please see our
+`developer blog post <https://developers.esphome.io/blog/2025/06/18/sunsetting-support-for-idf-4x/>`__ for detailed
+background and technical reasons behind this decision.
+
+**What this means for users:**
+
+- **Most users are unaffected** - We automatically set the recommended ESP-IDF version (currently 5.3.2) as the default
+- **Explicit version users must update** - If you're explicitly setting the ESP-IDF version in your configuration,
+  you must update to version 5.3.2 or later
+- **Legacy projects may need updates** - Older projects might require minor configuration adjustments
+
+**Required action if you explicitly set ESP-IDF version:**
+
+.. code-block:: yaml
+
+    # Remove or update old explicit versions
+    esp32:
+      board: esp32dev
+      framework:
+        type: esp-idf
+        version: 4.4.7  # ❌ No longer supported
+
+    # Update to supported version
+    esp32:
+      board: esp32dev
+      framework:
+        type: esp-idf
+        version: 5.3.2  # ✅ Supported (or omit for latest recommended)
+
+**Benefits of ESP-IDF 5.x:**
+
+- **Enhanced security** - Latest security patches and improvements
+- **Better performance** - Optimized code generation and runtime performance
+- **Modern C++ support** - Full C++20 support with improved standard library
+- **Expanded hardware support** - Better support for newer ESP32 variants (S2, S3, C3, C6, H2)
+- **Active maintenance** - Continued updates and bug fixes from Espressif
 
 
-ESP32 Arduino 3
----------------
+ESP32 Arduino Framework 3.x
+---------------------------
 
-To align with the current ESP-IDF version of 5.3.2, Arduino for the ESP32 has now been updated to 3.1.3.
+.. note::
+
+    **Framework Update:** Arduino for ESP32 has been upgraded to version 3.1.3, bringing significant improvements
+    and maintaining compatibility with ESP-IDF 5.3.2.
+
+To maintain alignment and compatibility with the current ESP-IDF version of 5.3.2, the Arduino framework for ESP32
+has been updated to version 3.1.3. This represents a major version jump from Arduino 2.x.
+
+**Key improvements in Arduino 3.1.3:**
+
+- **ESP-IDF 5.3.2 compatibility** - Full integration with the latest ESP-IDF features
+- **Improved stability** - Better memory management and reduced crashes
+- **Enhanced WiFi performance** - More reliable connections and better power management
+- **Updated libraries** - Latest versions of core Arduino libraries
+- **Bug fixes** - Numerous fixes for issues present in earlier versions
+
+**Potential compatibility considerations:**
+
+- Some third-party Arduino libraries may need updates for Arduino 3.x compatibility
+- Timing-sensitive code might behave slightly differently due to framework optimizations
+- Memory usage patterns may change slightly due to framework improvements
+
+.. note::
+
+    **Flash Usage Warning:** Arduino 3.x can use more flash memory than Arduino 2.x, which may cause some projects
+    with many components to exceed available flash space. If you encounter flash size issues, consider:
+
+    - Switching to ESP-IDF framework (recommended for large projects)
+    - Reducing the number of enabled components
+    - Using a board with more flash memory
+
+Most users will see this as a transparent improvement with better performance and reliability.
 
 
-Sub Devices
------------
+Sub-Device Support
+------------------
 
-Entities can now be assigned to a sub device! This allows for a single ESP32 device that may have entities that should be represented
-in different areas of your home to be represented in Home Assistant as such.
+.. note::
+
+    **New Feature:** Entities can now be organized into logical sub-devices, enabling better organization
+    and area management in Home Assistant.
+
+ESPHome now supports **sub-devices**, a powerful new feature that allows you to logically group entities from a single
+physical ESPHome device into multiple virtual devices within Home Assistant. This is particularly useful for complex
+setups where one ESP32 controls sensors or actuators in different areas of your home.
+
+**Use cases and benefits:**
+
+- **Multi-room sensors** - One ESP32 with temperature sensors in different rooms can appear as separate devices per room
+- **Complex automation hubs** - A single ESP32 controlling lights, fans, and sensors across multiple areas
+- **Better Home Assistant organization** - Entities automatically appear in the correct areas and can be managed independently
+- **Cleaner dashboards** - Related entities are grouped together logically rather than by physical device
+
+**How it works:**
+
+You can assign entities to sub-devices using the new ``device_id`` configuration option. First, define your devices
+in the ``devices`` section under ``esphome:``, then reference them in individual entities.
+
+**Example configuration:**
+
+.. code-block:: yaml
+
+    esphome:
+      name: multi_room_controller
+
+      # Define areas (optional)
+      areas:
+        - id: living_room_area
+          name: "Living Room"
+        - id: bedroom_area
+          name: "Bedroom"
+
+      # Define devices
+      devices:
+        - id: living_room_device
+          name: "Living Room Sensors"
+          area_id: living_room_area
+        - id: bedroom_device
+          name: "Bedroom Sensors"
+          area_id: bedroom_area
+
+    # Assign sensors to different devices
+    sensor:
+      - platform: dht
+        pin: GPIO4
+        temperature:
+          name: "Living Room Temperature"
+          device_id: living_room_device
+        humidity:
+          name: "Living Room Humidity"
+          device_id: living_room_device
+
+      - platform: dht
+        pin: GPIO5
+        temperature:
+          name: "Bedroom Temperature"
+          device_id: bedroom_device
+        humidity:
+          name: "Bedroom Humidity"
+          device_id: bedroom_device
+
+In this example, Home Assistant will see two separate sensor devices (one for living room, one for bedroom)
+even though they're controlled by a single ESPHome device.
+
+This feature enhances the logical organization of your smart home while maintaining the efficiency of
+centralized ESPHome device management.
+
+
+New Hardware Support Highlights
+-------------------------------
+
+This release brings support for exciting new hardware platforms and components:
+
+**New Wireless Communication:**
+
+- **SX126x & SX127x LoRa modules** - Long-range, low-power communication for remote sensors and IoT applications
+- **ESP32 Hosted WiFi** - Use an ESP32 as a WiFi adapter for other microcontrollers, expanding connectivity options
+
+**New Sensors & Measurement:**
+
+- **OPT3001** - High-precision ambient light sensor with excellent low-light sensitivity
+- **LPS22** - Accurate barometric pressure sensor for weather monitoring and altitude measurement
+- **GL-R01** - Time-of-flight distance sensor for precise proximity and ranging applications
+- **Xiaomi XMWSDJ04MMC** - Support for popular Xiaomi Bluetooth temperature/humidity sensors
+
+**Expanded Platform Support:**
+
+- **LN882X SoC Family** - New LibreTiny support extends ESPHome to additional low-cost WiFi microcontrollers
+- **PI4IOE5V6408** - New I2C GPIO expander for applications requiring additional digital I/O pins
+
+**Infrastructure Improvements:**
+
+- **DS2484** - Advanced 1-Wire bus master for improved reliability in complex 1-Wire networks
+- **Enhanced Camera Framework** - New base camera class enables support for alternative camera implementations
+
+
+Memory and Performance Optimizations
+------------------------------------
+
+ESPHome 2025.7.0 includes extensive memory and performance optimizations, particularly beneficial for resource-constrained devices:
+
+**Memory Usage Reductions:**
+
+- **Component memory reduced** (8 bytes per component) - Significant savings for devices with many components
+- **Sensor entities optimized** - Reduced memory footprint for devices with numerous sensors
+- **API and networking optimizations** - Lower RAM usage for WiFi and API communication
+- **Color constant storage optimization** - More efficient handling of color data in displays and lighting
+
+**Performance Improvements:**
+
+- **Faster loop processing** - Components can now disable their loop() method when not needed, reducing CPU overhead
+- **Optimized API communication** - Improved batching and reduced redundant operations
+- **Enhanced logging performance** - More efficient message processing and reduced CPU impact
+- **Bluetooth proxy optimizations** - Better performance for ESP32 devices acting as Bluetooth proxies
+
+**Code Quality Enhancements:**
+
+- **C++20 support** - Modern C++ features for better performance and developer experience
+- **Improved interrupt handling** - More reliable GPIO interrupt processing
+- **Enhanced scheduler** - Better task management with comprehensive test coverage
+
+
+Jinja2 Template Expressions in Substitutions
+--------------------------------------------
+
+.. note::
+
+    **New Feature:** ESPHome now supports Jinja2 template expressions within substitutions,
+    enabling more advanced and dynamic value generation.
+
+ESPHome 2025.7.0 introduces support for Jinja2 template expressions within the existing substitutions system.
+This enhancement extends the current ``${ }`` substitution syntax to support Jinja2 expressions, allowing for
+more sophisticated value calculations and transformations.
+
+**Enhanced substitution capabilities:**
+
+- **Mathematical operations** - Perform calculations using substitution variables
+- **Conditional expressions** - Use ternary operators and conditional logic
+- **String formatting** - Advanced string manipulation and formatting
+- **Type conversions** - Convert between strings, numbers, and other types
+- **Filter operations** - Apply Jinja2 filters for data transformation
+
+**Example usage:**
+
+.. code-block:: yaml
+
+    substitutions:
+      device_name: living_room_sensors
+      num_sensors: 3
+      base_pin: 4
+      offset_voltage: 3.3
+      enable_debugging: false
+      sensor_config:
+        update_interval: 60s
+        accuracy_decimals: 2
+
+    sensor:
+      - platform: adc
+        pin: GPIO${base_pin}
+        name: "${device_name} voltage"
+        update_interval: ${sensor_config.update_interval}
+        accuracy_decimals: ${sensor_config.accuracy_decimals}
+        filters:
+          # Convert ADC reading to actual voltage
+          - multiply: ${offset_voltage / 4095}
+
+      - platform: adc
+        pin: GPIO${base_pin + 1}
+        name: "${device_name} sensor ${num_sensors > 1 and 'secondary' or 'primary'}"
+        accuracy_decimals: ${1 if num_sensors <= 2 else 2}
+        update_interval: ${sensor_config.update_interval}
+
+    binary_sensor:
+      - platform: gpio
+        pin: GPIO${base_pin + 2}
+        name: "${device_name} status ${enable_debugging and '(debug)' or ''}"
+
+**Key features:**
+
+- **Works within existing substitutions** - Uses the familiar ``${ }`` syntax you already know
+- **Access to substitution variables** - All defined substitutions are available as Jinja variables
+- **Dictionary and list access** - Use dot notation (``device.name``) or indexing (``pins[0]``)
+- **Mathematical functions** - Access to Python's math library (``math.sqrt``, ``math.pi``, etc.)
+- **Conditional logic** - Ternary operators and boolean expressions for dynamic values
+
+**Benefits:**
+
+- **More powerful substitutions** - Calculate complex values instead of just simple replacements
+- **Reduced duplication** - Generate values programmatically based on other substitutions
+- **Better maintainability** - Change base values and have dependent values update automatically
+- **Enhanced flexibility** - Support for conditional values and complex transformations
+
+This feature builds upon ESPHome's existing substitutions system, making it more powerful while maintaining
+backward compatibility. It's particularly useful for responsive designs, calculated pin assignments,
+and configurations that need to adapt based on device capabilities or user preferences.
+
+For complete documentation and more examples, see the :doc:`/components/substitutions` guide.
 
 
 Full list of changes
@@ -111,7 +421,6 @@ All changes
 ^^^^^^^^^^^
 
 .. collapse:: Show
-    :open:
 
     - [core/pins] improve pins types :esphomepr:`8848` by :ghuser:`ximex`
     - [binary_sensor] Add action to invalidate state and pass to HA :esphomepr:`8961` by :ghuser:`clydebarrow` (breaking-change)
