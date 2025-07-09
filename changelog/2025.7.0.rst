@@ -3,12 +3,12 @@ ESPHome 2025.7.0 - 16th July 2025
 
 .. seo::
     :description: Changelog for ESPHome 2025.7.0.
-    :image: /_static/changelog-2025.6.0.png
+    :image: /_static/changelog-2025.7.0.png
     :author: Jesse Hills
     :author_twitter: @jesserockz
 
 .. imgtable::
-    :columns: 3
+    :columns: 4
 
     DS2484, components/one_wire, one-wire.svg
     ESP32 Hosted, components/esp32_hosted, network-wifi.svg, dark-invert
