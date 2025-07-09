@@ -856,6 +856,7 @@ Contributors
 - `Petr Urbánek (@HyperReap) <https://github.com/HyperReap>`__
 - `hificat (@hzkincony) <https://github.com/hzkincony>`__
 - `Arjan Filius (@iafilius) <https://github.com/iafilius>`__
+- `Iago Veiga (@iago-veiga) <https://github.com/iago-veiga>`__
 - `Iain Hay (@IainPHay) <https://github.com/IainPHay>`__
 - `Ian-Blockmans (@Ian-Blockmans) <https://github.com/Ian-Blockmans>`__
 - `Adrián Panella (@ianchi) <https://github.com/ianchi>`__
@@ -875,6 +876,7 @@ Contributors
 - `iKK001 (@iKK001) <https://github.com/iKK001>`__
 - `Pat Satyshur (@ilikecake) <https://github.com/ilikecake>`__
 - `ilium007 (@ilium007) <https://github.com/ilium007>`__
+- `Ill-tableflip-U (@Ill-tableflip-U) <https://github.com/Ill-tableflip-U>`__
 - `Ilias Lolis (@ilolis) <https://github.com/ilolis>`__
 - `Iman Ahmadvand (@IMAN4K) <https://github.com/IMAN4K>`__
 - `Michael (@imeekle) <https://github.com/imeekle>`__
@@ -1667,6 +1669,7 @@ Contributors
 - `Devon G. Redekopp (@Renegade605) <https://github.com/Renegade605>`__
 - `RenierM26 (@RenierM26) <https://github.com/RenierM26>`__
 - `Reuben (@reubn) <https://github.com/reubn>`__
+- `Rezoran (@Rezoran) <https://github.com/Rezoran>`__
 - `RFDarter (@RFDarter) <https://github.com/RFDarter>`__
 - `Robin Pronk (@rfpronk) <https://github.com/rfpronk>`__
 - `Pavels Veretennikovs (@rfvermut) <https://github.com/rfvermut>`__
@@ -2173,4 +2176,4 @@ Contributors
 - `Christian Zufferey (@zuzu59) <https://github.com/zuzu59>`__
 - `Zynth-dev (@Zynth-dev) <https://github.com/Zynth-dev>`__
 
-*This page was last updated July 3, 2025.*
+*This page was last updated July 9, 2025.*
