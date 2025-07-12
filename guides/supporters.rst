@@ -112,6 +112,7 @@ Contributors
 - `Alexander Momchilov (@amomchilov) <https://github.com/amomchilov>`__
 - `Oliver King (@AnachronisticPenguin) <https://github.com/AnachronisticPenguin>`__
 - `anatoly-savchenkov (@anatoly-savchenkov) <https://github.com/anatoly-savchenkov>`__
+- `Anbraten (@anbraten) <https://github.com/anbraten>`__
 - `AndersWestman (@AndersWestman) <https://github.com/AndersWestman>`__
 - `andig (@andig) <https://github.com/andig>`__
 - `Andi Egli (@andilge) <https://github.com/andilge>`__
@@ -570,6 +571,7 @@ Contributors
 - `Dmitrii Shcherbakov (@dshcherb) <https://github.com/dshcherb>`__
 - `Dan Slatford (@dslatford) <https://github.com/dslatford>`__
 - `David Luo (@dsluo) <https://github.com/dsluo>`__
+- `DT-art1 (@DT-art1) <https://github.com/DT-art1>`__
 - `Daniel Müller (@dtmuller) <https://github.com/dtmuller>`__
 - `Tom Soer (@dtx3k) <https://github.com/dtx3k>`__
 - `dubit0 (@dubit0) <https://github.com/dubit0>`__
@@ -1007,6 +1009,7 @@ Contributors
 - `joiboi (@joiboi) <https://github.com/joiboi>`__
 - `JonasB2497 (@JonasB2497) <https://github.com/JonasB2497>`__
 - `JonasEr (@JonasEr) <https://github.com/JonasEr>`__
+- `Jonas Frey (@jonasf21) <https://github.com/jonasf21>`__
 - `Jonas Niesner (@jonasniesner) <https://github.com/jonasniesner>`__
 - `Jonathan Adams (@jonathanadams) <https://github.com/jonathanadams>`__
 - `Jonathan Treffler (@JonathanTreffler) <https://github.com/JonathanTreffler>`__
@@ -2057,6 +2060,7 @@ Contributors
 - `V1d1o7 (@V1d1o7) <https://github.com/V1d1o7>`__
 - `Vc (@Valcob) <https://github.com/Valcob>`__
 - `Nad (@valordk) <https://github.com/valordk>`__
+- `Vasileios Bimpikas (@vasileio) <https://github.com/vasileio>`__
 - `Vicent Climent (@vcliment89) <https://github.com/vcliment89>`__
 - `Veli Veromann (@velijv) <https://github.com/velijv>`__
 - `André Lademann (@vergissberlin) <https://github.com/vergissberlin>`__
@@ -2176,4 +2180,4 @@ Contributors
 - `Christian Zufferey (@zuzu59) <https://github.com/zuzu59>`__
 - `Zynth-dev (@Zynth-dev) <https://github.com/Zynth-dev>`__
 
-*This page was last updated July 9, 2025.*
+*This page was last updated July 13, 2025.*
