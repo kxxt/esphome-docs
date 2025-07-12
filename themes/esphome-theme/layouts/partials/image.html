@@ -19,7 +19,7 @@
     {{ warnf "Unresolved image '%s' in page '%s'" .src .Page.File.Path }}
 {{ end }}
 
-{{- if and $image (eq $ext ".svg") -}}
+{{- if and $image (in (split ".svg,.avif" ",") $ext) -}}
     <img src="{{ $image.RelPermalink }}" {{ if .width }}width="{{.width}}" {{ end }} alt="{{ .alt }}" {{ $style }}/>
 {{ end }}
 {{ if and $image (in (split ".jpeg,.jpg,.png,.webp" ",") $ext) }}

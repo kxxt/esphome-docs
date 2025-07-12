@@ -1537,8 +1537,8 @@ def scan_image_references(input_dir):
         r'.. image:: ([^\s]+)',   # Image directive
         r'image:: ([^\s]+)',      # Image reference
         r':image: ([^\s]+)',      # Seo Image reference
-        r'src="([^"]+\.(png|jpg|jpeg|gif|svg))"',  # HTML img tag
-        r'!\[(.*?)\]\(([^)]+\.(png|jpg|jpeg|gif|svg))\)'  # Markdown image syntax
+        r'src="([^"]+\.(avif|png|jpg|jpeg|gif|svg))"',  # HTML img tag
+        r'!\[(.*?)\]\(([^)]+\.(avif|png|jpg|jpeg|gif|svg))\)'  # Markdown image syntax
     ]
     
     # Initialize image tracking dictionaries
