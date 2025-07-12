@@ -420,6 +420,35 @@ Notable Changes
 - Add support for LN882X Family (with LibreTiny) :esphomepr:`8954` by :ghuser:`lamauny` (new-integration) (notable-change)
 - Jinja expressions in configs (Take #3) :esphomepr:`8955` by :ghuser:`jpeletier` (notable-change)
 
+Beta Changes
+^^^^^^^^^^^^
+
+.. collapse:: Show
+    :open:
+
+    - Fix another race in the string lifetime scheduler test :esphomepr:`9399` by :ghuser:`bdraco`
+    - [esp32_touch] Fix touch v1 :esphomepr:`9414` by :ghuser:`swoboda1337`
+    - Set lib_compat_mode to strict :esphomepr:`9408` by :ghuser:`swoboda1337`
+    - debug: bufferoverflow mitigation in DebugComponent::on_shutdown() :esphomepr:`9422` by :ghuser:`RubenKelevra`
+    - Exclude internal entities from name uniqueness validation :esphomepr:`9410` by :ghuser:`bdraco`
+    - Handle ESP32 chunked MQTT messages missing topic on non-first chunks, causing panic :esphomepr:`5786` by :ghuser:`aaliddell`
+    - Replace remaining instances of USE_ESP32_CAMERA with USE_CAMERA :esphomepr:`9401` by :ghuser:`DT-art1`
+    - Sync api.proto from aioesphomeapi :esphomepr:`9393` by :ghuser:`bdraco`
+    - Fix scheduler crash when cancelling items with NULL names :esphomepr:`9444` by :ghuser:`bdraco`
+    - [wizard] use lowercase to match :esphomepr:`9448` by :ghuser:`ssieb`
+    - Optimize API flash usage by storing message size at compile time :esphomepr:`9447` by :ghuser:`bdraco`
+    - Optimize API proto size calculations by removing redundant force parameter :esphomepr:`9449` by :ghuser:`bdraco`
+    - [ld2410] Remove redundant ``delay()`` calls, minor optimizations :esphomepr:`9453` by :ghuser:`kbx81`
+    - Reduce API flash usage by eliminating unnecessary template instantiations :esphomepr:`9452` by :ghuser:`bdraco`
+    - Conditionally compile API user services to save 4.3KB flash (follow-up to #9262) :esphomepr:`9451` by :ghuser:`bdraco` (breaking-change)
+    - [packet_transport] Don't run update if ping_pong not enabled. :esphomepr:`9434` by :ghuser:`clydebarrow`
+    - [sx127x, sx126x] Fix preamble_size default and validation :esphomepr:`9454` by :ghuser:`swoboda1337`
+    - Apply existing protobuf buffer optimization to nested message encoding (~2.3x speed up) :esphomepr:`9458` by :ghuser:`bdraco`
+    - Bump aioesphomeapi from 34.2.0 to 34.2.1 :esphomepr:`9460` by :ghuser:`dependabot[bot]`
+    - Only generate protobuf encode/decode methods for the message direction they're used :esphomepr:`9461` by :ghuser:`bdraco`
+    - [usb_uart] Be flexible about descriptor layout for CDC-ACM devices :esphomepr:`9425` by :ghuser:`clydebarrow`
+    - [libretiny] Set lib_compat_mode to soft for libretiny :esphomepr:`9439` by :ghuser:`swoboda1337`
+
 All changes
 ^^^^^^^^^^^
 
@@ -653,6 +682,28 @@ All changes
     - [esp32] Improve flexibility of ``only_on_variant`` :esphomepr:`9390` by :ghuser:`jesserockz`
     - ESP_EXT1_WAKEUP_ANY_LOW is for s2/s3/c6/h2; ESP_EXT1_WAKEUP_ALL_LOW otherwise :esphomepr:`9387` by :ghuser:`candrews`
     - [apds9960] Add 0x9E ID :esphomepr:`9392` by :ghuser:`Merikei`
+    - Fix another race in the string lifetime scheduler test :esphomepr:`9399` by :ghuser:`bdraco`
+    - [esp32_touch] Fix touch v1 :esphomepr:`9414` by :ghuser:`swoboda1337`
+    - Set lib_compat_mode to strict :esphomepr:`9408` by :ghuser:`swoboda1337`
+    - debug: bufferoverflow mitigation in DebugComponent::on_shutdown() :esphomepr:`9422` by :ghuser:`RubenKelevra`
+    - Exclude internal entities from name uniqueness validation :esphomepr:`9410` by :ghuser:`bdraco`
+    - Handle ESP32 chunked MQTT messages missing topic on non-first chunks, causing panic :esphomepr:`5786` by :ghuser:`aaliddell`
+    - Replace remaining instances of USE_ESP32_CAMERA with USE_CAMERA :esphomepr:`9401` by :ghuser:`DT-art1`
+    - Sync api.proto from aioesphomeapi :esphomepr:`9393` by :ghuser:`bdraco`
+    - Fix scheduler crash when cancelling items with NULL names :esphomepr:`9444` by :ghuser:`bdraco`
+    - [wizard] use lowercase to match :esphomepr:`9448` by :ghuser:`ssieb`
+    - Optimize API flash usage by storing message size at compile time :esphomepr:`9447` by :ghuser:`bdraco`
+    - Optimize API proto size calculations by removing redundant force parameter :esphomepr:`9449` by :ghuser:`bdraco`
+    - [ld2410] Remove redundant ``delay()`` calls, minor optimizations :esphomepr:`9453` by :ghuser:`kbx81`
+    - Reduce API flash usage by eliminating unnecessary template instantiations :esphomepr:`9452` by :ghuser:`bdraco`
+    - Conditionally compile API user services to save 4.3KB flash (follow-up to #9262) :esphomepr:`9451` by :ghuser:`bdraco` (breaking-change)
+    - [packet_transport] Don't run update if ping_pong not enabled. :esphomepr:`9434` by :ghuser:`clydebarrow`
+    - [sx127x, sx126x] Fix preamble_size default and validation :esphomepr:`9454` by :ghuser:`swoboda1337`
+    - Apply existing protobuf buffer optimization to nested message encoding (~2.3x speed up) :esphomepr:`9458` by :ghuser:`bdraco`
+    - Bump aioesphomeapi from 34.2.0 to 34.2.1 :esphomepr:`9460` by :ghuser:`dependabot[bot]`
+    - Only generate protobuf encode/decode methods for the message direction they're used :esphomepr:`9461` by :ghuser:`bdraco`
+    - [usb_uart] Be flexible about descriptor layout for CDC-ACM devices :esphomepr:`9425` by :ghuser:`clydebarrow`
+    - [libretiny] Set lib_compat_mode to soft for libretiny :esphomepr:`9439` by :ghuser:`swoboda1337`
 
 Dependency Changes
 ^^^^^^^^^^^^^^^^^^
