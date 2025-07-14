@@ -448,6 +448,14 @@ Beta Changes
     - Only generate protobuf encode/decode methods for the message direction they're used :esphomepr:`9461` by :ghuser:`bdraco`
     - [usb_uart] Be flexible about descriptor layout for CDC-ACM devices :esphomepr:`9425` by :ghuser:`clydebarrow`
     - [libretiny] Set lib_compat_mode to soft for libretiny :esphomepr:`9439` by :ghuser:`swoboda1337`
+    - [ld2420] Memory optimization, code clean-up :esphomepr:`9426` by :ghuser:`kbx81`
+    - (Maybe?) fix I2S speaker internal DAC mode :esphomepr:`9435` by :ghuser:`pzich`
+    - [lvgl] Post-process size arguments in meter config :esphomepr:`9466` by :ghuser:`pzich`
+    - Automatically disable interrupts for ESP8266 GPIO16 binary sensors :esphomepr:`9467` by :ghuser:`bdraco`
+    - [substitutions] Fix #7189 :esphomepr:`9469` by :ghuser:`jpeletier`
+    - [esp_ldo] Component schema; default priority :esphomepr:`9479` by :ghuser:`clydebarrow`
+    - Follow logging best practices by removing redundant component prefix :esphomepr:`9481` by :ghuser:`bdraco`
+    - Fix dormant bug in RAMAllocator::reallocate() manual_size calculation :esphomepr:`9482` by :ghuser:`bdraco`
 
 All changes
 ^^^^^^^^^^^
@@ -704,6 +712,14 @@ All changes
     - Only generate protobuf encode/decode methods for the message direction they're used :esphomepr:`9461` by :ghuser:`bdraco`
     - [usb_uart] Be flexible about descriptor layout for CDC-ACM devices :esphomepr:`9425` by :ghuser:`clydebarrow`
     - [libretiny] Set lib_compat_mode to soft for libretiny :esphomepr:`9439` by :ghuser:`swoboda1337`
+    - [ld2420] Memory optimization, code clean-up :esphomepr:`9426` by :ghuser:`kbx81`
+    - (Maybe?) fix I2S speaker internal DAC mode :esphomepr:`9435` by :ghuser:`pzich`
+    - [lvgl] Post-process size arguments in meter config :esphomepr:`9466` by :ghuser:`pzich`
+    - Automatically disable interrupts for ESP8266 GPIO16 binary sensors :esphomepr:`9467` by :ghuser:`bdraco`
+    - [substitutions] Fix #7189 :esphomepr:`9469` by :ghuser:`jpeletier`
+    - [esp_ldo] Component schema; default priority :esphomepr:`9479` by :ghuser:`clydebarrow`
+    - Follow logging best practices by removing redundant component prefix :esphomepr:`9481` by :ghuser:`bdraco`
+    - Fix dormant bug in RAMAllocator::reallocate() manual_size calculation :esphomepr:`9482` by :ghuser:`bdraco`
 
 Dependency Changes
 ^^^^^^^^^^^^^^^^^^
