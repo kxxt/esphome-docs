@@ -483,6 +483,8 @@ Beta Changes
     - Add missing clang-tidy NOLINT comments for ArduinoJson v7 in IDF webserver :esphomepr:`9508` by :ghuser:`bdraco`
     - [core] Don't issue -Wno-volatile for host platform :esphomepr:`9511` by :ghuser:`clydebarrow`
     - [component] Fix ``is_ready`` flag when loop disabled :esphomepr:`9501` by :ghuser:`jesserockz`
+    - Fix timing overflow when components disable themselves during loop :esphomepr:`9529` by :ghuser:`bdraco`
+    - [as3935_spi] remove unnecessary includes :esphomepr:`9528` by :ghuser:`ssieb`
 
 All changes
 ^^^^^^^^^^^
@@ -758,6 +760,8 @@ All changes
     - Add missing clang-tidy NOLINT comments for ArduinoJson v7 in IDF webserver :esphomepr:`9508` by :ghuser:`bdraco`
     - [core] Don't issue -Wno-volatile for host platform :esphomepr:`9511` by :ghuser:`clydebarrow`
     - [component] Fix ``is_ready`` flag when loop disabled :esphomepr:`9501` by :ghuser:`jesserockz`
+    - Fix timing overflow when components disable themselves during loop :esphomepr:`9529` by :ghuser:`bdraco`
+    - [as3935_spi] remove unnecessary includes :esphomepr:`9528` by :ghuser:`ssieb`
 
 Dependency Changes
 ^^^^^^^^^^^^^^^^^^
