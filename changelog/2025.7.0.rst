@@ -375,6 +375,22 @@ and configurations that need to adapt based on device capabilities or user prefe
 For complete documentation and more examples, see the :doc:`/components/substitutions` guide.
 
 
+ArduinoJson Library 7.x
+-----------------------
+
+.. warning::
+
+    **Breaking Change:** The ArduinoJson library has been upgraded from version 6.x to 7.2.0, introducing
+    breaking changes that may affect custom components and external integrations.
+
+ESPHome 2025.7.0 upgrades the ArduinoJson library to version 7.2.0, bringing performance improvements and
+reduced memory usage. Most users will not be affected as all standard ESPHome components have been updated.
+However, if you have external components, or lambdas that directly use ArduinoJson, you may need
+to update your code.
+
+For detailed migration information, see the `ArduinoJson migration guide <https://arduinojson.org/news/2023/08/26/version-7-0-0/>`__.
+
+
 Full list of changes
 --------------------
 
@@ -467,6 +483,8 @@ Beta Changes
     - Add missing clang-tidy NOLINT comments for ArduinoJson v7 in IDF webserver :esphomepr:`9508` by :ghuser:`bdraco`
     - [core] Don't issue -Wno-volatile for host platform :esphomepr:`9511` by :ghuser:`clydebarrow`
     - [component] Fix ``is_ready`` flag when loop disabled :esphomepr:`9501` by :ghuser:`jesserockz`
+    - Fix timing overflow when components disable themselves during loop :esphomepr:`9529` by :ghuser:`bdraco`
+    - [as3935_spi] remove unnecessary includes :esphomepr:`9528` by :ghuser:`ssieb`
 
 All changes
 ^^^^^^^^^^^
@@ -742,6 +760,8 @@ All changes
     - Add missing clang-tidy NOLINT comments for ArduinoJson v7 in IDF webserver :esphomepr:`9508` by :ghuser:`bdraco`
     - [core] Don't issue -Wno-volatile for host platform :esphomepr:`9511` by :ghuser:`clydebarrow`
     - [component] Fix ``is_ready`` flag when loop disabled :esphomepr:`9501` by :ghuser:`jesserockz`
+    - Fix timing overflow when components disable themselves during loop :esphomepr:`9529` by :ghuser:`bdraco`
+    - [as3935_spi] remove unnecessary includes :esphomepr:`9528` by :ghuser:`ssieb`
 
 Dependency Changes
 ^^^^^^^^^^^^^^^^^^
