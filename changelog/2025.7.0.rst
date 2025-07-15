@@ -375,6 +375,22 @@ and configurations that need to adapt based on device capabilities or user prefe
 For complete documentation and more examples, see the :doc:`/components/substitutions` guide.
 
 
+ArduinoJson Library 7.x
+-----------------------
+
+.. warning::
+
+    **Breaking Change:** The ArduinoJson library has been upgraded from version 6.x to 7.2.0, introducing
+    breaking changes that may affect custom components and external integrations.
+
+ESPHome 2025.7.0 upgrades the ArduinoJson library to version 7.2.0, bringing performance improvements and
+reduced memory usage. Most users will not be affected as all standard ESPHome components have been updated.
+However, if you have external components, or lambdas that directly use ArduinoJson, you may need
+to update your code.
+
+For detailed migration information, see the `ArduinoJson migration guide <https://arduinojson.org/news/2023/08/26/version-7-0-0/>`__.
+
+
 Full list of changes
 --------------------
 
