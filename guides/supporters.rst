@@ -1183,6 +1183,7 @@ Contributors
 - `A. Lochotzke (@lochotzke) <https://github.com/lochotzke>`__
 - `Lode Vermeiren (@lodev) <https://github.com/lodev>`__
 - `Barry Loong (@loongyh) <https://github.com/loongyh>`__
+- `Christian Glombek (@LorbusChris) <https://github.com/LorbusChris>`__
 - `Michael Bisbjerg (@LordMike) <https://github.com/LordMike>`__
 - `lorenzspenger (@lorenzspenger) <https://github.com/lorenzspenger>`__
 - `Leonid Lunin (@lrlunin) <https://github.com/lrlunin>`__
@@ -2180,4 +2181,4 @@ Contributors
 - `Christian Zufferey (@zuzu59) <https://github.com/zuzu59>`__
 - `Zynth-dev (@Zynth-dev) <https://github.com/Zynth-dev>`__
 
-*This page was last updated July 15, 2025.*
+*This page was last updated July 16, 2025.*
