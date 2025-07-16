@@ -388,7 +388,7 @@ reduced memory usage. Most users will not be affected as all standard ESPHome co
 However, if you have external components, or lambdas that directly use ArduinoJson, you may need
 to update your code.
 
-For detailed migration information, see the `ArduinoJson migration guide <https://arduinojson.org/news/2023/08/26/version-7-0-0/>`__.
+For detailed migration information, see the `ArduinoJson migration guide <https://arduinojson.org/v7/how-to/upgrade-from-v6/>`__.
 
 
 Full list of changes
