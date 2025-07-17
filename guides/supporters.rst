@@ -263,6 +263,7 @@ Contributors
 - `Blake (@bmatheny) <https://github.com/bmatheny>`__
 - `Bruno Medici (@bmedici) <https://github.com/bmedici>`__
 - `Bob (@Bmooij) <https://github.com/Bmooij>`__
+- `Bjørn Mork (@bmork) <https://github.com/bmork>`__
 - `Benjamin Klotz (@bnw) <https://github.com/bnw>`__
 - `Bob Kersten (@bobkersten) <https://github.com/bobkersten>`__
 - `Bodmer (@Bodmer) <https://github.com/Bodmer>`__
@@ -1336,6 +1337,7 @@ Contributors
 - `Midbin (@Midbin) <https://github.com/Midbin>`__
 - `Pauline Middelink (@middelink) <https://github.com/middelink>`__
 - `Joel Midstjärna (@midstar) <https://github.com/midstar>`__
+- `Big Mike (@mikelawrence) <https://github.com/mikelawrence>`__
 - `Mike_Went (@MikeWent) <https://github.com/MikeWent>`__
 - `Mikko Tervala (@MikkoTervala) <https://github.com/MikkoTervala>`__
 - `mikosoft83 (@mikosoft83) <https://github.com/mikosoft83>`__
@@ -2181,4 +2183,4 @@ Contributors
 - `Christian Zufferey (@zuzu59) <https://github.com/zuzu59>`__
 - `Zynth-dev (@Zynth-dev) <https://github.com/Zynth-dev>`__
 
-*This page was last updated July 16, 2025.*
+*This page was last updated July 17, 2025.*

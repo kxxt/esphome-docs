@@ -391,6 +391,21 @@ to update your code.
 For detailed migration information, see the `ArduinoJson migration guide <https://arduinojson.org/v7/how-to/upgrade-from-v6/>`__.
 
 
+Release 2025.7.1 - July 17
+--------------------------
+
+.. collapse:: Show
+    :open:
+
+    - [lvgl]: fix missing await keyword in meter tick_style width processing :esphomepr:`9538` by :ghuser:`theshut`
+    - Fix compilation error when using string lambdas with homeassistant services :esphomepr:`9543` by :ghuser:`bdraco`
+    - Fix format string warnings in Web Server OTA component :esphomepr:`9569` by :ghuser:`bdraco`
+    - Add helpful error message when ESP32+Arduino runs out of flash space :esphomepr:`9580` by :ghuser:`bdraco`
+    - Allow disabling OTA for web_server while keeping it enabled for captive_portal :esphomepr:`9583` by :ghuser:`bdraco`
+    - [esp32] Add missing include for helpers :esphomepr:`9579` by :ghuser:`jesserockz`
+    - Fix lwIP thread safety assertion failures on ESP32 :esphomepr:`9570` by :ghuser:`bdraco`
+
+
 Full list of changes
 --------------------
 
