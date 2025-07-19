@@ -185,6 +185,7 @@ Contributors
 - `Achilleas Pipinellis (@axilleas) <https://github.com/axilleas>`__
 - `Kamil Trzciński (@ayufan) <https://github.com/ayufan>`__
 - `Nicholas Peters (@Azimath) <https://github.com/Azimath>`__
+- `Flo (@AzonInc) <https://github.com/AzonInc>`__
 - `Daniel (@azrael783) <https://github.com/azrael783>`__
 - `azrdev (@azrdev) <https://github.com/azrdev>`__
 - `b068931cc450442b63f5b3d276ea4297 (@b068931cc450442b63f5b3d276ea4297) <https://github.com/b068931cc450442b63f5b3d276ea4297>`__
@@ -1961,6 +1962,7 @@ Contributors
 - `Alan Lord (@theopensourcerer) <https://github.com/theopensourcerer>`__
 - `Simon (@theOzzieRat) <https://github.com/theOzzieRat>`__
 - `Brian Levinsen (@therealeldaria) <https://github.com/therealeldaria>`__
+- `Vladimir Kuznetsov (@theshut) <https://github.com/theshut>`__
 - `thevogoncoder (@thevogoncoder) <https://github.com/thevogoncoder>`__
 - `Steve Scott (@thewishy) <https://github.com/thewishy>`__
 - `Zachery Notz (@TheZackCodec) <https://github.com/TheZackCodec>`__
@@ -2183,4 +2185,4 @@ Contributors
 - `Christian Zufferey (@zuzu59) <https://github.com/zuzu59>`__
 - `Zynth-dev (@Zynth-dev) <https://github.com/Zynth-dev>`__
 
-*This page was last updated July 17, 2025.*
+*This page was last updated July 19, 2025.*

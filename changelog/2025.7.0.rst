@@ -406,6 +406,28 @@ Release 2025.7.1 - July 17
     - Fix lwIP thread safety assertion failures on ESP32 :esphomepr:`9570` by :ghuser:`bdraco`
 
 
+Release 2025.7.2 - July 19
+--------------------------
+
+.. collapse:: Show
+    :open:
+
+    - Fix template event web_server crash :esphomepr:`9618` by :ghuser:`AzonInc`
+    - [api] Fix compilation error with char* lambdas in HomeAssistant services :esphomepr:`9638` by :ghuser:`bdraco`
+    - [wireguard] Fix boot loop when CONFIG_LWIP_TCPIP_CORE_LOCKING is enabled :esphomepr:`9637` by :ghuser:`bdraco`
+    - [scheduler] Fix cancellation of timers with empty string names :esphomepr:`9641` by :ghuser:`bdraco`
+    - [logger] fix on_message :esphomepr:`9642` by :ghuser:`ssieb`
+    - esp32_camera: deprecate i2c_pins; throw error if combined with i2c: block :esphomepr:`9615` by :ghuser:`RubenKelevra`
+    - [scheduler] Fix DelayAction cancellation in restart mode scripts :esphomepr:`9646` by :ghuser:`bdraco`
+    - [lvgl] Fix meter rotation :esphomepr:`9605` by :ghuser:`clydebarrow`
+    - [libretiny] Remove unsupported lock-free queue and event pool implementations :esphomepr:`9653` by :ghuser:`bdraco`
+    - [lvgl] Prevent keyerror on min/max value widgets with no default :esphomepr:`9660` by :ghuser:`jesserockz`
+    - Fix AsyncTCP version mismatch between platformio.ini and async_tcp component :esphomepr:`9676` by :ghuser:`bdraco`
+    - [speaker] Media player's pipeline properly returns playing state near end of file :esphomepr:`9668` by :ghuser:`kahrendt`
+    - [voice_assistant] Use media player callbacks to track TTS response status :esphomepr:`9670` by :ghuser:`kahrendt`
+    - [gpio] Disable interrupt mode by default for LibreTiny platforms :esphomepr:`9687` by :ghuser:`bdraco`
+
+
 Full list of changes
 --------------------
 
