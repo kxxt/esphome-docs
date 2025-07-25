@@ -760,6 +760,7 @@ Display Hardware Platforms
 .. imgtable::
 
     Addressable Light, components/display/addressable_light, addressable_light.jpg
+    MIPI DSI Displays, components/display/mipi_dsi, tab5.jpg
     MIPI SPI Displays, components/display/mipi_spi, t4-s3.jpg
     ILI9xxx, components/display/ili9xxx, ili9341.jpg
     ILI9341, components/display/ili9xxx, ili9341.svg
