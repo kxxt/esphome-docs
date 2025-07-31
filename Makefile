@@ -48,6 +48,7 @@ convert-from-rst:
 
 convert-branch-in-place:
 	sh tools/migrate.sh
+	python3 tools/version.py
 
 
 pagefind-binary:
