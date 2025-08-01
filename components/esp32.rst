@@ -129,6 +129,9 @@ Advanced Configuration
   disabling LWIP assertions. Defaults to ``true`` (as recommended by Espressif). See
   `Espressif's documentation <https://docs.espressif.com/projects/esp-idf/en/v5.3.3/esp32/api-reference/kconfig.html#config-lwip-esp-lwip-assert>`__
   for more information.
+- **execute_from_psram** (*Optional*, boolean): On ESP32S3 only may be set to ``true`` to enable executing code from PSRAM.
+  With octal PSRAM this can be faster than executing from FLASH memory, and enables code such as display drawing
+  to execute normally when writing to FLASH, e.g. during an OTA update. The default is ``false``.
 - **ignore_efuse_custom_mac** (*Optional*, boolean): Can be set to ``true`` for devices on which the burned-in custom
   MAC address is not valid.
 - **ignore_efuse_mac_crc** (*Optional*, boolean): Can be set to ``true`` for devices on which the burned-in MAC
