@@ -296,6 +296,7 @@ Contributors
 - `Ruben Brites (@Brites89) <https://github.com/Brites89>`__
 - `Ben Brooks (@brooksben11) <https://github.com/brooksben11>`__
 - `brtchip-tuannguyen (@brtchip-tuannguyen) <https://github.com/brtchip-tuannguyen>`__
+- `bruvv (@bruvv) <https://github.com/bruvv>`__
 - `Vaclav (@bruxy70) <https://github.com/bruxy70>`__
 - `Bernhard Tittelbach (@btittelbach) <https://github.com/btittelbach>`__
 - `buddydvd (@buddydvd) <https://github.com/buddydvd>`__
@@ -398,6 +399,7 @@ Contributors
 - `James Crook (@cooljimy84) <https://github.com/cooljimy84>`__
 - `Cooper Dale (@Cooper-Dale) <https://github.com/Cooper-Dale>`__
 - `copercini (@copercini) <https://github.com/copercini>`__
+- `GitHub Copilot (@Copilot) <https://github.com/Copilot>`__
 - `Corban Mailloux (@corbanmailloux) <https://github.com/corbanmailloux>`__
 - `Bertrand Roussel (@CoRfr) <https://github.com/CoRfr>`__
 - `Dmitry Berezovsky (@corvis) <https://github.com/corvis>`__
@@ -412,6 +414,7 @@ Contributors
 - `Corey Rice (@crice009) <https://github.com/crice009>`__
 - `crp500 (@crp500) <https://github.com/crp500>`__
 - `cryptelli (@cryptelli) <https://github.com/cryptelli>`__
+- `cryptk (@cryptk) <https://github.com/cryptk>`__
 - `cs-xm (@cs-xm) <https://github.com/cs-xm>`__
 - `Christian Schwarzgruber (@cslux) <https://github.com/cslux>`__
 - `cstaahl (@cstaahl) <https://github.com/cstaahl>`__
@@ -754,6 +757,7 @@ Contributors
 - `Giampiero Baggiani (@giampiero7) <https://github.com/giampiero7>`__
 - `Gideon Kanikevich (@gid204) <https://github.com/gid204>`__
 - `Giel Janssens (@gieljnssns) <https://github.com/gieljnssns>`__
+- `GilDev (@GilDev) <https://github.com/GilDev>`__
 - `Giovanni (@Gio-dot) <https://github.com/Gio-dot>`__
 - `Giovanni (@gio-dot) <https://github.com/gio-dot>`__
 - `git2212 (@git2212) <https://github.com/git2212>`__
@@ -848,6 +852,7 @@ Contributors
 - `Hobby Components (@HobbyComponents) <https://github.com/HobbyComponents>`__
 - `Marcel Hoppe (@hobbypunk90) <https://github.com/hobbypunk90>`__
 - `Sebastian Raff (@hobbyquaker) <https://github.com/hobbyquaker>`__
+- `Eric Hoffmann (@Hofferic) <https://github.com/Hofferic>`__
 - `MoA (@honomoa) <https://github.com/honomoa>`__
 - `Hopperpop (@Hopperpop) <https://github.com/Hopperpop>`__
 - `Ilia Sotnikov (@hostcc) <https://github.com/hostcc>`__
@@ -2195,4 +2200,4 @@ Contributors
 - `Christian Zufferey (@zuzu59) <https://github.com/zuzu59>`__
 - `Zynth-dev (@Zynth-dev) <https://github.com/Zynth-dev>`__
 
-*This page was last updated July 28, 2025.*
+*This page was last updated August 5, 2025.*
