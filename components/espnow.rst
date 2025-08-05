@@ -33,8 +33,7 @@ Configuration variables:
 Automations:
 
 - **on_receive** (*Optional*, :ref:`Automation <automation>`): An automation to perform when data is received. See :ref:`espnow-on_receive`.
-- **on_unknown_peer** (*Optional*, :ref:`Automation <automation>`): An automation to perform when data is received from an unknown peer.
-  Cannot be used when ``auto_add_peer`` is set to ``true``. See :ref:`espnow-on_unknown_peer`.
+- **on_unknown_peer** (*Optional*, :ref:`Automation <automation>`): An automation to perform when data is received from an unknown peer. See :ref:`espnow-on_unknown_peer`.
 - **on_broadcast** (*Optional*, :ref:`Automation <automation>`): An automation to perform when a broadcast packet is received.
   See :ref:`espnow-on_broadcast`.
 
@@ -76,7 +75,7 @@ Configuration variables:
 ``on_unknown_peer``
 *******************
 
-This automation will be triggered when data is received from a peer that is not in the list of known peers.
+This automation will be triggered when data is received from a peer that is not in the list of known peers. This trigger gives you one possibility to decide if the unknown peer can be added or not.
 
 .. _espnow-on_broadcast:
 
@@ -118,13 +117,16 @@ Configuration variables:
 
 - **address** (**Required**, :ref:`templatable <config-templatable>`, MAC Address): The MAC address of the receiving device to send to.
 - **data** (**Required**, :ref:`templatable <config-templatable>`, string or list of bytes): The data to be sent.
-- **on_sent** (*Optional*, :ref:`Automation <automation>`): An automation to perform when the data is sent successfully.
 - **wait_for_sent** (*Optional*, boolean): The automation will wait for the data to be sent and for the ``on_sent`` or ``on_error``
   actions to be finished before continuing with the next action.
   Defaults to ``true``.
-- **on_error** (*Optional*, :ref:`Automation <automation>`): An automation to perform when the data could not be sent.
 - **continue_on_error** (*Optional*, boolean): If set to ``false``, the next action will not be triggered if the data could not be sent.
   Defaults to ``true``.
+
+Automations:
+
+- **on_sent** (*Optional*, :ref:`Automation <automation>`): An automation to perform when the data is sent successfully.
+- **on_error** (*Optional*, :ref:`Automation <automation>`): An automation to perform when the data could not be sent.
 
 
 .. _espnow-broadcast-action:
@@ -189,6 +191,24 @@ Configuration variables:
 
 - **address** (**Required**, MAC Address): The Peer address that needs to be removed from the list of allowed peers.
 
+.. _espnow-set_channel-action:
+
+``espnow.set_channel`` Action
+*****************************
+
+This is an :ref:`Action <config-action>` to change the channel that espnow is sending and receiving on.
+
+.. code-block:: yaml
+
+    on_...:
+      - espnow.set_channel:
+          channel: 1
+      - espnow.set_channel: 1
+
+Configuration variables:
+
+- **channel** (**Required**, int): This can be a value between ``0`` and ``15``. The maximum channel number depends on the country or region where you are using the device (for example, channels 1-11 are allowed in the US and most of Europe, 1-13 in many other countries, and 1-14 in Japan). For details, see the `Wi-Fi channel regulations by country <https://en.wikipedia.org/wiki/List_of_WLAN_channels>`__ or consult the `Espressif ESP-NOW documentation <https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/network/esp_now.html>`__. ``0`` means that espnow will set the channel number itself (most of the time it would be ``1``).
+
 
 .. _espnow-peers:
 
@@ -203,6 +223,7 @@ will be an error when trying to send data to a peer.
 
 Setting ``auto_add_peer`` to ``true`` will allow the component to automatically add any incoming device as a peer, and will
 automatically add any peer that data is sent to.
+
 
 See Also
 --------
