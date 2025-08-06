@@ -11,7 +11,7 @@ git reset --hard migration-base
 git merge --no-commit --no-ff origin current
 git checkout HEAD -- Makefile
 git add -u
-git commit -m Merge current
+git commit -m "Merge current"
 
 
 # Convert and move
