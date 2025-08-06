@@ -37,6 +37,8 @@
   --admonition-tip-bg: #e8f8e5;
   --admonition-tip-border: #2ecc71;
   --admonition-tip-title: #2ecc71;
+  --admonition-warning-bg: #fff3cd;
+  --admonition-warning-border: #ffcc00;
 }
 
 [data-theme="dark"] {
@@ -64,6 +66,8 @@
   --admonition-tip-bg: #1d2a1d;
   --admonition-tip-border: #58d68d;
   --admonition-tip-title: #58d68d;
+  --admonition-warning-bg: #23272e;
+  --admonition-warning-border: #ffcc00;
   --logo-text-color: #FFFFFF;
 }
 
@@ -697,7 +701,6 @@ img {
   }
 
   .note, .tip, .warning, .caution, .important {
-    background: #23272e;
     color: #fff;
     border-color: #00979d;
   }
@@ -874,7 +877,6 @@ main {
 }
 
 .collapse-header {
-  background-color: #f3f6f6;
   padding: 0.75em 1em;
   cursor: pointer;
   display: flex;
@@ -951,7 +953,7 @@ main {
 }
 
 .admonition.warning, .admonition.caution, .admonition.important {
-   background-color: #fef5e7;
+   background-color: var(--admonition-warning-bg);
    border-color: #e67e22;
 }
 
