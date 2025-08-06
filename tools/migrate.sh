@@ -8,7 +8,10 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 # Remove previous migration
 git reset --hard migration-base
 #bring in latest
-git pull origin current
+git merge --no-commit --no-ff origin current
+git checkout HEAD -- Makefile
+git commit -m Merge current
+
 
 # Convert and move
 tools/convert_rst_to_md.py . . --replace
