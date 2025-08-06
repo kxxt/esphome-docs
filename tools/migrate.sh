@@ -10,6 +10,7 @@ git reset --hard migration-base
 #bring in latest
 git merge --no-commit --no-ff origin current
 git checkout HEAD -- Makefile
+git add -u
 git commit -m Merge current
 
 
