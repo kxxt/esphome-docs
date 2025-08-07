@@ -1100,6 +1100,10 @@ footer {
   flex-grow: 2;
 }
 
+.footer-logo div {
+  min-height: 200px;
+}
+
 .footer-logo img {
   width: 220px;
   height: 49px;
