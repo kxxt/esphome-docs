@@ -324,6 +324,7 @@ img {
 }
 
 .toc-sort-button {
+  z-index: 1001;
   right: 0.7rem;
   top: 0.7em;
   background: none;

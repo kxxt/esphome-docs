@@ -38,7 +38,6 @@ function closeTOC() {
     overlay.classList.remove('show');
 }
 
-// Add keyboard support for dropdown menus
 document.addEventListener('DOMContentLoaded', function() {
     function setTocSort(sort) {
         document.documentElement.setAttribute('data-toc-sort', sort);
@@ -46,10 +45,13 @@ document.addEventListener('DOMContentLoaded', function() {
         closeMenu();
     }
 
-    const sortToggle = document.querySelector('.toc-sort-button');
-    sortToggle.addEventListener('click', () => {
-        const currentSort = document.documentElement.getAttribute('data-toc-sort');
-        setTocSort(currentSort === 'alphabetic' ? 'linear' : 'alphabetic');
+    const sortToggles = document.getElementsByClassName('toc-sort-button');
+    Array.from(sortToggles).forEach(toggle => {
+        toggle.addEventListener('click', event => {
+            event.stopPropagation();
+            const currentSort = document.documentElement.getAttribute('data-toc-sort');
+            setTocSort(currentSort === 'alphabetic' ? 'linear' : 'alphabetic');
+        });
     });
 
 
