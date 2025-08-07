@@ -8,8 +8,8 @@
     <nav class="sidebar-nav">
         {{ if .Fragments }}
             {{ if .Fragments.Headings }}
-                <button class="toc-sort-button theme-toggle" aria-label="Toggle sort order" title="Toggle sort order">
-                    <svg class="toc-alphabetic" width="20px" height="20px" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg"
+                <button class="toc-sort-button" aria-label="Toggle sort order" title="Toggle sort order">
+                    <svg class="toc-alphabetic dark-invert" width="20px" height="20px" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg"
                          xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
                          style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:1.5;">
                             <g transform="matrix(1,0,0,0.914735,-4.13954,30.1809)">
@@ -31,7 +31,7 @@
                             </text>
                         </g>
                     </svg>
-                    <svg class="toc-linear" width="20px" height="20px" viewBox="0 0 800 800"
+                    <svg class="toc-linear dark-invert" width="20px" height="20px" viewBox="0 0 800 800"
                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                          xml:space="preserve"
                          style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:1.5;">
@@ -63,12 +63,12 @@
                 </button>
                 {{ $headings := slice }}
                 {{ $start_level := 9 }}
-                {{ range .Fragments.HeadingsMap }}
-                    {{ if gt $start_level .Level }}
-                        {{ $start_level = .Level }}
-                    {{ end }}
-                {{ end }}
                 <ul class="toc-alphabetic">
+                    {{ range .Fragments.HeadingsMap }}
+                        {{ if gt $start_level .Level }}
+                            {{ $start_level = .Level }}
+                        {{ end }}
+                    {{ end }}
                     {{ range .Fragments.HeadingsMap }}
                         {{ if eq .Level $start_level }}
                             <li><a class="toc-entry" href="#{{ .ID }}">{{ .Title |  safeHTML }}</a>
@@ -85,19 +85,23 @@
                     {{ end }}
                 </ul>
                 <ul class="toc-linear">
-                    {{ range .Fragments.Headings }}
-                        {{ if eq .Level $start_level }}
-                            <li><a class="toc-entry" href="#{{ .ID }}">{{ .Title |  safeHTML }}</a>
-                                {{ if .Headings }}
-                                    <ul>
-                                        {{ range .Headings }}
-                                            {{ $headings := collections.Append .ID $headings }}
-                                            <li><a href="#{{ .ID }}">{{ .Title |  safeHTML }}</a></li>
-                                        {{ end }}
-                                    </ul>
-                                {{ end }}
-                            </li>
-                        {{ end }}
+                    {{ $headings := .Fragments.Headings }}
+                    {{ if and (gt (len $headings) 0) (eq (index $headings 0).Level 0) }}
+                        {{/* Case 1: First item is Level 0, use its .Headings */}}
+                        {{ $headings = (index $headings 0).Headings }}
+                    {{ end }}
+
+                    {{ range $headings }}
+                        <li><a class="toc-entry" href="#{{ .ID }}">{{ .Title |  safeHTML }}</a>
+                            {{ if .Headings }}
+                                <ul>
+                                    {{ range .Headings }}
+                                        {{ $headings := collections.Append .ID $headings }}
+                                        <li><a href="#{{ .ID }}">{{ .Title |  safeHTML }}</a></li>
+                                    {{ end }}
+                                </ul>
+                            {{ end }}
+                        </li>
                     {{ end }}
                 </ul>
             {{ end }}

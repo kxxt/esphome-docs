@@ -324,9 +324,13 @@ img {
 }
 
 .toc-sort-button {
+  right: 0.7rem;
+  top: 0.7em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
   position: absolute;
-  right: 0;
-  top: 1.5em;
 }
 [data-toc-sort="alphabetic"] .toc-alphabetic {
   display: block;
@@ -657,6 +661,9 @@ img {
   }
 
   img.dark-invert {
+    filter: invert(1.0);
+  }
+  svg.dark-invert {
     filter: invert(1.0);
   }
   .sticky-nav {
