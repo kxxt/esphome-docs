@@ -40,6 +40,18 @@ function closeTOC() {
 
 // Add keyboard support for dropdown menus
 document.addEventListener('DOMContentLoaded', function() {
+    function setTocSort(sort) {
+        document.documentElement.setAttribute('data-toc-sort', sort);
+        localStorage.setItem('toc-sort', sort);
+        closeMenu();
+    }
+
+    const sortToggle = document.querySelector('.toc-sort-button');
+    sortToggle.addEventListener('click', () => {
+        const currentSort = document.documentElement.getAttribute('data-toc-sort');
+        setTocSort(currentSort === 'alphabetic' ? 'linear' : 'alphabetic');
+    });
+
 
     function setTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
@@ -58,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tocToggle = document.getElementById('toc-toggle');
     const overlay = document.getElementById('overlay');
     if (tocToggle)
-        tocToggle.addEventListener('click', event => {
+        tocToggle.addEventListener('click',_ => {
             if (tocToggle.classList.contains("open"))
                 closeTOC();
             else

@@ -8,28 +8,97 @@
     <nav class="sidebar-nav">
         {{ if .Fragments }}
             {{ if .Fragments.Headings }}
+                <button class="toc-sort-button theme-toggle" aria-label="Toggle sort order" title="Toggle sort order">
+                    <svg class="toc-alphabetic" width="20px" height="20px" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+                         style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:1.5;">
+                            <g transform="matrix(1,0,0,0.914735,-4.13954,30.1809)">
+                            <g transform="matrix(1,-0,-0,1.09321,4.13954,-32.9941)">
+                                <path d="M356.605,447.266L199.105,657.266L41.605,447.266L356.605,447.266Z"></path>
+                                <path d="M199.105,142.734L199.105,489.266" style="fill:none;stroke:black;stroke-width:70px;"></path>
+                            </g>
+                        </g>
+                        <g transform="matrix(1.28546,0,0,1.24993,-175.898,-69.8762)">
+                            <text x="494.942px" y="325.959px"
+                                  style="font-family:'Arial-Black', 'Arial Black', sans-serif;font-weight:900;font-size:255.79px;">
+                                A
+                            </text>
+                            <g transform="matrix(255.79,0,0,255.79,686.785,581.748)">
+                            </g>
+                            <text x="502.061px" y="581.748px"
+                                  style="font-family:'Arial-Black', 'Arial Black', sans-serif;font-weight:900;font-size:255.79px;">
+                                Z
+                            </text>
+                        </g>
+                    </svg>
+                    <svg class="toc-linear" width="20px" height="20px" viewBox="0 0 800 800"
+                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         xml:space="preserve"
+                         style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:1.5;">
+                        <g transform="matrix(1,0,0,0.914735,-4.13954,30.1809)">
+                            <g transform="matrix(1,-0,-0,1.09321,4.13954,-32.9941)">
+                                <path d="M356.605,447.266L199.105,657.266L41.605,447.266L356.605,447.266Z"/>
+                                <path d="M199.105,142.734L199.105,489.266" style="fill:none;stroke:black;stroke-width:70px;"/>
+                            </g>
+                        </g>
+                        <g transform="matrix(1.05978,0,0,1.31704,-29.6607,-138.931)">
+                            <path d="M462.101,199.062L704.231,199.062" style="fill:none;stroke:black;stroke-width:29.28px;stroke-linecap:round;"/>
+                        </g>
+                        <g transform="matrix(1.05978,0,0,1.31704,-29.6607,-33.5681)">
+                            <path d="M462.101,199.062L704.231,199.062" style="fill:none;stroke:black;stroke-width:29.28px;stroke-linecap:round;"/>
+                        </g>
+                        <g transform="matrix(1.05978,0,0,1.31704,-29.6607,71.7947)">
+                            <path d="M462.101,199.062L704.231,199.062" style="fill:none;stroke:black;stroke-width:29.28px;stroke-linecap:round;"/>
+                        </g>
+                        <g transform="matrix(1.05978,0,0,1.31704,-29.6607,177.158)">
+                            <path d="M462.101,199.062L704.231,199.062" style="fill:none;stroke:black;stroke-width:29.28px;stroke-linecap:round;"/>
+                        </g>
+                        <g transform="matrix(1.05978,0,0,1.31704,-29.6607,282.52)">
+                            <path d="M462.101,199.062L704.231,199.062" style="fill:none;stroke:black;stroke-width:29.28px;stroke-linecap:round;"/>
+                        </g>
+                        <g transform="matrix(1.05978,0,0,1.31704,-29.6607,387.883)">
+                            <path d="M462.101,199.062L704.231,199.062" style="fill:none;stroke:black;stroke-width:29.28px;stroke-linecap:round;"/>
+                        </g>
+                    </svg>
+                </button>
                 {{ $headings := slice }}
-                <ul>
-                    {{ $start_level := 9 }}
+                {{ $start_level := 9 }}
                 {{ range .Fragments.HeadingsMap }}
                     {{ if gt $start_level .Level }}
                         {{ $start_level = .Level }}
                     {{ end }}
                 {{ end }}
-                {{ range .Fragments.HeadingsMap }}
-                    {{ if eq .Level $start_level }}
-                        <li><a class="toc-entry" href="#{{ .ID }}">{{ .Title |  safeHTML }}</a>
-                            {{ if .Headings }}
-                                <ul>
-                                {{ range .Headings }}
-                                    {{ $headings := collections.Append .ID $headings }}
-                                    <li><a href="#{{ .ID }}">{{ .Title |  safeHTML }}</a></li>
+                <ul class="toc-alphabetic">
+                    {{ range .Fragments.HeadingsMap }}
+                        {{ if eq .Level $start_level }}
+                            <li><a class="toc-entry" href="#{{ .ID }}">{{ .Title |  safeHTML }}</a>
+                                {{ if .Headings }}
+                                    <ul>
+                                    {{ range .Headings }}
+                                        {{ $headings := collections.Append .ID $headings }}
+                                        <li><a href="#{{ .ID }}">{{ .Title |  safeHTML }}</a></li>
+                                    {{ end }}
+                                    </ul>
                                 {{ end }}
-                                </ul>
+                            </li>
                             {{ end }}
-                        </li>
+                    {{ end }}
+                </ul>
+                <ul class="toc-linear">
+                    {{ range .Fragments.Headings }}
+                        {{ if eq .Level $start_level }}
+                            <li><a class="toc-entry" href="#{{ .ID }}">{{ .Title |  safeHTML }}</a>
+                                {{ if .Headings }}
+                                    <ul>
+                                        {{ range .Headings }}
+                                            {{ $headings := collections.Append .ID $headings }}
+                                            <li><a href="#{{ .ID }}">{{ .Title |  safeHTML }}</a></li>
+                                        {{ end }}
+                                    </ul>
+                                {{ end }}
+                            </li>
                         {{ end }}
-                {{ end }}
+                    {{ end }}
                 </ul>
             {{ end }}
         {{ end }}
