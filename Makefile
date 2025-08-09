@@ -33,7 +33,7 @@ repo-data: directories
 
 live-html:	anchors
 	npx pagefind
-	hugo server --bind 0.0.0.0
+	hugo server --bind 0.0.0.0 --baseURL http://localhost:1313
 
 clean:
 	rm -rf "public/*"

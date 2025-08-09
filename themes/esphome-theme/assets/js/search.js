@@ -68,7 +68,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const wrapper = new El("li").class("pagefind-modular-list-result");
         wrapper.handle("click", closeResults);
 
-        const thumb = new El("div").class("pagefind-modular-list-thumb").addTo(wrapper);
+        const locations = result.weighted_locations.sort((a, b) => b.weight - a.weight);
+        const url = getLink(locations[0]?.location, result.anchors, result.url) || result.meta?.url || result.url;
+        const thumb = new El("a").class("pagefind-modular-list-thumb").attrs({href: url}).addTo(wrapper);
         let image = result?.meta?.image;
         if (image) {
             if (image.includes("/_images/"))
@@ -85,12 +87,10 @@ document.addEventListener('DOMContentLoaded', function() {
             href: result.meta?.url || result.url
         }).addTo(title);
 
-        const excerpt = new El("p").class("pagefind-modular-list-excerpt").addTo(inner);
-        const locations = result.weighted_locations.sort((a, b) => b.weight - a.weight);
-        const url = getLink(locations[0]?.location, result.anchors, result.url) || result.meta?.url || result.url;
-        new El("a").class("pagefind-modular-list-link").html(result.excerpt).attrs({
+        const excerpt =new El("a").class("pagefind-modular-list-link").attrs({
             href: url
-        }).addTo(excerpt);
+        }).addTo(inner);
+        new El("p").class("pagefind-modular-list-excerpt").html(result.excerpt).addTo(excerpt);
 
         return wrapper.element;
     }
@@ -155,6 +155,9 @@ document.addEventListener('DOMContentLoaded', function() {
             closeResults();
         }
     });
+
+
+
 // Create clear button
     const clearButton = document.createElement('button');
     clearButton.type = 'button';
@@ -189,6 +192,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     searchInput.addEventListener('focusin', () => {
         navContainer.style.transform = `translateY(0)`;
+        if (searchInput.value.length > 0)
+            setTimeout(_ => { instance.triggerSearch(searchInput.value); }, 400);
     });
     searchInput.addEventListener('beforeinput', () => {
         navContainer.style.transform = `translateY(0)`;
