@@ -38,7 +38,7 @@
         <div class="component-card">
           <a href="{{ $link | relURL }}">
             <div class="component-icon">
-                {{ partial "image.html" (dict "src" $image "page" $.Page "style" $style "alt" $title) }}
+                {{ partial "image.html" (dict "src" $image "page" $.Page "style" $style "alt" "") }}
             </div>
               <!-- Allow words to break on non-alphabetic characters -->
               {{ $broke_title := replaceRE `([^[:alpha:]])` `${1}&#x200B;` $title | safeHTML }}
@@ -71,7 +71,7 @@
       <a href="{{ $link | relURL }}">
         <div class="component-icon">
             <!-- Since the title is in the following text, use an empty alt -->
-            {{ partial "image.html" (dict "src" $image "page" $.Page "style" $style "alt" "") }}
+            {{ partial "image.html" (dict "src" $image "page" $.Page "style" $style "alt" "isalt") }}
         </div>
         <div class="component-name">{{ $title }}</div>
       </a>
