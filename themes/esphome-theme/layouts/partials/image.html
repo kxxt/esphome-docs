@@ -59,13 +59,12 @@
             </figure>
         </noscript>
         {{ $srclist := delimit $src_set ", " }}
-        <figure class="{{ .classes }} lazy">
+        <figure role="none" class="{{ .classes }} lazy">
             {{ if .href }}
             <a href='{{ .href }}'>
                 {{ end }}
                 <img class="lazyload w-100 h-100" data-sizes="auto" src="{{ $image.RelPermalink }}" {{ if .width }}width="{{.width}}" {{ end }}
                      fetchpriority=high
-                     role="none"
                      {{ $style }}
                      srcset="data:image/jpeg;base64,{{ $placeholder.Content | base64Encode }}"
                      data-src="{{ $image.RelPermalink }}"
