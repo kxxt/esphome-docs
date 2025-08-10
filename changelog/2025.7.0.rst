@@ -460,6 +460,18 @@ Release 2025.7.4 - July 28
     - Fail with old lerp :esphomepr:`9914` by :ghuser:`HeMan`
 
 
+Release 2025.7.5 - August 5
+---------------------------
+
+.. collapse:: Show
+    :open:
+
+    - [lvgl] Bugfix for tileview :esphomepr:`9938` by :ghuser:`clydebarrow`
+    - [api] Fix OTA progress updates not being sent when main loop is blocked :esphomepr:`10049` by :ghuser:`bdraco`
+    - [font] Catch file load exception :esphomepr:`10058` by :ghuser:`clydebarrow`
+    - [i2s_audio] Use high-pass filter for dc offset correction :esphomepr:`10005` by :ghuser:`doobry`
+
+
 Full list of changes
 --------------------
 
