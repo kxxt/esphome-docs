@@ -440,6 +440,7 @@ img {
 }
 .nav-logo img, .nav-logo svg {
   height: 30px;
+  max-width: 150px;
   padding: 0;
   width: fit-content;
 }
@@ -1201,7 +1202,7 @@ footer {
 }
 
 .component-icon img {
-  min-width: 80%;
+  min-width: 120px;
   max-height: 100%;
   max-width: 100%;
 }
