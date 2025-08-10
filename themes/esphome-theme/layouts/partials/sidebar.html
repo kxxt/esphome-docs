@@ -110,7 +110,7 @@
                 </ul>
             {{ end }}
         {{ end }}
-        {{ if .Pages }}
+        {{ if and (ne .Params.description "main documentation") .Pages }}
             <h3>In this section</h3>
             <ul class="section-list">
                 {{ range .Pages }}

@@ -1196,7 +1196,6 @@ footer {
 }
 
 .component-icon {
-  margin-bottom: auto;
   margin-top: auto;
 }
 
@@ -1208,8 +1207,9 @@ footer {
 
 .component-name {
   font-weight: bold;
-  margin-bottom: 0.5em;
   margin-top: auto;
+  min-height: 3.5rem;
+  line-height: 1.3rem;
 }
 
 .component-card h2, .component-card h3, .component-card p, .component-card a {
