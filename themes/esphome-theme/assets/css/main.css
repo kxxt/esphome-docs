@@ -323,7 +323,7 @@ img {
 .toc-sort-button {
   z-index: 1001;
   right: 0.7rem;
-  top: 0.7em;
+  top: 1.5em;
   background: none;
   border: none;
   cursor: pointer;
@@ -420,7 +420,6 @@ img {
   margin: 0 auto;
   background-color: var(--nav-bg);
   color: var(--nav-text);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
 
 .sticky-nav button svg {

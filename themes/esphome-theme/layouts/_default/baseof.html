@@ -69,7 +69,7 @@
 <body class="body">
 <div class="page-container">
     <div class="nav-container" id="nav-container">
-        <nav class="sticky-nav">
+        <nav id="sticky-nav"class="sticky-nav">
             {{ if and (ne .IsHome true) (.Content) }}
                 <button type="button" class="toc-button" id="toc-toggle" aria-label="Open table of contents"
                         aria-expanded="false">
