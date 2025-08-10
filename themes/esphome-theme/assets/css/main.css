@@ -272,7 +272,7 @@ img {
 }
 
 .sidebar-nav li {
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
   & li {
     margin-bottom: 0;
   }

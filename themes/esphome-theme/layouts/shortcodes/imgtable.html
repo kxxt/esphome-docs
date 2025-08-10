@@ -70,12 +70,11 @@
     <div class="component-card">
       <a href="{{ $link | relURL }}">
         <div class="component-icon">
-            {{ partial "image.html" (dict "src" $image "page" $.Page "style" $style "alt" $title) }}
+            <!-- Since the title is in the following text, use an empty alt -->
+            {{ partial "image.html" (dict "src" $image "page" $.Page "style" $style "alt" "") }}
         </div>
         <div class="component-name">{{ $title }}</div>
       </a>
     </div>
   {{ end }}
 </div>
-
-</style>
