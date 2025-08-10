@@ -19,7 +19,7 @@ function trapTouchScroll(el) {
 
     el.addEventListener('touchstart', (e) => {
         startY = e.touches[0].clientY;
-    });
+    }, {passive: true});
 
     el.addEventListener('touchmove', (e) => {
         const scrollTop = el.scrollTop;
@@ -34,7 +34,7 @@ function trapTouchScroll(el) {
         if ((atTop && deltaY > 0) || (atBottom && deltaY < 0)) {
             e.preventDefault();
         }
-    }, {passive: false});
+    }, {passive: true});
 }
 
 let originalSrcs = new Map(); // Store original base64 srcs
