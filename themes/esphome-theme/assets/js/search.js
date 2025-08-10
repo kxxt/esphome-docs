@@ -104,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
     searchInput.id = "frontpage-search";
     searchInput.placeholder = 'Search...';
     searchInput.className = 'pagefind-ui__search-input';
+    searchInput.ariaLabel = 'Search';
     searchContainer.appendChild(searchInput);
 
     const resultsContainer = document.getElementById('nav-search-results');
