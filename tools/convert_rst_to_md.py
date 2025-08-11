@@ -384,13 +384,19 @@ def convert_rst_to_md(lines, filename):
             handled = False
             for directive in ["note", "warning", "caution", "important", "tip"]:
                 if this_line.strip().startswith(f'.. {directive}::'):
-                    # Get the indentation level of the note directive
-                    result_lines.append(f"{{{{< {directive} >}}}}")
-                    current_idx, note_lines = get_indented_block(inner_lines, current_idx + 1, current_indent)
-                    note_lines = process_lines(note_lines)
-                    # Note blocks can't be indented.
-                    result_lines.extend(x[current_indent:] for x in note_lines)
-                    result_lines.append(f"{{{{< /{directive} >}}}}")
+                    if not this_line.strip().endswith(f'.. {directive}::'):
+                        result_lines.append(f"{{{{< {directive} >}}}}")
+                        result_lines.append(this_line.removeprefix(f'.. {directive}::').strip())
+                        result_lines.append(f"{{{{< /{directive} >}}}}")
+                        current_idx += 1
+                    else:
+                        # Get the indentation level of the note directive
+                        result_lines.append(f"{{{{< {directive} >}}}}")
+                        current_idx, note_lines = get_indented_block(inner_lines, current_idx + 1, current_indent)
+                        note_lines = process_lines(note_lines)
+                        # Note blocks can't be indented.
+                        result_lines.extend(x[current_indent:] for x in note_lines)
+                        result_lines.append(f"{{{{< /{directive} >}}}}")
                     handled = True
                     break
             if handled:
