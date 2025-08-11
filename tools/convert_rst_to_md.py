@@ -479,6 +479,7 @@ def convert_rst_to_md(lines, filename):
 
             processed_line = process_inline_markup(fixed_line)
             processed_line = replace_substitutions(processed_line)
+            processed_line = rst_unicode_to_markdown(processed_line)
 
 
             # Fix image paths in markdown content
@@ -579,8 +580,8 @@ def process_inline_markup(line):
     processed_line = line
     
     # Code
-    processed_line = replace_substitutions(processed_line)
-    processed_line = rst_unicode_to_markdown(processed_line)
+    #processed_line = replace_substitutions(processed_line)
+    #processed_line = rst_unicode_to_markdown(processed_line)
     processed_line = re.sub(r'``([^`]+)``', r'`\1`', processed_line)
     
     def footnote_ref_repl(match):
