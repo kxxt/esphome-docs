@@ -171,6 +171,20 @@ def get_heading(lines, index, heading_underlines):
         break
     return None, None, None
 
+def rst_unicode_to_markdown(text):
+    # Capture: optional text, optional whitespace, and one or more 0xAB sequences
+    pattern = re.compile(
+        r'unicode::\s*([^\d]*?)?\s*((?:0x[0-9A-Fa-f]+(?:\s+)?)+)'
+    )
+
+    def repl(match):
+        literal_text = (match.group(1) or '').rstrip()
+        codepoints = match.group(2).split()
+        chars = ''.join(chr(int(cp, 16)) for cp in codepoints)
+        return f"{literal_text}{chars}"
+
+    return pattern.sub(repl, text)
+
 
 def convert_rst_to_md(lines, filename):
     """Convert RST content to Markdown using line-by-line processing."""
@@ -565,6 +579,8 @@ def process_inline_markup(line):
     processed_line = line
     
     # Code
+    processed_line = replace_substitutions(processed_line)
+    processed_line = rst_unicode_to_markdown(processed_line)
     processed_line = re.sub(r'``([^`]+)``', r'`\1`', processed_line)
     
     def footnote_ref_repl(match):
@@ -657,7 +673,7 @@ def process_inline_markup(line):
 
     # External links
     processed_line = re.sub(r'`\s*([^`]*[^` ]+)\s*<([^`]+)>`_+', fr'[\1](\2)', processed_line)
-    processed_line = re.sub(r'^\.\. _([^:]+):\s*(http.*)$', r'[\1](\2)', processed_line)
+    processed_line = re.sub(r'^\.\. _([^:]+):\s*(http.*)$', r'', processed_line)
 
     if ":ghedit:" in processed_line:
         processed_line = ""
