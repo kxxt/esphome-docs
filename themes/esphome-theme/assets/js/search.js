@@ -72,9 +72,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const url = getLink(locations[0]?.location, result.anchors, result.url) || result.meta?.url || result.url;
         const thumb = new El("a").class("pagefind-modular-list-thumb").attrs({href: url}).addTo(wrapper);
         let image = result?.meta?.image;
-        if (image && !images.includes("images/icons/")) {
-            if (image.includes("/_images/"))
-                image = image.substring(image.indexOf("/_images/"));
+        console.log(result);
+        if (image && !image.toString().includes("images/icons/")) {
             new El("img").class("pagefind-modular-list-image").attrs({
                 src: image,
                 alt: result.meta.image_alt || result.meta.title
