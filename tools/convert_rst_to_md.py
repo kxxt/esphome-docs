@@ -5,7 +5,7 @@ This script helps migrate the ESPHome documentation from Sphinx to Hugo.
 """
 
 import os
-import sys
+from itertools import zip_longest
 import io
 import re
 import csv
@@ -1210,49 +1210,54 @@ def process_grid_table(lines, start_idx):
     has_pipe_separators = '+' in table_lines[0]
     
     if has_pipe_separators:
-        return process_pipe_separated_table(table_lines, i)
+        return process_pipe_separated_table(table_lines), i
     else:
         return process_whitespace_aligned_table(table_lines, i)
 
-def process_pipe_separated_table(table_lines, end_idx):
-    """Process a grid table with | separators."""
-    # Find header rows (rows with '=' characters)
-    new_rows = []
-    data_rows = []
-    columns = 0
-    for idx, line in enumerate(table_lines):
-        if '=' in line and all(c in '=+| ' for c in line):
-            new_rows.append("=")
-        elif '-' in line and all(c in '+-| ' for c in line):
-            new_rows.append("-")
+
+def process_pipe_separated_table(lines):
+    # Find border lines and split table into row-blocks
+    rows = []
+    current_block = []
+    for line in lines:
+        if line.startswith("+") and "=" in line:
+            # End of header row
+            if current_block:
+                rows.append(current_block)
+                current_block = []
+            rows.append(["HEADER-SEPARATOR"])
+        elif line.startswith("+") and "-" in line:
+            # End of normal row
+            if current_block:
+                rows.append(current_block)
+                current_block = []
+        elif "|" in line:
+            cells = [c.strip() for c in line.split("|")[1:-1]]
+            current_block.append(cells)
+
+    # Merge multi-line cells inside each block
+    merged_rows = []
+    for block in rows:
+        if block == ["HEADER-SEPARATOR"]:
+            merged_rows.append(block)
+            continue
+        merged = []
+        for col_parts in zip_longest(*block, fillvalue=""):
+            merged.append(" ".join(part for part in col_parts if part))
+        merged_rows.append(merged)
+
+    # Now build Markdown
+    md_lines = []
+    header_done = False
+    for row in merged_rows:
+        if row == ["HEADER-SEPARATOR"]:
+            # Add Markdown separator for header
+            md_lines.append("|" + "|".join("---" for _ in merged_rows[0]) + "|")
+            header_done = True
         else:
-            row = [process_inline_markup(x.strip()) for x in line.split('|')[1:-1]]
-            columns = max(len(row), columns)
-            new_rows.append(row)
-            data_rows.append(row)
-    column_widths = [max(len(x) for x in col) for col in zip(*data_rows)]
+            md_lines.append("| " + " | ".join(row) + " |")
 
-    markdown_rows = []
-    i = 0
-    while i < len(new_rows):
-        entry = new_rows[i]
-        if isinstance(entry, str) and entry == "=":
-            row = ['-' * i for i in column_widths]
-            markdown_rows.append("| " + " | ".join(row) + " |")
-            i += 1
-            continue
-        if isinstance(entry, str) and entry == "-":
-            i += 1
-            continue
-        i += 1
-        while not isinstance(new_rows[i], str):
-            for idx, col in enumerate(new_rows[i]):
-                if col:
-                    entry[idx] = entry[idx] + "<br>" + col
-            i += 1
-        markdown_rows.append("| " + " | ".join(entry) + " |")
-
-    return markdown_rows, end_idx
+    return md_lines
 
 def process_whitespace_aligned_table(table_lines, end_idx):
     """Process a grid table with whitespace alignment."""
