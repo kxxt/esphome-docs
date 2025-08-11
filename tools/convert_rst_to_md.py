@@ -717,7 +717,7 @@ def process_multiline_references(lines):
         if current_line.count('`') % 2 == 1 and '>' not in current_line and i + 1 < len(lines):
             # Look ahead to see if the next line completes the reference
             next_line = lines[i + 1]
-            if '>' in next_line and '`__' in next_line:
+            if '>' in next_line and ('`_' in next_line or '>' in next_line):
                 # This is a split reference, combine the lines
                 combined_line = current_line + next_line
                 # Process the combined line
