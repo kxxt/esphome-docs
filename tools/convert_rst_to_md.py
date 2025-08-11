@@ -485,7 +485,6 @@ def convert_rst_to_md(lines, filename):
 
             processed_line = process_inline_markup(fixed_line)
             processed_line = replace_substitutions(processed_line)
-            processed_line = rst_unicode_to_markdown(processed_line)
 
 
             # Fix image paths in markdown content
@@ -498,6 +497,8 @@ def convert_rst_to_md(lines, filename):
             if '![' in processed_line and '](_build/_images/' in processed_line and '.svg)' in processed_line:
                 processed_line = processed_line.replace('](_build/_images/', '](/images/_build/_images/')
 
+            # Special handling for wireguard
+            processed_line = re.sub(r'WireGuard®_', r'[WireGuard®](https://www.wireguard.org/)', processed_line)
             # Add the processed line
             result_lines.append(processed_line)
             current_idx += 1
@@ -740,7 +741,7 @@ def parse_substitutions(lines):
         m = re.match(r'^\s*\.\.\s+\|([^|]+)\|\s+(.*)', line)
         if m:
             subname = m.group(1).strip()
-            html_lines = [m.group(2).strip()]
+            html_lines = [rst_unicode_to_markdown(m.group(2).strip())]
             i += 1
             # Collect indented HTML lines
             while i < len(lines) and (lines[i].strip() == '' or lines[i].startswith('   ')):
