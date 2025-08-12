@@ -1805,6 +1805,8 @@ def copy_images_to_output(output_dir, input_dir, replace=False):
     for image in image_map.values():
         source_path = image.path
         target_name = image.name
+        if image.name.endswith('.avif'):
+            continue
 
         if image.count > 1:
             # Used more than once - copy to global images folder
