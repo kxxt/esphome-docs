@@ -12,8 +12,6 @@ import csv
 import argparse
 import shutil
 
-from PIL import Image
-import pillow_avif  # registers AVIF with Pillow
 from git import Repo
 
 # Global anchor map to store all anchors and their document paths
@@ -1807,10 +1805,6 @@ def copy_images_to_output(output_dir, input_dir, replace=False):
     for image in image_map.values():
         source_path = image.path
         target_name = image.name
-        if target_name.endswith('.avif'):
-            # Convert to webp
-            source_path = source_path.replace('.avif', '.webp')
-            target_name = target_name.replace('.avif', '.webp')
 
         if image.count > 1:
             # Used more than once - copy to global images folder
@@ -1830,11 +1824,7 @@ def copy_images_to_output(output_dir, input_dir, replace=False):
 
         if replace:
             repo = Repo(".")
-            if source_path != image.path:
-                Image.open(image.path).save(source_path, format='webp')
             repo.git.mv(image.path, target_path, "-f")
-            if source_path != image.path:
-                shutil.copy2(source_path, target_path)
         else:
             shutil.copy2(source_path, target_path)
 

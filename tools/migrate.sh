@@ -17,7 +17,7 @@ git commit -m "Merge current"
 # Convert and move
 tools/convert_rst_to_md.py . . --replace
 # Must commit the move before adding the rewrites
-git commit --message="Rename files" --author="esphomebot <68923041+esphomebot@users.noreply.github.com>"
+git commit --quiet --message="Rename files" --author="esphomebot <68923041+esphomebot@users.noreply.github.com>"
 
 # Extract version and release values from conf.py
 # Write to data/version.yaml
@@ -40,4 +40,4 @@ with open("data/version.yaml", "w") as file:
 # Now add the updated content and commit
 rm -rf _* components guides cookbook changelog automations images index.rst markdown.py projects svg2png svg2png.py web-api
 git add -u
-git commit --message="Convert to Markdown" --author="esphomebot <68923041+esphomebot@users.noreply.github.com>"
+git commit --quiet --message="Convert to Markdown" --author="esphomebot <68923041+esphomebot@users.noreply.github.com>"
