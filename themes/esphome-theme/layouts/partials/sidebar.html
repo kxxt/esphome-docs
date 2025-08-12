@@ -80,7 +80,8 @@
                                     <ul>
                                     {{ range .Headings }}
                                         {{ $headings := collections.Append .ID $headings }}
-                                        <li><a href="#{{ .ID }}">{{ .Title |  safeHTML }}</a></li>
+                                        {{ $broke_title := replaceRE `(\.)` `${1}&#x200B;` .Title | safeHTML }}
+                                        <li><a class="toc-secondary" href="#{{ .ID }}">{{ $broke_title |  safeHTML }}</a></li>
                                     {{ end }}
                                     </ul>
                                 {{ end }}
@@ -101,7 +102,8 @@
                                 <ul>
                                     {{ range .Headings }}
                                         {{ $headings := collections.Append .ID $headings }}
-                                        <li><a href="#{{ .ID }}">{{ .Title |  safeHTML }}</a></li>
+                                        {{ $broke_title := replaceRE `(\.)` `${1}&#x200B;` .Title | safeHTML }}
+                                        <li><a class="toc-secondary" href="#{{ .ID }}">{{ $broke_title |  safeHTML }}</a></li>
                                     {{ end }}
                                 </ul>
                             {{ end }}
