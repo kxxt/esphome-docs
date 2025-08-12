@@ -3,6 +3,7 @@
 {{- $branch := getenv "BRANCH" | default site.Params.branch   -}}
 {{- $repo_url := getenv "REPOSITORY_URL" | default site.Params.repo.url   -}}
 {{- $commit_hash := getenv "COMMIT_REF" | default site.Params.commit.hash   -}}
+{{ $component_prefix := printf "<code>%s" (path.Base .RelPermalink) }}
 <div class="sidebar-content {{ if .Content }}scroll-trap{{ end }}">
     <h3>{{ $title }}</h3>
     <nav class="sidebar-nav">
@@ -81,6 +82,8 @@
                                     {{ range .Headings }}
                                         {{ $headings := collections.Append .ID $headings }}
                                         {{ $broke_title := replaceRE `(\.)` `${1}&#x200B;` .Title | safeHTML }}
+                                        {{ $broke_title = replace $broke_title $component_prefix "<code>" | safeHTML }}
+                                        {{ $broke_title = replace $broke_title "<strong>Action</strong>" "" | safeHTML }}
                                         <li><a class="toc-secondary" href="#{{ .ID }}">{{ $broke_title |  safeHTML }}</a></li>
                                     {{ end }}
                                     </ul>
@@ -103,6 +106,8 @@
                                     {{ range .Headings }}
                                         {{ $headings := collections.Append .ID $headings }}
                                         {{ $broke_title := replaceRE `(\.)` `${1}&#x200B;` .Title | safeHTML }}
+                                        {{ $broke_title = replace $broke_title $component_prefix "<code>" | safeHTML }}
+                                        {{ $broke_title = replace $broke_title "<strong>Action</strong>" "" | safeHTML }}
                                         <li><a class="toc-secondary" href="#{{ .ID }}">{{ $broke_title |  safeHTML }}</a></li>
                                     {{ end }}
                                 </ul>
