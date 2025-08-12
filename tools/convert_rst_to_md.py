@@ -1481,7 +1481,7 @@ def process_image_directive(lines, i):
     if height:
         shortcode += f'height="{height}" '
     if align:
-        shortcode += f'class="{align}" '
+        shortcode += f'class="align-{align}" '
     shortcode += '>}}'
 
     return shortcode, i

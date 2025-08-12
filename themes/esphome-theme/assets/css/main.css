@@ -165,6 +165,13 @@ img {
 .w-100 {
   width: 100%;
 }
+
+img.align-left, figure.align-left, .figure.align-left, object.align-left {
+  clear: left;
+  float: left;
+  margin-right: 1em;
+}
+
 .copy-link {
   background: none;
   border: none;

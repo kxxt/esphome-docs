@@ -29,6 +29,9 @@
         {{ $placeholder := ($image.Resize $thumbSize) | images.Filter (images.GaussianBlur 1) }}
         {{ $src_set := slice (print $image.RelPermalink " " $image.Width "w") }}
         {{ $maxwidth := .maxwidth | default 1500 }}
+        {{ if gt $maxwidth $image.Width }}
+            {{ $maxwidth = $image.Width }}
+        {{ end }}
 
         <!-- Generate a range of image sizes to allow adaptive loading -->
         {{ range $wid := slice  (div $maxwidth 5) (div $maxwidth 3) (div $maxwidth 2) (div $maxwidth 1.5) $maxwidth }}
@@ -59,11 +62,12 @@
             </figure>
         </noscript>
         {{ $srclist := delimit $src_set ", " }}
-        <figure role="none" class="{{ .classes }} lazy">
+        <figure role="none" style="max-width: {{ $maxwidth }}px;" class="{{ .classes }} lazy">
             {{ if .href }}
             <a href='{{ .href }}'>
                 {{ end }}
-                <img class="lazyload w-100 h-100" data-sizes="auto" src="{{ $image.RelPermalink }}" {{ if .width }}width="{{.width}}" {{ end }}
+                {{ $classes := printf "lazyload w-100 h-100 %s" .classes | safeHTMLAttr }}
+                <img class="{{ $classes }}" data-sizes="auto" src="{{ $image.RelPermalink }}" {{ if .width }}width="{{.width}}" {{ end }}
                      fetchpriority="high"
                      {{ if $style }}{{ $style }}{{ end }}
                      srcset="data:image/jpeg;base64,{{ $placeholder.Content | base64Encode }}"
