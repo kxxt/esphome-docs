@@ -84,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
         new El("a").class("pagefind-modular-list-link").text(result.meta?.title).attrs({
             href: result.meta?.url || result.url
         }).addTo(title);
-
         const excerpt =new El("a").class("pagefind-modular-list-link").attrs({
             href: url
         }).addTo(inner);

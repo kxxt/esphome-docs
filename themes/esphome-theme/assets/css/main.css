@@ -559,6 +559,10 @@ img {
   border-color: #03a9f4;
 }
 
+.pagefind-modular-list-excerpt {
+  overflow-wrap: anywhere;
+}
+
 /* Clear button styling */
 .search-clear-button {
   position: absolute;
