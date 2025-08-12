@@ -284,15 +284,13 @@ img {
   padding: 0;
   color: var(--link-accent);
 }
-a.toc-secondary {
-  word-wrap: break-word;  /* or overflow-wrap: break-word; */
-  padding-left: 1em;      /* indent all lines */
-  text-indent: -1em;      /* pull the first line back out */
-}
-
 .sidebar-nav a.active {
   font-weight: bold;
   color: var(--primary-color);
+}
+
+.toc-separator {
+  overflow-wrap: break-word;
 }
 
 .sidebar-contact {
