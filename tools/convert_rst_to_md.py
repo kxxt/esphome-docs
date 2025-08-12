@@ -333,22 +333,24 @@ def convert_rst_to_md(lines, filename):
                     current_idx += 2
                     continue
 
-            # Handle code blocks - check for both standalone and nested code blocks
-            if this_line.lstrip().startswith('.. code-block::') or this_line.strip() == '::' or this_line.lstrip().startswith('.. code::'):
-                # Get the indentation of the current line
+            # Handle code blocks
+            if match := re.match(r'^(\s*)(-\s)?\.\.\s+(code-block|code)::\s*(\w*)', this_line):
 
                 # Extract language
-                language = this_line.split("::")[1].strip()
+                language = match.group(4)
+                prefix = match.group(2) or ''
+                leading_space = match.group(1) or ''
+                indent = len(prefix) + len (leading_space)
 
                 # Add the code block start with proper indentation
-                result_lines.append(' ' * current_indent + f"```{language}")
+                result_lines.append(prefix + f"```{language}")
 
-                current_idx, new_lines = get_indented_block(inner_lines, current_idx + 1, current_indent)
+                current_idx, new_lines = get_indented_block(inner_lines, current_idx + 1, current_indent + indent)
                 while len(new_lines) and not new_lines[-1].strip():
                     new_lines.pop()
                 result_lines.extend(new_lines)
                 result_lines.append("")
-                result_lines.append(' ' * current_indent + "```")
+                result_lines.append(' ' * len(prefix) + "```")
                 continue
 
             if this_line.lstrip().startswith('.. math::'):
@@ -589,7 +591,7 @@ def process_inline_markup(line):
     # Code
     #processed_line = replace_substitutions(processed_line)
     #processed_line = rst_unicode_to_markdown(processed_line)
-    processed_line = re.sub(r'``([^`]+)``', r'`\1`', processed_line)
+    processed_line = re.sub(r'``([^`]+)``', r'`\1`  ', processed_line)
     
     def footnote_ref_repl(match):
         ref = match.group(1).strip()
@@ -622,6 +624,7 @@ def process_inline_markup(line):
         anchor_text = anchor_text or content
         # If we can't find the document, just use the anchor
         return f"[{anchor_text}](#{content.lower()})"
+    processed_line = re.sub(r':ref:`([^`]+)`', ref_repl, processed_line)
 
     def doc_repl(match):
         content = match.group(1).strip()
@@ -635,9 +638,10 @@ def process_inline_markup(line):
             # Simple document references
         doc_path = fix_doc_path(content)
         return f"{{{{< docref \"{doc_path}\" >}}}}"
-
-    processed_line = re.sub(r':ref:`([^`]+)`', ref_repl, processed_line)
     processed_line = re.sub(r':doc:`([^`]+)`', doc_repl, processed_line)
+
+    processed_line = re.sub(r':code:`([^`]+)`', r'`\1`', processed_line)
+
     processed_line = process_api(processed_line, "apiref")
     processed_line = process_api(processed_line, "apistruct")
     processed_line = process_api(processed_line, "apiclass")
@@ -1287,67 +1291,48 @@ def process_whitespace_aligned_table(table_lines, end_idx):
     # If we have no content rows, return empty
     if not content_rows:
         return [], end_idx
-    
-    # Get the first content row
-    first_content_row = min(content_rows)
-    first_content = table_lines[first_content_row]
-    
-    # Find column positions by looking for groups of non-space characters
+
     column_positions = []
+    first_header_row = min(header_rows)
+    first_header = table_lines[first_header_row]
+
+    # Find column positions by looking for groups of non-space characters
     in_column = False
-    for i, char in enumerate(first_content):
+    for i, char in enumerate(first_header):
         if not in_column and char != ' ':
             # Start of a column
             in_column = True
             column_positions.append(i)
-        elif in_column and char == ' ' and (i+1 >= len(first_content) or first_content[i+1] == ' '):
+        elif in_column and char == ' ':
             # End of a column (followed by at least one more space or end of line)
             in_column = False
-    
-    # If we couldn't find column positions from the first content row,
-    # try to infer them from all content rows
-    if len(column_positions) <= 1:
-        column_positions = []
-        for row_idx in content_rows:
-            line = table_lines[row_idx]
-            in_column = False
-            for i, char in enumerate(line):
-                if not in_column and char != ' ':
-                    # Start of a column
-                    in_column = True
-                    if i not in column_positions:
-                        column_positions.append(i)
-                elif in_column and char == ' ' and (i+1 >= len(line) or line[i+1] == ' '):
-                    # End of a column (followed by at least one more space or end of line)
-                    in_column = False
-        
-        column_positions.sort()
     
     # Add an end position if needed
     max_line_length = max(len(line) for line in table_lines)
     if column_positions and column_positions[-1] < max_line_length:
         column_positions.append(max_line_length)
+
+    column_count = len(column_positions)
     
     # Process each row
-    markdown_rows = []
     header_added = False
-    
+    rows = []
     for line_idx, line in enumerate(table_lines):
         # Skip separator rows for Markdown output
         if line_idx in separator_rows:
             # If this is the separator after the header row, add a Markdown header separator
             if not header_added and line_idx > 0 and line_idx-1 not in separator_rows:
                 header_added = True
-                header_cells = ['---' for _ in range(len(column_positions)-1)]
-                markdown_rows.append('| ' + ' | '.join(header_cells) + ' |')
+                header_cells = ['---' for _ in range(column_count-1)]
+                rows.append(header_cells)
             continue
         
         # Extract cells from the row
         cells = []
-        for i in range(len(column_positions)):
+        for i in range(column_count):
             start_pos = column_positions[i]
             # End position is either the next column start or the end of the line
-            end_pos = column_positions[i+1] if i+1 < len(column_positions) else len(line)
+            end_pos = column_positions[i+1] if i+1 < column_count else len(line)
             
             # Make sure we don't go out of bounds
             if start_pos < len(line):
@@ -1356,8 +1341,13 @@ def process_whitespace_aligned_table(table_lines, end_idx):
                 cells.append(cell_content)
 
         # Add the row to Markdown output
-        markdown_rows.append('| ' + ' | '.join(cells) + ' |')
-
+        if len(cells) < column_count - 1:
+            cells += ['' for _ in range(column_count - 1 - len(cells))]
+        if header_added and not cells[0].strip():
+            rows[-1] = [p + ' ' + n for p, n in zip(rows[-1], cells)]
+        else:
+            rows.append(cells)
+    markdown_rows = ['| ' + ' | '.join(row) + ' |' for row in rows]
     return markdown_rows, end_idx
 
 def process_raw_html_block(lines, i):

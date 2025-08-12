@@ -177,8 +177,8 @@ module:
     - disableWatch: false
       source: static/images
       target: assets/images
-    - disableWatch: false
-      source: content
+    - disableWatch: true
+      source: assets
       target: assets
     - disableWatch: false
       source: pagefind
