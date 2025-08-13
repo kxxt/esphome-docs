@@ -492,7 +492,7 @@ All changes
     - [select] Fix new_select() not forwarding constructor args while preserving keyword-only options parameter :esphomepr:`10036` by :ghuser:`Copilot`
     - [mcp23xxx] Use CachedGpioExpander :esphomepr:`10078` by :ghuser:`jesserockz`
     - update espressif's esp32-camera library to 2.1.1 :esphomepr:`10090` by :ghuser:`RubenKelevra`
-    - [esp32_ble_tracker] Add missing USE_ESP32_BLE_DEVICE guard for already_discovered_ member :esphomepr:`10085` by :ghuser:`bdraco`
+    - [esp32_ble_tracker] Add missing USE_ESP32_BLE_DEVICE guard for ``already_discovered_`` member :esphomepr:`10085` by :ghuser:`bdraco`
     - [esp32_ble_tracker] Refactor loop() method for improved readability and performance :esphomepr:`10074` by :ghuser:`bdraco`
     - [esp32_rmt_led_strip] Work around IDFGH-16195 :esphomepr:`10093` by :ghuser:`swoboda1337`
     - [bme680] Eliminate warnings due to unused functions :esphomepr:`9735` by :ghuser:`pgolawsk`
