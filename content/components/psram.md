@@ -28,6 +28,8 @@ psram:
 - **enable_ecc** (*Optional*, bool): For octal mode, enable ECC (Error Correction Code) for the PSRAM (default is off.)
   ECC is a method of detecting and correcting single-bit errors in memory. It will reduce the available PSRAM size and speed by
   1/16th, but also increases the rated temperature range of some ESP32 modules.
+- **disabled** (*Optional*, bool): Don't try to initialize the PSRAM.  This is needed if one of the configured components autoloads psram
+  but the ESP32 module doesn't have PSRAM and you need to use one of the PSRAM control lines for something else.  e.g. ethernet.  Defaults to ``false``.
 
 ## Restrictions
 * Not all ESP32 modules have PSRAM available. If you are unsure, consult the datasheet of your module.
