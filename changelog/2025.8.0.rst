@@ -20,14 +20,14 @@ ESPHome 2025.8.0 - 20th August 2025
 Release Overview
 ----------------
 
-ESPHome 2025.8.0 expands platform support with the introduction of Nordic nRF52 devices, 
-adds mesh communication capabilities, and delivers significant performance improvements. This release 
+ESPHome 2025.8.0 expands platform support with the introduction of Nordic nRF52 devices,
+adds mesh communication capabilities, and delivers significant performance improvements. This release
 focuses on architectural innovation and memory optimization while introducing new hardware possibilities.
 
 **Key Highlights:**
 
 - **New nRF52 platform** based on Zephyr RTOS opens Nordic semiconductor ecosystem
-- **ESP-NOW mesh communication** enables direct device-to-device connectivity  
+- **ESP-NOW mesh communication** enables direct device-to-device connectivity
 - **High-performance MIPI DSI displays** for ESP32-P4 professional applications
 - **Extensive memory optimizations** with up to 10x performance improvements in key areas
 - **Python 3.11+ requirement** (breaking change - Python 3.10 support dropped)
@@ -157,8 +157,8 @@ New Features
 - [remote_transmitter] Add digital_write automation :esphomepr:`10069` by :ghuser:`swoboda1337` (new-feature)
 - Support multiple --device arguments for address fallback :esphomepr:`10003` by :ghuser:`bdraco` (new-feature)
 - Add device class absolute_humidity to the absolute humidity component :esphomepr:`10100` by :ghuser:`mbo18` (new-feature)
-- [switch] Add `switch.control` automation action :esphomepr:`10105` by :ghuser:`edwardtfn` (new-feature)
-- [switch] Add `control()` method to API :esphomepr:`10118` by :ghuser:`edwardtfn` (new-feature)
+- [switch] Add ``switch.control`` automation action :esphomepr:`10105` by :ghuser:`edwardtfn` (new-feature)
+- [switch] Add ``control()`` method to API :esphomepr:`10118` by :ghuser:`edwardtfn` (new-feature)
 - [switch] Add trigger ``on_state`` :esphomepr:`10108` by :ghuser:`edwardtfn` (new-feature)
 - [nrf52, zephyr_debug] add zephyr debug component :esphomepr:`8319` by :ghuser:`tomaszduda23` (new-feature)
 - [sensor] Extend timeout filter with option to return last value received :esphomepr:`10115` by :ghuser:`kbx81` (new-feature)
@@ -203,7 +203,7 @@ All changes
 .. collapse:: Show
     :open:
 
-    - [web_server] fix `Arudino` typo :esphomepr:`9404` by :ghuser:`ximex`
+    - [web_server] fix ``Arudino`` typo :esphomepr:`9404` by :ghuser:`ximex`
     - Speed up clang-tidy CI by 80%+ with incremental checking :esphomepr:`9396` by :ghuser:`bdraco`
     - Fix PlatformIO cache in CI by adding platformio.ini hash to cache key :esphomepr:`9411` by :ghuser:`bdraco`
     - Fix clang-tidy triggering full scan on Python-only core file changes :esphomepr:`9412` by :ghuser:`bdraco`
@@ -249,7 +249,7 @@ All changes
     - Skip API log message calls for unsubscribed log levels :esphomepr:`9514` by :ghuser:`bdraco`
     - Optimize API connection batch priority message handling to reduce flash usage :esphomepr:`9510` by :ghuser:`bdraco`
     - Reduce flash usage by replacing ProtoSize template with specialized methods :esphomepr:`9487` by :ghuser:`bdraco`
-    - [ssd1306_base] fix typo `brighrness` :esphomepr:`9491` by :ghuser:`ximex`
+    - [ssd1306_base] fix typo ``brighrness`` :esphomepr:`9491` by :ghuser:`ximex`
     - Fix CI failures from merge collisions :esphomepr:`9535` by :ghuser:`bdraco`
     - Remove legacy unique_id field from entities :esphomepr:`9022` by :ghuser:`bdraco` (breaking-change)
     - Reduce binary size with field-level conditional compilation for protobuf messages :esphomepr:`9473` by :ghuser:`bdraco`
@@ -291,11 +291,11 @@ All changes
     - [CI] Fix clang-tidy not running when platformio.ini changes :esphomepr:`9678` by :ghuser:`bdraco`
     - [api] Fix missing ifdef guards for field_ifdef fields in protobuf base classes :esphomepr:`9693` by :ghuser:`bdraco`
     - [const] Move CONF_FLIP_X and CONF_FLIP_Y to ``const.py`` :esphomepr:`9741` by :ghuser:`DT-art1`
-    - core/scheduler: Make millis_64_ rollover monotonic on SMP :esphomepr:`9716` by :ghuser:`RubenKelevra`
+    - core/scheduler: Make ``millis_64_`` rollover monotonic on SMP :esphomepr:`9716` by :ghuser:`RubenKelevra`
     - [bluetooth_proxy] Fix service discovery on disconnect and refactor connection handling :esphomepr:`9697` by :ghuser:`bdraco`
     - [esp32_ble_tracker] Batch BLE advertisement processing to reduce overhead :esphomepr:`9699` by :ghuser:`bdraco`
     - [api] Memory optimizations for API frame helper buffering :esphomepr:`9724` by :ghuser:`bdraco`
-    - [api] Eliminate heap allocation in process_batch_ using stack-allocated PacketInfo array :esphomepr:`9703` by :ghuser:`bdraco`
+    - [api] Eliminate heap allocation in ``process_batch_`` using stack-allocated PacketInfo array :esphomepr:`9703` by :ghuser:`bdraco`
     - [api] Remove deprecated protobuf fields to reduce flash usage :esphomepr:`9679` by :ghuser:`bdraco` (breaking-change)
     - [CI] Only mention codeowners once :esphomepr:`9727` by :ghuser:`jesserockz`
     - [api] Consolidate error handling and remove unused code  :esphomepr:`9726` by :ghuser:`bdraco`
@@ -322,7 +322,7 @@ All changes
     - [api] Optimize protobuf memory usage with fixed-size arrays for Bluetooth UUIDs :esphomepr:`9782` by :ghuser:`bdraco`
     - [api] Implement zero-copy string optimization for outgoing protobuf messages :esphomepr:`9790` by :ghuser:`bdraco`
     - [schema-gen] fix referenced schemas when schema in component platform :esphomepr:`9755` by :ghuser:`glmnet`
-    - [audio] fix typo `gneneral` and `divison` :esphomepr:`9808` by :ghuser:`ximex`
+    - [audio] fix typo ``gneneral`` and ``divison`` :esphomepr:`9808` by :ghuser:`ximex`
     - [sgp4x] Fix build :esphomepr:`9794` by :ghuser:`swoboda1337`
     - [http_request] set correct duration_ms for failed requests :esphomepr:`9789` by :ghuser:`stas-sl`
     - [udp] Move ``on_receive`` to const :esphomepr:`9811` by :ghuser:`jesserockz`
@@ -331,7 +331,7 @@ All changes
     - [core] Match LockFreeQueue initialization order :esphomepr:`9813` by :ghuser:`jesserockz`
     - [CI] Paginate codeowner comments to make sure we find it :esphomepr:`9817` by :ghuser:`jesserockz`
     - [CI] Paginate codeowner comments to make sure we find it :esphomepr:`9818` by :ghuser:`jesserockz`
-    - [core] Initialize looping_components_ before setup blocking phase :esphomepr:`9820` by :ghuser:`bdraco`
+    - [core] Initialize ``looping_components_`` before setup blocking phase :esphomepr:`9820` by :ghuser:`bdraco`
     - [i2c] Use ``i2c_master_probe`` to scan i2c bus :esphomepr:`9831` by :ghuser:`jesserockz`
     - [core] Restore COMPONENT_STATE_LOOP_DONE check in calculate_looping_components :esphomepr:`9832` by :ghuser:`bdraco`
     - [ci] Support C++17 nested namespace syntax in linter :esphomepr:`9826` by :ghuser:`bdraco`
@@ -404,7 +404,7 @@ All changes
     - [heatpumpir] Fix issue with IRremoteESP8266 being included on ESP32 :esphomepr:`9950` by :ghuser:`swoboda1337`
     - Openthread add Teardown :esphomepr:`9275` by :ghuser:`rwrozelle`
     - [gps] Fix slow parsing :esphomepr:`9953` by :ghuser:`kbx81`
-    - [output] Add `set_min_power` & `set_max_power` actions for `FloatOutput` :esphomepr:`8934` by :ghuser:`DjordjeMandic`
+    - [output] Add ``set_min_power`` & ``set_max_power`` actions for ``FloatOutput`` :esphomepr:`8934` by :ghuser:`DjordjeMandic`
     - [esp32] Bump platform to 54.03.21-1 and add support for tagged releases :esphomepr:`9926` by :ghuser:`swoboda1337`
     - [adc] Enable ADC on ESP32-P4 :esphomepr:`9954` by :ghuser:`clydebarrow`
     - [esp32] Fix post build :esphomepr:`9951` by :ghuser:`jesserockz`
@@ -514,13 +514,13 @@ All changes
     - [esp32_ble_tracker] Optimize member variable ordering to reduce memory padding :esphomepr:`10113` by :ghuser:`bdraco`
     - [esp32_ble_client] Conditionally compile BLE service classes to reduce flash usage :esphomepr:`10114` by :ghuser:`bdraco` (breaking-change)
     - [bluetooth_proxy] Remove V1 connection support :esphomepr:`10107` by :ghuser:`bdraco` (breaking-change)
-    - [switch] Add `switch.control` automation action :esphomepr:`10105` by :ghuser:`edwardtfn` (new-feature)
+    - [switch] Add ``switch.control`` automation action :esphomepr:`10105` by :ghuser:`edwardtfn` (new-feature)
     - [mdns] Conditionally compile extra services to reduce flash usage :esphomepr:`10129` by :ghuser:`bdraco`
     - [esp32_ble_client] Reduce flash usage by optimizing logging strings :esphomepr:`10119` by :ghuser:`bdraco`
     - [wifi] Reduce flash usage by optimizing logging :esphomepr:`10127` by :ghuser:`bdraco`
     - [cover] Reduce flash usage by optimizing validation messages :esphomepr:`10130` by :ghuser:`bdraco`
     - [bluetooth_proxy] Optimize connection loop to reduce CPU usage :esphomepr:`10133` by :ghuser:`bdraco`
-    - [switch] Add `control()` method to API :esphomepr:`10118` by :ghuser:`edwardtfn` (new-feature)
+    - [switch] Add ``control()`` method to API :esphomepr:`10118` by :ghuser:`edwardtfn` (new-feature)
     - [switch] Add trigger ``on_state`` :esphomepr:`10108` by :ghuser:`edwardtfn` (new-feature)
     - [esp32_ble_tracker] Fix false reboots when event loop is blocked :esphomepr:`10144` by :ghuser:`bdraco`
     - [esp32] Add IDF log_level option :esphomepr:`10134` by :ghuser:`swoboda1337` (breaking-change)
