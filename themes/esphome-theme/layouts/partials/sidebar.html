@@ -66,7 +66,6 @@
                         </g>
                     </svg>
                 </button>
-                {{ $headings := slice }}
                 {{ $start_level := 9 }}
                 <ul class="toc-alphabetic">
                     {{ range .Fragments.HeadingsMap }}
@@ -78,21 +77,10 @@
                         {{ if eq .Level $start_level }}
                             <li><a class="toc-entry" href="#{{ .ID }}">{{ .Title |  safeHTML }}</a>
                                 {{ if .Headings }}
-                                    <ul>
-                                    {{ range .Headings }}
-                                        {{ $headings := collections.Append .ID $headings }}
-                                        {{ $broke_title := replaceRE `(\.)` `${1}&#x200B;` .Title | safeHTML }}
-                                        {{ $broke_title = replace $broke_title $component_prefix "<code>." | safeHTML }}
-                                        {{ $broke_title = replace $broke_title "<strong>Action</strong>" "" | safeHTML }}
-                                        {{ $broke_title = replace $broke_title "</code>   Action" "</code>" | safeHTML }}
-                                        {{ $broke_title = replace $broke_title "<strong>Condition</strong>" "" | safeHTML }}
-                                        {{ $broke_title = replace $broke_title "</code>   Condition" "</code>" | safeHTML }}
-                                        <li><a class="toc-secondary" href="#{{ .ID }}">{{ $broke_title |  safeHTML }}</a></li>
-                                    {{ end }}
-                                    </ul>
+                                    {{ partial "toc_secondary_list.html" (dict "Headings" .Headings "ComponentPrefix" $component_prefix) }}
                                 {{ end }}
                             </li>
-                            {{ end }}
+                        {{ end }}
                     {{ end }}
                 </ul>
                 <ul class="toc-linear">
@@ -105,18 +93,7 @@
                     {{ range $headings }}
                         <li><a class="toc-entry" href="#{{ .ID }}">{{ .Title |  safeHTML }}</a>
                             {{ if .Headings }}
-                                <ul>
-                                    {{ range .Headings }}
-                                        {{ $headings := collections.Append .ID $headings }}
-                                        {{ $broke_title := replaceRE `(\.)` `${1}&#x200B;` .Title | safeHTML }}
-                                        {{ $broke_title = replace $broke_title $component_prefix "<code>." | safeHTML }}
-                                        {{ $broke_title = replace $broke_title "<strong>Action</strong>" "" | safeHTML }}
-                                        {{ $broke_title = replace $broke_title "</code>   Action" "</code>" | safeHTML }}
-                                        {{ $broke_title = replace $broke_title "<strong>Condition</strong>" "" | safeHTML }}
-                                        {{ $broke_title = replace $broke_title "</code>   Condition" "</code>" | safeHTML }}
-                                        <li><a class="toc-secondary" href="#{{ .ID }}">{{ $broke_title |  safeHTML }}</a></li>
-                                    {{ end }}
-                                </ul>
+                                {{ partial "toc_secondary_list.html" (dict "Headings" .Headings "ComponentPrefix" $component_prefix) }}
                             {{ end }}
                         </li>
                     {{ end }}
