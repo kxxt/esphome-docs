@@ -75,7 +75,7 @@
                     {{ end }}
                     {{ range .Fragments.HeadingsMap }}
                         {{ if eq .Level $start_level }}
-                            <li><a class="toc-entry" href="#{{ .ID }}">{{ .Title |  safeHTML }}</a>
+                            <li><a class="toc-entry" href="#{{ .ID }}">{{ replaceRE `:\s*$` "" .Title | safeHTML }}</a>
                                 {{ if .Headings }}
                                     {{ partial "toc_secondary_list.html" (dict "Headings" .Headings "ComponentPrefix" $component_prefix) }}
                                 {{ end }}
@@ -91,7 +91,7 @@
                     {{ end }}
 
                     {{ range $headings }}
-                        <li><a class="toc-entry" href="#{{ .ID }}">{{ .Title |  safeHTML }}</a>
+                        <li><a class="toc-entry" href="#{{ .ID }}">{{ replaceRE `:\s*$` "" .Title | safeHTML }}</a>
                             {{ if .Headings }}
                                 {{ partial "toc_secondary_list.html" (dict "Headings" .Headings "ComponentPrefix" $component_prefix) }}
                             {{ end }}
