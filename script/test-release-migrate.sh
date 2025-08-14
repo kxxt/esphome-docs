@@ -8,12 +8,11 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 # Remove previous migration
 git reset --hard migration-base
 #bring in latest
-git merge --no-commit --no-ff origin/current
-git merge --no-commit --no-ff origin/next
+git merge --no-commit --no-ff origin/beta
 
 git checkout HEAD -- Makefile
 git add -u
-git commit -m "Merge current and next"
+git commit -m "Merge Beta"
 
 
 # Convert and move
@@ -42,4 +41,5 @@ with open("data/version.yaml", "w") as file:
 # Now add the updated content and commit
 rm -rf _* components guides cookbook changelog automations images index.rst markdown.py projects svg2png svg2png.py web-api
 git add -u
+git add content static
 git commit --quiet --message="Convert to Markdown" --author="esphomebot <68923041+esphomebot@users.noreply.github.com>"
