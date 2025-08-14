@@ -1,50 +1,48 @@
-GL-R01 I²C - Time Of Flight Mini LiDAR Laser Ranging Sensor
-===========================================================
+---
+description: "GL-R01 I²C - Time Of Flight Mini LiDAR Laser Ranging Sensor"
+title: "GL-R01 I²C - Time Of Flight Mini LiDAR Laser Ranging Sensor"
+---
 
-The ``GL-R01 I²C`` sensor platform allows you to use your GL-R01 I²C
+
+
+The `GL-R01 I²C`   sensor platform allows you to use your GL-R01 I²C
 Time Of Flight Mini LiDAR Laser Ranging sensor with ESPHome.
 
-The time-of-flight principle is based on the speed of the light. An emitter sends 
-photons which are reflected by the target and detected by the receiver 
-(called SPAD for Single Photon Avalanche Diode). The time difference between 
+The time-of-flight principle is based on the speed of the light. An emitter sends
+photons which are reflected by the target and detected by the receiver
+(called SPAD for Single Photon Avalanche Diode). The time difference between
 the emission and the reception provides the actual distance of the target in millimeters
 with a high accuracy.
 
-GL-R01 is sold in three versions - IIC (I²C), UART Automatic and UART Controlled (Modbus). 
+GL-R01 is sold in three versions - IIC (I²C), UART Automatic and UART Controlled (Modbus).
 This integration supports only IIC (I²C) version at the moment.
-The :ref:`I²C <i2c>` is required to be set up in your configuration for this sensor to work.
+The [I²C](#i2c) is required to be set up in your configuration for this sensor to work.
 
-.. figure:: images/gl_r01.jpg
-    :align: center
-    :width: 50.0%
+{{< img src="gl_r01.jpg" alt="Image" caption="GL-R01 I²C - Time Of Flight Mini LiDAR Laser Ranging Sensor" width="50.0%" class="align-center" >}}
 
-    GL-R01 I²C - Time Of Flight Mini LiDAR Laser Ranging Sensor
+```yaml
+sensor:
+  - platform: gl_r01_i2c
+    name: "ToF"
 
-.. code-block:: yaml
+```
+## Configuration variables:
 
-    sensor:
-      - platform: gl_r01_i2c
-        name: "ToF"
+- **update_interval** (*Optional*, [Time](#config-time)): The interval to trigger measurement and update sensor.
 
-Configuration variables:
-------------------------
-
-- **update_interval** (*Optional*, :ref:`config-time`): The interval to trigger measurement and update sensor.
-
-- All other options from :ref:`Sensor <config-sensor>`.
+- All other options from [Sensor](#config-sensor).
 
 I²C Configuration variables:
 
 - **address** (*Optional*, int): Manually specify the I²C address of
-  the sensor. Defaults to ``0x74``. If unsure, check I²C scan logs and adjust address by its output.
+  the sensor. Defaults to `0x74`  . If unsure, check I²C scan logs and adjust address by its output.
 
 - **i2c_id** (*Optional*): Manually specify the I²C bus ID. Only needed if multiple buses are used.
 
-See Also
---------
+## See Also
 
-- :ref:`sensor-filters`
-- :ref:`I2C bus <i2c>`
-- :apiref:`gl_r01_i2c/gl_r01_i2c.h`
-- :apiref:`gl_r01_i2c/gl_r01_i2c.cpp`
-- :ghedit:`Edit`
+- [Sensor Filters](#sensor-filters)
+- [I2C bus](#i2c)
+- {{< apiref "gl_r01_i2c/gl_r01_i2c.h" "gl_r01_i2c/gl_r01_i2c.h" >}}
+- {{< apiref "gl_r01_i2c/gl_r01_i2c.cpp" "gl_r01_i2c/gl_r01_i2c.cpp" >}}
+
