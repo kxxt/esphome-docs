@@ -1694,7 +1694,7 @@ def process_actions_file(lines):
     return lines
 
 
-def process_file(src_file, output_dir, input_dir, replace=False):
+def process_file(src_file, output_dir, input_dir):
     output_dir = os.path.join(output_dir, "content")
     """Process a single RST file and convert it to Markdown."""
     #print(rf"Processing file: {src_file}", end="", flush=True)
@@ -1720,7 +1720,8 @@ def process_file(src_file, output_dir, input_dir, replace=False):
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
         # Write the Markdown file
-        if replace:
+        # If the file already exists we don't need to tell git to move it
+        if not os.path.exists(output_path):
             repo = Repo(".")
             repo.git.mv(src_file, output_path, "-f")
         with open(output_path, 'w', encoding='utf-8') as f:
@@ -1750,7 +1751,7 @@ def get_rst_content(input_dir, src_file):
     return rel_path, rst_lines
 
 
-def process_directory(input_dir, output_dir, replace_files=False):
+def process_directory(input_dir, output_dir):
     """Process all RST files in a directory and its subdirectories."""
     success_count = 0
     total_count = 0
@@ -1774,7 +1775,7 @@ def process_directory(input_dir, output_dir, replace_files=False):
         elif fullpath.endswith('.rst'):
             included_files.update(set(find_included_files(fullpath)))
             total_count += 1
-            if process_file(fullpath, output_dir, input_dir, replace_files):
+            if process_file(fullpath, output_dir, input_dir):
                 success_count += 1
 
     print(f"Conversion complete. {success_count}/{total_count} files successfully converted to {output_dir}")
@@ -1837,7 +1838,6 @@ if __name__ == "__main__":
     parser.add_argument('output_dir', help='Output directory for Markdown files')
     parser.add_argument('--single', help='Process a single file (relative to input_dir)')
     parser.add_argument('--no-images', action='store_true', help='Skip image processing')
-    parser.add_argument('--replace', action='store_true', help='Replace files')
     args = parser.parse_args()
     
     # Ensure output directory exists
@@ -1861,7 +1861,7 @@ if __name__ == "__main__":
             print(f"Error: File {rst_file} not found")
     else:
         # Process all files in the directory
-        process_directory(args.input_dir, args.output_dir, args.replace)
+        process_directory(args.input_dir, args.output_dir)
     
     # Copy images to output directories
     if not args.no_images:
