@@ -1,4 +1,4 @@
-.PHONY: clean live-html check-links anchors production convert-from-rst convert-branch-in-place directories pagefind-binary netlify repo-data all
+.PHONY: clean live-html check-links anchors production convert-from-rst convert-branch-in-place directories netlify repo-data all
 
 PAGEFIND=npx pagefind@1.3.0
 
