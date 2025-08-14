@@ -48,7 +48,6 @@ convert-from-rst:
 
 convert-branch-in-place:
 	sh script/migrate.sh
-	python3 script/version.py
 
 
 netlify: repo-data
