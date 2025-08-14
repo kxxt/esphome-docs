@@ -19,7 +19,7 @@ git merge next -X theirs
 
 # There may be conflicts reported 
 # Convert files
-tools/convert_rst_to_md.py . .
+script/convert_rst_to_md.py . .
 
 # cleanup
 rm -rf _* components guides cookbook changelog automations images index.rst markdown.py projects svg2png svg2png.py web-api

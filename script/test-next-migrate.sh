@@ -16,7 +16,7 @@ git commit -m "Merge next"
 
 
 # Convert and move
-tools/convert_rst_to_md.py . . --replace
+script/convert_rst_to_md.py . . --replace
 # Must commit the move before adding the rewrites
 git commit --quiet --message="Rename files" --author="esphomebot <68923041+esphomebot@users.noreply.github.com>"
 
