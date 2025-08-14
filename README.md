@@ -13,7 +13,7 @@ This repository contains source for the documentation site for ESPHome.
 
 The project follows a standard directory structure:
 
-```
+``` text
 esphome-docs/
 ├── archetypes/        # Content templates
 ├── assets/            # Source files for CSS, JS, etc.
@@ -78,7 +78,7 @@ Templates use blocks (like `{{ block "main" . }}{{ end }}`) that can be overridd
 
 Partials are reusable template components that can be included in other templates. They help maintain DRY (Don't Repeat Yourself) code by extracting common elements:
 
-```
+``` text
 {{ partial "header.html" . }}
 ```
 
@@ -89,13 +89,13 @@ The dot (`.`) passes the current context to the partial. Partials are stored in 
 Shortcodes are special tags you can use within Markdown content to insert complex elements or custom HTML.
 They bridge the gap between the simplicity of Markdown and the need for more complex formatting.
 
-```
+``` text
 {{< shortcode-name param1="value" param2="value" >}}
 ```
 
 Shortcodes can be self-closing or can wrap content:
 
-```
+``` text
 {{< shortcode-name >}}
   Content to be processed
 {{< /shortcode-name >}}
@@ -110,7 +110,7 @@ several custom shortcodes:
 
 ### `anchor`
 Creates an HTML anchor point that can be linked to with fragment identifiers.
-```
+``` text
 {{< anchor "my-anchor-id" >}}
 ```
 
@@ -118,13 +118,13 @@ NOTE: Headings automatically create anchors, so it is not necessary to insert `a
 
 ### `button`
 Creates a button with an image that links to a URL.
-```
+``` text
 {{< button href="https://example.com" img="/images/button.png" alt="Example Button" target="_self" >}}
 ```
 
 ### `collapse`
 Creates a collapsible section with a title that can be clicked to show/hide content.
-```
+``` text
 {{< collapse "title" true >}}
 This content will be hidden by default and can be expanded by clicking the header.
 You can include any Markdown content here, including lists, code blocks, etc.
@@ -134,7 +134,7 @@ the second parameter, if true, will have the content initially opened.
 
 ### `docref`
 Creates a link to another page in the documentation with proper handling of anchors.
-```
+``` text
 {{< docref "components/sensor/dht" >}}                     <!-- Uses the target page title as link text -->
 {{< docref "components/sensor/dht" "DHT Sensor Guide" >}}  <!-- Uses custom text for the link -->
 {{< docref "components/sensor/dht#configuration" >}}       <!-- Links to a specific anchor on the page -->
@@ -142,19 +142,19 @@ Creates a link to another page in the documentation with proper handling of anch
 
 ### `img`
 Displays an image with optional caption, width, height, and CSS class.
-```
+``` text
 {{< img src="example.jpg" alt="Example image" caption="This is an example" width="500" class="center" >}}
 ```
 
 ### `imgtable`
 Creates a component card with an image, title, and optional description that links to another page.
-```
+``` text
 {{< imgtable "DHT Sensor" "/components/sensor/dht" "dht.png" "Temperature and humidity sensor" "sensor-icon" >}}
 ```
 
 ### `note`
 Creates a note admonition box to highlight important information.
-```
+``` text
 {{< note >}}
 This is important information that the reader should pay attention to.
 You can include **Markdown** formatting within the note.
@@ -163,13 +163,13 @@ You can include **Markdown** formatting within the note.
 
 ### `seo`
 Adds SEO metadata tags to the page for better search engine optimization and social media sharing.
-```
+``` text
 {{< seo description="Detailed guide for setting up the DHT sensor with ESPHome" image="dht-sensor.jpg" >}}
 ```
 
 ### `tip`
 Creates a tip admonition box to highlight helpful advice or best practices.
-```
+``` text
 {{< tip >}}
 For best results, place the sensor away from heat sources.
 You can include **Markdown** formatting within the tip.
@@ -178,7 +178,7 @@ You can include **Markdown** formatting within the tip.
 
 ### `warning`
 Creates a warning admonition box to highlight important cautions or potential issues.
-```
+``` text
 {{< warning >}}
 Incorrect wiring may damage your device. Double-check connections before powering on.
 You can include **Markdown** formatting within the warning.
@@ -187,46 +187,46 @@ You can include **Markdown** formatting within the warning.
 
 ### `apiref`
 Creates a link to a C++ API header file.
-```
+``` text
 {{< apiref "Component" "esphome/core/component.h" >}}
 ```
 
 ### `apiclass`
 Creates a link specifically to a C++ class in the API documentation.
-```
+``` text
 {{< apiclass "ClimateDevice" "esphome::climate::ClimateDevice" >}}
 {{< apiclass "WiFiComponent" "esphome::wifi::WiFiComponent" >}}
 ```
 
 ### `apistruct`
 Creates a link specifically to a C++ struct in the API documentation.
-```
+``` text
 {{< apistruct "SensorStateClass" "esphome::sensor::SensorStateClass" >}}
 {{< apistruct "GPIOOutputPin" "esphome::output::GPIOOutputPin" >}}
 ```
 
 ### `api-key-input`
 Creates an input field with a randomly generated API key and a copy button.
-```
+``` text
 {{< api-key-input >}}
 ```
 
 ### `ghuser`
 Creates a link to a GitHub user profile.
-```
+``` text
 {{< ghuser name="octocat" >}}                <!-- Links to @octocat -->
 {{< ghuser name="octocat" text="GitHub" >}}  <!-- Links to @octocat but displays "GitHub" -->
 ```
 
 ### `html_file`
 Reads a file from the static directory and inserts it as HTML.
-```
+``` text
 {{< html_file file="example.html" class="example-class" >}}
 ```
 
 ### `option`
 Creates an option block for documenting command-line options or configuration parameters.
-```
+``` text
 {{< option "--help|-h" >}}
 This is the help option.
 {{< /option >}}
@@ -234,14 +234,14 @@ This is the help option.
 
 ### `pr`
 Creates a link to a GitHub pull request.
-```
+``` text
 {{< pr number="123" >}}                <!-- Links to esphome/esphome#123 -->
 {{< pr number="123" repo="docs" >}}    <!-- Links to esphome/docs#123 -->
 ```
 
 ### `redirect`
 Creates a page that automatically redirects to another URL.
-```
+``` text
 {{< redirect url="/some/path" >}}
 ```
 
@@ -252,7 +252,7 @@ A Python script is included to help with the conversion process from RST:
 `script/convert_rst_to_md.py` - Converts Sphinx RST files to Hugo Markdown format
 Available options for convert_rst_to_md.py:
 
-```
+``` text
 positional arguments:
   input_dir             Input directory containing RST files
   output_dir            Output directory for Markdown files
@@ -278,12 +278,12 @@ See the `script/convert-pr.py` script for converting a PR that was written with 
 
 To run the site locally:
 
-1. Install Hugo: https://gohugo.io/installation/
-2. Install NodeJS (simplest way to run pagefind)
-2. Clone this repository
-3. Navigate to the repository directory
-4. Run `make live-html`
-5. Open your browser to http://localhost:1313/
+1. Install Hugo: <https://gohugo.io/installation/>
+1. Install NodeJS (simplest way to run pagefind)
+1. Clone this repository
+1. Navigate to the repository directory
+1. Run `make live-html`
+1. Open your browser to <http://localhost:1313/>
 
 ## Building for Production
 

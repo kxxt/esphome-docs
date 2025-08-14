@@ -43,9 +43,6 @@ clean:
 	rm -rf resources/_gen
 	hugo mod clean
 
-convert-from-rst: 
-	python3 script/convert_rst_to_md.py ./esphome-docs .
-
 convert-branch-in-place:
 	sh script/migrate.sh
 
@@ -56,4 +53,5 @@ netlify: repo-data
 	python3 script/md_anchors.py
 	hugo --minify
 	$(PAGEFIND)
+	# rerun hugo to incorporate generated index
 	hugo --minify
