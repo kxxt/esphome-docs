@@ -142,6 +142,39 @@ long-term security and maintainability.
     will not upgrade beyond version 2025.7.x. You must upgrade your Python installation first.
 
 
+Breaking Changes
+---------------
+
+ESPHome 2025.8.0 includes several breaking changes that may require action on your part:
+
+**Python 3.11+ Requirement**
+   As detailed above, Python 3.10 support has been dropped. Upgrade your Python installation before updating ESPHome.
+
+**Bluetooth Proxy Changes**
+   - Parsed advertisement support removed to save memory
+   - V1 connection support removed (affects older integrations)
+
+**API Optimizations**
+   - Deprecated protobuf fields removed (reduces flash usage)
+   - Conditional compilation for Home Assistant state/service subscriptions
+   - May affect custom API clients using deprecated fields
+
+**Component Filter Changes**
+   - :doc:`LD2410 </components/sensor/ld2410>` and :doc:`LD2450 </components/sensor/ld2450>` components now use native filters instead of ``throttle``
+   - If you were using ``throttle``, replace with equivalent native filters
+
+**ESP32 Touch Sensor**
+   - Workaround implemented for ESP-IDF v5.4 regression
+   - May affect touch sensor behavior on newer ESP-IDF versions
+
+**BLE Optimizations**
+   - Conditional compilation for BLE advertising and service classes
+   - May reduce available BLE features if not explicitly enabled
+
+Most of these changes are automatic optimizations that shouldn't affect typical usage, but custom integrations
+or advanced configurations may need updates.
+
+
 Full list of changes
 --------------------
 
