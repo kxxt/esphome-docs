@@ -143,7 +143,7 @@ long-term security and maintainability.
 
 
 Breaking Changes
----------------
+----------------
 
 ESPHome 2025.8.0 includes several breaking changes that may require action on your part:
 
