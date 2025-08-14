@@ -40,4 +40,5 @@ with open("data/version.yaml", "w") as file:
 # Now add the updated content and commit
 rm -rf _* components guides cookbook changelog automations images index.rst markdown.py projects svg2png svg2png.py web-api
 git add -u
+git add static content
 git commit --quiet --message="Convert to Markdown" --author="esphomebot <68923041+esphomebot@users.noreply.github.com>"

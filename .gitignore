@@ -3,8 +3,6 @@ esphome-docs
 .hugo_build.lock
 .idea
 /node_modules/
-/package.json
-/package-lock.json
 /pagefind/
 /data/repo.yaml
 /data/anchors.json
@@ -15,6 +13,7 @@ resources/_gen
 _build
 .DS_Store
 
+.cache/
 .python-version
 __pycache__/
 *.py[cod]

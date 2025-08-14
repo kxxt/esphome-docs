@@ -1,17 +1,17 @@
-.PHONY: html clean live-html automations check-links anchors production convert-from-rst directories pagefind-binary netlify repo-data
+.PHONY: clean live-html check-links anchors production convert-from-rst convert-branch-in-place directories pagefind-binary netlify repo-data all
 
-NET_PAGEFIND_DIR=../pagefindbin
-NET_PAGEFIND=../pagefindbin/pagefind
-PAGEFIND_VERSION=1.3.0
+PAGEFIND=npx pagefind@1.3.0
 
 export HUGO_PARAMS_COMMIT_HASH=$(shell git rev-parse --short HEAD)
 export HUGO_PARAMS_COMMIT_TITLE=$(shell git log -1 --pretty=%s)
 export HUGO_PARAMS_BRANCH=$(shell git branch --show-current)
 export HUGO_PARAMS_REPO_URL=$(shell git config --get remote.origin.url)
 
+all: production
+
 production: anchors
 	hugo --minify
-	npx pagefind
+	$(PAGEFIND)
 	hugo --minify
 
 directories:
@@ -21,43 +21,40 @@ check-links: anchors
 	hugo --environment production
 
 anchors: repo-data
-	npx pagefind -s pagefind-bootstrap
+	$(PAGEFIND) -s pagefind-bootstrap
 	hugo --environment anchors
-	python3 tools/md_anchors.py
+	python3 script/md_anchors.py
 
 repo-data: directories
 	mkdir -p data/automations
-	curl -s -S https://data.esphome.io/release/automations.json | tools/collate_automations.sh > data/automations/current.json
-	curl -s -S https://data.esphome.io/beta/automations.json | tools/collate_automations.sh > data/automations/beta.json
-	curl -s -S https://data.esphome.io/dev/automations.json | tools/collate_automations.sh > data/automations/next.json
+	curl -s -S https://data.esphome.io/release/automations.json | script/collate_automations.sh > data/automations/current.json
+	curl -s -S https://data.esphome.io/beta/automations.json | script/collate_automations.sh > data/automations/beta.json
+	curl -s -S https://data.esphome.io/dev/automations.json | script/collate_automations.sh > data/automations/next.json
 
 live-html:	anchors
-	npx pagefind
-	hugo server --bind 0.0.0.0 --baseURL http://localhost:1313
+	$(PAGEFIND)
+	hugo server --bind 0.0.0.0 --baseURL http://localhost:1313 --renderToDisk
 
 clean:
-	rm -rf "public/*"
-	rm -rf "pagefind/*"
+	rm -rf public/*
+	rm -rf pagefind/*
 	rm -rf data/automations/
 	rm -rf data/repo.yaml
+	rm -rf resources/_gen
 	hugo mod clean
 
 convert-from-rst: 
-	python3 tools/convert_rst_to_md.py ./esphome-docs .
+	python3 script/convert_rst_to_md.py ./esphome-docs .
 
 convert-branch-in-place:
-	sh tools/migrate.sh
-	python3 tools/version.py
+	sh script/migrate.sh
+	python3 script/version.py
 
 
-pagefind-binary:
-	mkdir -p ${NET_PAGEFIND_DIR}
-	curl https://github.com/CloudCannon/pagefind/releases/download/v$(PAGEFIND_VERSION)/pagefind-v$(PAGEFIND_VERSION)-x86_64-unknown-linux-musl.tar.gz -L | tar -x -z --directory ${NET_PAGEFIND_DIR} -f -
-
-netlify: pagefind-binary repo-data
-	$(NET_PAGEFIND) -s pagefind-bootstrap
+netlify: repo-data
+	$(PAGEFIND) -s pagefind-bootstrap
 	hugo --environment anchors
-	python3 tools/md_anchors.py
+	python3 script/md_anchors.py
 	hugo --minify
-	$(NET_PAGEFIND)
+	$(PAGEFIND)
 	hugo --minify

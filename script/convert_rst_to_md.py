@@ -585,6 +585,9 @@ def convert_rst_to_md(lines, filename):
         for k, v in seo.items():
             frontmatter.append(f'    {k}: {v}')
     frontmatter.append('---')
+    # Make sure the file will end with a newline
+    if md_lines[-1].strip() != "":
+        md_lines.append("")
 
     return frontmatter + ["", ""] + md_lines
 
@@ -1865,4 +1868,4 @@ if __name__ == "__main__":
     
     # Copy images to output directories
     if not args.no_images:
-        copy_images_to_output(args.output_dir, args.input_dir, args.replace)
+        copy_images_to_output(args.output_dir, args.input_dir)
