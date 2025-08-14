@@ -33,7 +33,7 @@ repo-data: directories
 
 live-html:	anchors
 	$(PAGEFIND)
-	hugo server --bind 0.0.0.0 --baseURL http://localhost:1313 --renderToDisk
+	hugo server --bind 0.0.0.0 --baseURL http://localhost:1313
 
 clean:
 	rm -rf public/*
