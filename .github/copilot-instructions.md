@@ -1,6 +1,7 @@
 # ESPHome Documentation AI Collaboration Guide
 
-This document provides essential context for AI models interacting with this project. Adhering to these guidelines will ensure consistency and maintain code quality.
+This document provides context for AI models interacting with this project.
+Adhering to these guidelines will promote consistency and content quality.
 
 ## Project Overview & Purpose
 
@@ -16,8 +17,8 @@ This document provides essential context for AI models interacting with this pro
 *  **Languages:** HTML, CSS, Markdown, Go templates
 *  **Frameworks & Runtimes:** Hugo and Pagefind
 *  **Key Libraries/Dependencies:**
-  - **Hugo:** For building the static site.
-  - **Pagefind:** For client-side text searching
+    * **Hugo:** For building the static site.
+    * **Pagefind:** For client-side text searching
 
 ## Architectural Patterns
 
