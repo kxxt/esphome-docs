@@ -4,7 +4,6 @@ headless: true
 ---
 
 
-# `throttle_with_priority`
 
 Throttle the incoming values unless they match a prioritized value. When this filter gets an incoming value, it first
 checks if it matches one of the prioritized values. If so, the value is passed through immediately. Otherwise, it

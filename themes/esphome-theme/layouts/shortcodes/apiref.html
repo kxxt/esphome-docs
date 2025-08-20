@@ -14,6 +14,7 @@
      - Underscores (_) are replaced with double underscores (__)
      - Dots (.) are replaced with _8
      - Colons (:) are replaced with _1
+     - / is replaced with _2
   3. Converts capital letters to lowercase preceded by an underscore
   4. Prepends the API documentation base URL (configured in Hugo settings)
   
@@ -27,7 +28,7 @@
     {{- $text = "API Reference" }}
 {{- end }}
 {{- $lastPathElement := index (last 1 (split $path "/")) 0 -}}
-{{- $processedPath := replace (replace (replace $lastPathElement "_" "__") "." "_8") ":" "_1" -}}
+{{- $processedPath := replace (replace (replace (replace $path "_" "__") "." "_8") ":" "_1") "/" "_2" -}}
 {{ $match := findRE `([A-Z])` $processedPath }}
 {{ range $match }}
 {{ $original := . }}

@@ -4,7 +4,6 @@ headless: true
 ---
 
 
-# `multiply`
 
 Multiplies each value by a templatable value.
 

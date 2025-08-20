@@ -4,7 +4,6 @@ headless: true
 ---
 
 
-# `median`
 
 A [simple moving median](https://en.wikipedia.org/wiki/Median_filter#Worked_1D_example)
 over the last few values. This can be used to filter outliers from the received sensor data. A large

@@ -356,7 +356,7 @@ Configuration variables:
 
 {{< anchor "sensor-lambda_calls" >}}
 
-### lambda calls
+### Lambda calls
 
 From [lambdas](#config-lambda), you can call several methods on all sensors to do some
 advanced stuff (see the full API Reference for more info).

@@ -4,7 +4,6 @@ headless: true
 ---
 
 
-# `filter_out`
 
 (**Required**, number): Filter out specific values to be displayed, e.g., filtering out the value `85.0`
 

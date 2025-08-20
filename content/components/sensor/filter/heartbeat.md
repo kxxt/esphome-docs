@@ -4,7 +4,6 @@ headless: true
 ---
 
 
-# `heartbeat`
 
 Send the value periodically with the specified time interval.
 If the sensor value changes during the interval the interval will not reset.
