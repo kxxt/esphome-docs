@@ -24,9 +24,8 @@
 */}}
 
 <div class="component-grid">
-  {{ if .Inner }}
-      {{ $opts := dict "targetType" "slice" "delimiter" "," "lazyQuotes" true  }}
-      {{ $data := transform.Unmarshal $opts .Inner }}
+  {{ $opts := dict "targetType" "slice" "delimiter" "," "lazyQuotes" true  }}
+  {{ $data := transform.Unmarshal $opts .Inner }}
     {{ range $data }}
         {{ $title := trim (index . 0) " "  }}
         {{ $link := trim (index . 1) " " | strings.TrimSuffix "index" }}
@@ -34,7 +33,7 @@
         {{ $class := "" }}
         {{ $caption := "" }}
         {{ range $i, $param := . | after 3 }}
-            {{ if eq $param "dark-invert" }}
+
                 {{ $class = $param }}
             {{ else if $caption }}
                 {{ $caption = printf "%s %s" $class $param }}
@@ -43,13 +42,11 @@
             {{ end }}
         {{ end }}
 
-        {{- $style := "" -}}
-        {{- if $class -}}{{- $style = printf " class=\"%s\"" $class | safeHTMLAttr -}}{{- end -}}
 
         <div class="component-card">
           <a href="{{ $link | relURL }}">
             <div class="component-icon">
-                {{ partial "image.html" (dict "src" $image "page" $.Page "style" $style "alt" "") }}
+                {{ partial "image.html" (dict "src" $image "page" $.Page "alt" "" "classes" $class) }}
             </div>
               <!-- Allow words to break on non-alphabetic characters -->
               {{ $broke_title := replaceRE `([^[:alpha:]])` `${1}&#x200B;` $title | safeHTML }}
@@ -61,35 +58,4 @@
           </a>
         </div>
     {{ end }}
-  {{ else }}
-    {{ $title := .Get 0 }}
-    {{ $link := .Get 1 | strings.TrimSuffix "index" }}
-    {{ $image := .Get 2 }}
-    {{ $class := .Get 3 }}
-
-      {{- $style := "" -}}
-      {{- if $class -}}{{- $style = printf " class=\"%s\"" $class | safeHTMLAttr -}}{{- end -}}
-    {{/* Image path handling similar to img shortcode */}}
-    {{ $componentPath := printf "%s/images/%s" (path.Dir .Page.File.Path) $image }}
-    {{ $globalPath := printf "images/%s" $image }}
-    
-    {{ $imagePath := "" }}
-    {{ if fileExists $componentPath }}
-      {{ $imagePath = $componentPath }}
-    {{ else if fileExists (printf "static/%s" $globalPath) }}
-      {{ $imagePath = $globalPath }}
-    {{ else }}
-      {{ $imagePath = $image }}
-    {{ end }}
-    
-    <div class="component-card">
-      <a href="{{ $link | relURL }}">
-        <div class="component-icon">
-            <!-- Since the title is in the following text, use an empty alt -->
-            {{ partial "image.html" (dict "src" $image "page" $.Page "style" $style "alt" "isalt") }}
-        </div>
-        <div class="component-name">{{ $title }}</div>
-      </a>
-    </div>
-  {{ end }}
 </div>

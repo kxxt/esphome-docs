@@ -149,7 +149,13 @@ Displays an image with optional caption, width, height, and CSS class.
 ### `imgtable`
 Creates a component card with an image, title, and optional description that links to another page.
 ``` text
-{{< imgtable "DHT Sensor" "/components/sensor/dht" "dht.png" "Temperature and humidity sensor" "sensor-icon" >}}
+  {{< imgtable >}}
+  Title 1, path/to/page1, image1.png
+  Title 1, path/to/page1, image1.png, "sub-caption"
+  Title 2, path/to/page2, image2.png, dark-invert
+  Title 2, path/to/page2, image2.png, "sub-caption", dark-invert
+  {{< /imgtable >}}
+  
 ```
 
 ### `note`
