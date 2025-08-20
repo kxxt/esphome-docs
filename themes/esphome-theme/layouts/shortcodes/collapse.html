@@ -19,8 +19,8 @@
 {{ $is_open := .Get 1 }}
 <div class="collapse-container {{ if $is_open }}active{{ end }}">
   <div class="collapse-header" onclick="this.parentElement.classList.toggle('active')">
-    <h4>{{ $title }}</h4>
-    <h5>Collapse</h5>
+    <h4 class="shown">{{ $title }}</h4>
+    <h4 class="collapsed">Collapse</h4>
     <span class="collapse-icon">+</span>
   </div>
   <div class="collapse-content">

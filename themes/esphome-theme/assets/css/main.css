@@ -926,36 +926,38 @@ main {
   align-items: center;
 }
 
-.collapse-container h4 {
-  margin: 0;
-}
-
-.collapse-container.active h4 {
-  margin: 0;
-  display: none;
-}
-
-.collapse-container.active h5 {
+.collapse-container h4.shown {
   margin: 0;
   display: block;
 }
 
-.collapse-container h5 {
+.collapse-container.active h4.shown {
+  margin: 0;
+  display: none;
+}
+
+.collapse-container.active h4.collapsed {
+  margin: 0;
+  display: block;
+}
+
+.collapse-container h4.collapsed {
   margin: 0;
   display: none;
 }
 
 .collapse-content {
-  height: 0;
+  max-height: 0;
+  height: auto;
   overflow: hidden;
-  transition: height,padding 0.3s ease;
+  transition: max-height,padding 0.6s ease;
   padding-left: 1em;
   padding-top: 0;
   padding-bottom: 0;
 }
 
 .collapse-container.active .collapse-content {
-  height: auto;
+  max-height: 1000px;
   padding-top: 1em;
   padding-bottom: 1em;
 }
