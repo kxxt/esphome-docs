@@ -33,7 +33,7 @@
         {{ $class := "" }}
         {{ $caption := "" }}
         {{ range $i, $param := . | after 3 }}
-
+            {{ if eq $param "dark-invert" }}
                 {{ $class = $param }}
             {{ else if $caption }}
                 {{ $caption = printf "%s %s" $class $param }}
