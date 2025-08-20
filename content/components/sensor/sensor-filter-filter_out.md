@@ -4,12 +4,11 @@ draft: true
 ---
 
 
-# `filter_out`
 
 (**Required**, number): Filter out specific values to be displayed, e.g., filtering out the value `85.0`
 
 ```yaml
-# Example configuration entry
+### Example configuration entry
 - platform: wifi_signal
   # ...
   filters:
@@ -20,7 +19,7 @@ A list of values may be supplied, and values are templatable:
 
 
 ```yaml
-# Example configuration entry
+### Example configuration entry
 - platform: wifi_signal
   # ...
   filters:

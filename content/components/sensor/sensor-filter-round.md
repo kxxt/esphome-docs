@@ -4,7 +4,6 @@ draft: true
 ---
 
 
-# `round`
 
 Rounds the value to the given decimal places.
 

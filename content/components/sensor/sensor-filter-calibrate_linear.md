@@ -4,7 +4,6 @@ draft: true
 ---
 
 
-# `calibrate_linear`
 
 Calibrate your sensor values by using values you measured with an accurate "truth" source.
 
@@ -20,7 +19,7 @@ sensors like power sensor this can be done by connecting a known load and then w
 the value the sensor shows.
 
 ```yaml
-# Example configuration entry
+### Example configuration entry
 - platform: dht
   # ...
   temperature:

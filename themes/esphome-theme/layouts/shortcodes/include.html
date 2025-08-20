@@ -1,0 +1,3 @@
+{{ with .Get 0 }}
+    {{ (printf "%s%s" $.Page.File.Dir .) | readFile | replaceRE "^---[\\s\\S]+?---" "" | $.Page.RenderString -}}
+{{- end -}}

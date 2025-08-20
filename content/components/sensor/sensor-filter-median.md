@@ -4,14 +4,13 @@ draft: true
 ---
 
 
-# `median`
 
 A [simple moving median](https://en.wikipedia.org/wiki/Median_filter#Worked_1D_example)
 over the last few values. This can be used to filter outliers from the received sensor data. A large
 window size will make the filter slow to react to input changes.
 
 ```yaml
-# Example configuration entry
+### Example configuration entry
 - platform: wifi_signal
   # ...
   filters:

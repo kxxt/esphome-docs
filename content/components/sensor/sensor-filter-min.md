@@ -4,13 +4,12 @@ draft: true
 ---
 
 
-# `min`
 
 A moving minimum over the last few values. A large window size will make the filter slow to
 react to input changes.
 
 ```yaml
-# Example configuration entry
+### Example configuration entry
 - platform: wifi_signal
   # ...
   filters:

@@ -4,14 +4,13 @@ draft: true
 ---
 
 
-# `quantile`
 
 A [simple moving quantile](https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/quantile.htm)
 over the last few values. This can be used to filter outliers from the received sensor data. A large
 window size will make the filter slow to react to input changes.
 
 ```yaml
-# Example configuration entry
+### Example configuration entry
 - platform: wifi_signal
   # ...
   filters:

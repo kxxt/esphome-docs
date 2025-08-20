@@ -4,7 +4,6 @@ draft: true
 ---
 
 
-# `timeout`
 
 After the first value has been sent, if no subsequent value is published within the specified `timeout`   period, send
 a templatable value which defaults to `NaN`  . The value may also be set to `last`  , which will result in the last
@@ -16,7 +15,7 @@ This filter particularly is useful when:
 - placed ahead of a throttle filter to ensure that the last value published will pass through the throttle.
 
 ```yaml
-# Example filters:
+### Example filters:
 filters:
   - timeout: 10s  # sent value will be NaN
   - timeout:

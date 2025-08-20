@@ -4,7 +4,6 @@ draft: true
 ---
 
 
-# `to_ntc_resistance`
 
 Convert your sensor values available as temperature into corresponding
 resistance values using an NTC characteristic curve.

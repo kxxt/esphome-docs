@@ -4,7 +4,6 @@ draft: true
 ---
 
 
-# `delta`
 
 This filter stores the last value passed through this filter and only passes incoming values through
 if incoming value is sufficiently different from the previously passed one.
