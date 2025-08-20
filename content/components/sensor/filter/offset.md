@@ -1,14 +1,15 @@
 ---
 description: ""
-draft: true
+headless: true
 ---
 
 
+# `offset`
 
 Adds a value to each sensor value. The value may be a constant or a lambda returning a float.
 
 ```yaml
-### Example configuration entry
+# Example configuration entry
 - platform: adc
   # ...
   filters:

@@ -1,9 +1,10 @@
 ---
 description: ""
-draft: true
+headless: true
 ---
 
 
+# `round_to_multiple_of`
 
 Rounds the value to the nearest multiple. Takes a float greater than zero.
 

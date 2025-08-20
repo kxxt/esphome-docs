@@ -1,9 +1,10 @@
 ---
 description: ""
-draft: true
+headless: true
 ---
 
 
+# `multiply`
 
 Multiplies each value by a templatable value.
 

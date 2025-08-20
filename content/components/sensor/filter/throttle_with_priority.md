@@ -1,9 +1,10 @@
 ---
 description: ""
-draft: true
+headless: true
 ---
 
 
+# `throttle_with_priority`
 
 Throttle the incoming values unless they match a prioritized value. When this filter gets an incoming value, it first
 checks if it matches one of the prioritized values. If so, the value is passed through immediately. Otherwise, it
@@ -11,7 +12,7 @@ checks if the last incoming value is at least `specified time period`   old. If 
 value, the value is not passed forward.
 
 ```yaml
-### Example filters:
+# Example filters:
 filters:
   - throttle_with_priority:
       timeout: 1s

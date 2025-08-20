@@ -174,57 +174,57 @@ filters:
 ```
 
 ### `calibrate_linear`
-{{< include "sensor-filter-calibrate_linear.md" >}}
+{{< include "filter/calibrate_linear.md" >}}
 ### `calibrate_polynomial`
-{{< include "sensor-filter-calibrate_polynomial.md" >}}
+{{< include "filter/calibrate_polynomial.md" >}}
 ### `clamp`
-{{< include "sensor-filter-clamp.md" >}}
+{{< include "filter/clamp.md" >}}
 ### `debounce`
-{{< include "sensor-filter-debounce.md" >}}
+{{< include "filter/debounce.md" >}}
 ### `delta`
-{{< include "sensor-filter-delta.md" >}}
+{{< include "filter/delta.md" >}}
 ### `exponential_moving_average`
-{{< include "sensor-filter-exponential_moving_average.md" >}}
+{{< include "filter/exponential_moving_average.md" >}}
 ### `filter_out`
-{{< include "sensor-filter-filter_out.md" >}}
+{{< include "filter/filter_out.md" >}}
 ### `heartbeat`
-{{< include "sensor-filter-heartbeat.md" >}}
+{{< include "filter/heartbeat.md" >}}
 ### `lambda`
-{{< include "sensor-filter-lambda.md" >}}
+{{< include "filter/lambda.md" >}}
 ### `max`
-{{< include "sensor-filter-max.md" >}}
+{{< include "filter/max.md" >}}
 ### `median`
-{{< include "sensor-filter-median.md" >}}
+{{< include "filter/median.md" >}}
 ### `min`
-{{< include "sensor-filter-min.md" >}}
+{{< include "filter/min.md" >}}
 ### `multiply`
-{{< include "sensor-filter-multiply.md" >}}
+{{< include "filter/multiply.md" >}}
 ### `offset`
-{{< include "sensor-filter-offset.md" >}}
+{{< include "filter/offset.md" >}}
 ### `or`
-{{< include "sensor-filter-or.md" >}}
+{{< include "filter/or.md" >}}
 ### `quantile`
-{{< include "sensor-filter-quantile.md" >}}
+{{< include "filter/quantile.md" >}}
 ### `round`
-{{< include "sensor-filter-round.md" >}}
+{{< include "filter/round.md" >}}
 ### `round_to_multiple_of`
-{{< include "sensor-filter-round_to_multiple_of.md" >}}
+{{< include "filter/round_to_multiple_of.md" >}}
 ### `skip_initial`
-{{< include "sensor-filter-skip_initial.md" >}}
+{{< include "filter/skip_initial.md" >}}
 ### `sliding_window_moving_average`
-{{< include "sensor-filter-sliding_window_moving_average.md" >}}
+{{< include "filter/sliding_window_moving_average.md" >}}
 ### `throttle`
-{{< include "sensor-filter-throttle.md" >}}
+{{< include "filter/throttle.md" >}}
 ### `throttle_average`
-{{< include "sensor-filter-throttle_average.md" >}}
+{{< include "filter/throttle_average.md" >}}
 ### `throttle_with_priority`
-{{< include "sensor-filter-throttle_with_priority.md" >}}
+{{< include "filter/throttle_with_priority.md" >}}
 ### `timeout`
-{{< include "sensor-filter-timeout.md" >}}
+{{< include "filter/timeout.md" >}}
 ### `to_ntc_resistance`
-{{< include "sensor-filter-to_ntc_resistance.md" >}}
+{{< include "filter/to_ntc_resistance.md" >}}
 ### `to_ntc_temperature`
-{{< include "sensor-filter-to_ntc_temperature.md" >}}
+{{< include "filter/to_ntc_temperature.md" >}}
 
 
 ## Example: Converting Celsius to Fahrenheit

@@ -1,9 +1,10 @@
 ---
 description: ""
-draft: true
+headless: true
 ---
 
 
+# `throttle_average`
 
 An average over the `specified time period`  , potentially throttling incoming values. When this filter gets incoming values, it sums up all values and pushes out the average after the `specified time period`   passed. There are two edge cases to consider within the `specified time period`  :
 

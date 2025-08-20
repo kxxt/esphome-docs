@@ -1,9 +1,10 @@
 ---
 description: ""
-draft: true
+headless: true
 ---
 
 
+# `exponential_moving_average`
 
 A simple [exponential moving average](https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average) over the last few
 values. It can be used to have a short update interval on the sensor but only push
