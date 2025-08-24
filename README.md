@@ -149,10 +149,10 @@ Creates a button with an image that links to a URL.
 Creates a collapsible section with a title that can be clicked to show/hide content.
 
 ``` text
-{{< collapse "title" true >}}
+{{< collapse true >}}
 This content will be hidden by default and can be expanded by clicking the header.
 You can include any Markdown content here, including lists, code blocks, etc.
-the second parameter, if true, will have the content initially opened.
+the parameter, if present and set to true, will have the content initially opened. Note that False is a truthy string, not a boolean
 {{< /collapse >}}
 ```
 
