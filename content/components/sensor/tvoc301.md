@@ -10,7 +10,7 @@ params:
 The `tvoc301` sensor platform allows you to use TVOC-301 sensors to measure
 volatile organics, effective CO₂ and formaldehyde concentration in ESPHome.
 
-{{< img src="tvoc301.jpg" alt="Image" caption="TVOC-301 Sensor" width="50.0%" class="align-center" >}}
+{{< img src="tvoc301.png" alt="Image" caption="TVOC-301 Sensor" width="50.0%" class="align-center" >}}
 
 As the communication with the TVOC-301 is done using UART, you need to have an [UART bus](#uart) in your configuration with the `rx_pin` connected to the TX pin of the TVOC-301.
 The baud rate needs to be set to 9600.
